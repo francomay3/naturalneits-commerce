@@ -1,11 +1,23 @@
-import Footer from "@/components/layout/footer";
+import "@mantine/core/styles.css";
 import { CartProvider } from "components/cart/cart-context";
-import { Navbar } from "components/layout/navbar";
-import { GeistSans } from "geist/font/sans";
+import StyledComponentsRegistry from "lib/registry";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 import { ReactNode } from "react";
-import { Toaster } from "sonner";
+
+import Header from "@/components/layout/Header/Header";
+import Navbar from "@/components/layout/Navbar/Navbar";
+import Footer from "@/components/layout/footer";
+import {
+  AppShell,
+  AppShellFooter,
+  AppShellHeader,
+  AppShellMain,
+  AppShellNavbar,
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from "@mantine/core";
 import "./globals.css";
 
 const { SITE_NAME } = process.env;
@@ -31,17 +43,35 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="flex h-screen flex-col">
-        <CartProvider cartPromise={cart}>
-          <Navbar />
-          <main className="flex flex-col gap-4 py-4 flex-1">
-            {children}
-            {/* <WelcomeToast /> example of a toast */}
-          </main>
-          <Footer />
-        </CartProvider>
-        <Toaster closeButton />
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <StyledComponentsRegistry>
+          <MantineProvider>
+            <CartProvider cartPromise={cart}>
+              <AppShell
+                header={{ height: 60 }}
+                navbar={{ width: 300, breakpoint: "sm" }}
+                padding="md"
+              >
+                <AppShellHeader>
+                  <Header />
+                </AppShellHeader>
+
+                <AppShellNavbar p="md">
+                  <Navbar />
+                </AppShellNavbar>
+
+                <AppShellMain>{children}</AppShellMain>
+                <AppShellFooter>
+                  <Footer />
+                </AppShellFooter>
+              </AppShell>
+            </CartProvider>
+          </MantineProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

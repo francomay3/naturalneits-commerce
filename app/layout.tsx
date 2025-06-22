@@ -1,19 +1,12 @@
+import { CartProvider } from "@/providers/cart-context";
 import "@mantine/core/styles.css";
-import { CartProvider } from "components/cart/cart-context";
 import StyledComponentsRegistry from "lib/registry";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 import { ReactNode } from "react";
 
-import Header from "@/components/layout/Header/Header";
-import Navbar from "@/components/layout/Navbar/Navbar";
-import Footer from "@/components/layout/footer";
+import AppShellWrapper from "@/components/AppShellWrapper";
 import {
-  AppShell,
-  AppShellFooter,
-  AppShellHeader,
-  AppShellMain,
-  AppShellNavbar,
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
@@ -51,24 +44,7 @@ export default async function RootLayout({
         <StyledComponentsRegistry>
           <MantineProvider>
             <CartProvider cartPromise={cart}>
-              <AppShell
-                header={{ height: 60 }}
-                navbar={{ width: 300, breakpoint: "sm" }}
-                padding="md"
-              >
-                <AppShellHeader>
-                  <Header />
-                </AppShellHeader>
-
-                <AppShellNavbar p="md">
-                  <Navbar />
-                </AppShellNavbar>
-
-                <AppShellMain>{children}</AppShellMain>
-                <AppShellFooter>
-                  <Footer />
-                </AppShellFooter>
-              </AppShell>
+              <AppShellWrapper>{children}</AppShellWrapper>
             </CartProvider>
           </MantineProvider>
         </StyledComponentsRegistry>

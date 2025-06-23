@@ -23,8 +23,6 @@ export default async function HomePage() {
   //   reverse: false
   // });
 
-  console.log(products);
-
   return (
     <section>
       <div

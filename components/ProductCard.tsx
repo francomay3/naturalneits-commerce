@@ -61,6 +61,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           <Link
             href={`/product/${product.handle}`}
             style={{ textDecoration: "none" }}
+            prefetch={true}
           >
             <ProductTitle>{product.title}</ProductTitle>
           </Link>

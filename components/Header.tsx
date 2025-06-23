@@ -3,6 +3,7 @@
 import IconButton from "@/components/ui/IconButton";
 import { Burger } from "@mantine/core";
 import { IconSearch, IconShoppingBag } from "@tabler/icons-react";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface HeaderProps {
@@ -25,12 +26,6 @@ const RightIcons = styled.div`
   display: flex;
 `;
 
-const LogoWrapper = styled.h1`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-
 export default function Header({
   onBurgerClick,
   navbarOpened,
@@ -47,7 +42,17 @@ export default function Header({
         color="var(--brand-color)"
       />
       {/* TODO: unmount the burger button on desktop, because right now its still clickable even if hidden */}
-      <LogoWrapper>Logo</LogoWrapper>
+      <Link
+        href="/"
+        prefetch={true}
+        style={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <h1>Logo</h1>
+      </Link>
       <RightIcons>
         <IconButton Icon={IconSearch} color="var(--brand-color)" />
         <IconButton

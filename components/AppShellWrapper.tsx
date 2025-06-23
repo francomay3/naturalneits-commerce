@@ -1,5 +1,6 @@
 "use client";
 
+import { HEADER_HEIGHT } from "@/lib/constants";
 import {
   AppShell,
   AppShellAside,
@@ -38,7 +39,7 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
         },
       }}
       header={{
-        height: 64,
+        height: HEADER_HEIGHT,
       }}
       navbar={{
         width: 300,

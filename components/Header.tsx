@@ -15,7 +15,7 @@ const Wrapper = styled.header`
   padding-inline: 14px;
   display: flex;
   align-items: center;
-  height: 64px;
+  height: 100%;
   position: relative;
   justify-content: space-between;
   background-color: var(--background-color);
@@ -25,11 +25,10 @@ const RightIcons = styled.div`
   display: flex;
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled.h1`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  color: var(--brand-color);
 `;
 
 export default function Header({
@@ -44,7 +43,6 @@ export default function Header({
         Icon={Burger}
         opened={navbarOpened}
         onClick={onBurgerClick}
-        hiddenFrom="sm"
         size="20"
         color="var(--brand-color)"
       />

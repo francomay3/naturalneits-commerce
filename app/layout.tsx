@@ -3,6 +3,7 @@ import "@mantine/core/styles.css";
 import StyledComponentsRegistry from "lib/registry";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
+import { Gilda_Display, Karla } from "next/font/google";
 import { ReactNode } from "react";
 
 import AppShellWrapper from "@/components/AppShellWrapper";
@@ -14,6 +15,23 @@ import {
 import "./globals.css";
 
 const { SITE_NAME } = process.env;
+
+// Initialize Google Fonts
+const karla = Karla({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-family-texts",
+  style: ["normal"],
+  weight: ["400"],
+  fallback: ["sans-serif"],
+});
+
+const gildaDisplay = Gilda_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-family-titles",
+  weight: "400",
+});
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
@@ -36,11 +54,15 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html lang="en" {...mantineHtmlProps}>
+    <html
+      lang="en"
+      {...mantineHtmlProps}
+      className={`${karla.variable} ${gildaDisplay.variable}`}
+    >
       <head>
         <ColorSchemeScript />
       </head>
-      <body>
+      <body className={`${karla.className} ${gildaDisplay.className}`}>
         <StyledComponentsRegistry>
           <MantineProvider>
             <CartProvider cartPromise={cart}>

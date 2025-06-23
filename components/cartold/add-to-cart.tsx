@@ -1,9 +1,9 @@
 "use client";
 
+import { addItem } from "@/actions/actions";
 import { useCart } from "@/providers/cart-context";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { addItem } from "components/cartold/actions";
 import { useProduct } from "components/product/product-context";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useActionState } from "react";

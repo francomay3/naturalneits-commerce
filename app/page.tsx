@@ -1,5 +1,5 @@
-import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
+import ProductCard from "@/components/ProductCard";
+import { getProducts } from "@/lib/shopify";
 
 export const metadata = {
   description:
@@ -9,11 +9,37 @@ export const metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Get all products with default sorting
+  const products = await getProducts({
+    sortKey: "CREATED_AT",
+    reverse: false,
+  });
+
+  // Or with search query
+  // const products = await getProducts({
+  //   query: 'shirt',
+  //   sortKey: 'TITLE',
+  //   reverse: false
+  // });
+
+  console.log(products);
+
   return (
-    <>
-      <ThreeItemGrid />
-      <Carousel />
-    </>
+    <section>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px",
+          padding: "10px",
+          flexDirection: "column",
+        }}
+      >
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </section>
   );
 }

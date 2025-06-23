@@ -23,13 +23,30 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
 
   return (
     <AppShell
+      styles={{
+        header: {
+          borderColor: "var(--tertiary-color)",
+        },
+        navbar: {
+          borderColor: "var(--tertiary-color)",
+        },
+        aside: {
+          borderColor: "var(--tertiary-color)",
+        },
+        main: {
+          backgroundColor: "var(--background-color-lighter)",
+        },
+      }}
+      header={{
+        height: 64,
+      }}
       navbar={{
         width: 300,
         breakpoint: "sm",
-        collapsed: { mobile: !navbarOpened, desktop: true },
+        collapsed: { mobile: !navbarOpened, desktop: !navbarOpened },
       }}
       aside={{
-        width: 300,
+        width: 470,
         breakpoint: "sm",
         collapsed: { mobile: !cartOpened, desktop: !cartOpened },
       }}

@@ -60,6 +60,7 @@ interface IconButtonProps {
   variant?: "filled" | "subtle" | "outlined";
   style?: React.CSSProperties;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button" | "submit" | "reset";
 }
 
 type IconColors = {
@@ -127,11 +128,13 @@ const IconButton = ({
   variant = "subtle",
   onClick,
   style,
+  type,
 }: IconButtonProps) => {
   const iconColors = getIconColors(variant, mode);
 
   return (
     <ActionIcon
+      type={type}
       autoContrast
       size={44}
       radius="var(--border-radius)"

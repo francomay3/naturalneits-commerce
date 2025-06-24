@@ -1,34 +1,110 @@
+"use client";
+
+import { removeItem, updateItemQuantity } from "@/actions/actions";
+import { useCart } from "@/providers/cart-context";
 import { Flex } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
+import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
+import { DEFAULT_OPTION } from "lib/constants";
+import { createUrl } from "lib/utils";
 import Image from "next/image";
-import styled from "styled-components";
+import Link from "next/link";
+import { useActionState, useTransition } from "react";
+import Price from "../price";
 import IconButton from "../ui/IconButton";
 import Separator from "./Separator";
 
-const QuantityInput = styled.div`
-  /* TODO: add quantity input component */
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--brand-color);
-`;
+type MerchandiseSearchParams = {
+  [key: string]: string;
+};
 
-const Item = () => {
+const Item = ({ item, updateCartItem }: { item: any; updateCartItem: any }) => {
+  const [, removeFormAction] = useActionState(removeItem, null);
+  const [, updateFormAction] = useActionState(updateItemQuantity, null);
+  const [, startTransition] = useTransition();
+
+  const merchandiseSearchParams = {} as MerchandiseSearchParams;
+
+  item.merchandise.selectedOptions.forEach(
+    ({ name, value }: { name: string; value: string }) => {
+      if (value !== DEFAULT_OPTION) {
+        merchandiseSearchParams[name.toLowerCase()] = value;
+      }
+    }
+  );
+
+  const merchandiseUrl = createUrl(
+    `/product/${item.merchandise.product.handle}`,
+    new URLSearchParams(merchandiseSearchParams)
+  );
+
+  const handleQuantityUpdate = (type: "plus" | "minus") => {
+    const newQuantity = type === "plus" ? item.quantity + 1 : item.quantity - 1;
+    const payload = {
+      merchandiseId: item.merchandise.id,
+      quantity: newQuantity,
+    };
+
+    startTransition(() => {
+      updateCartItem(item.merchandise.id, type);
+      updateFormAction(payload);
+    });
+  };
+
+  const handleRemove = () => {
+    startTransition(() => {
+      updateCartItem(item.merchandise.id, "delete");
+      removeFormAction(item.merchandise.id);
+    });
+  };
+
   return (
     <Flex gap="15px" pos="relative">
       <Image
-        src="/images/cart/item-1.png"
-        alt="item"
+        src={item.merchandise.product.featuredImage.url}
+        alt={
+          item.merchandise.product.featuredImage.altText ||
+          item.merchandise.product.title
+        }
         width={70}
         height={70}
-        style={{ border: "1px solid red" }}
+        style={{ objectFit: "cover" }}
       />
       <Flex direction="column" flex="1" gap="10px">
-        <a>Blanche Swaddle</a>
-        <QuantityInput>1</QuantityInput>
+        <Link
+          href={merchandiseUrl}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <span style={{ fontWeight: "500" }}>
+            {item.merchandise.product.title}
+          </span>
+        </Link>
+        {item.merchandise.title !== DEFAULT_OPTION && (
+          <p style={{ fontSize: "14px", color: "var(--text-color-secondary)" }}>
+            {item.merchandise.title}
+          </p>
+        )}
+        <Flex gap="10px" align="center">
+          <IconButton
+            Icon={IconMinus}
+            onClick={() => handleQuantityUpdate("minus")}
+          />
+          <p>{item.quantity}</p>
+          <IconButton
+            Icon={IconPlus}
+            onClick={() => handleQuantityUpdate("plus")}
+          />
+        </Flex>
       </Flex>
-      <p style={{ marginTop: "auto", color: "var(--brand-color)" }}>$10.00</p>
+      <div style={{ marginTop: "auto", textAlign: "right" }}>
+        <Price
+          amount={item.cost.totalAmount.amount}
+          currencyCode={item.cost.totalAmount.currencyCode}
+          style={{ color: "var(--brand-color)", fontWeight: "500" }}
+        />
+      </div>
       <IconButton
         Icon={IconTrash}
+        onClick={handleRemove}
         style={{ position: "absolute", right: -14, top: -14 }}
       />
     </Flex>
@@ -36,14 +112,33 @@ const Item = () => {
 };
 
 const ItemsList = () => {
-  // TODO: get the items from the cart context and handle if there are no items
+  const { cart, updateCartItem } = useCart();
+
+  if (!cart || cart.lines.length === 0) {
+    return (
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        style={{ minHeight: "200px" }}
+      >
+        <p style={{ color: "var(--text-color-secondary)" }}>No items in cart</p>
+      </Flex>
+    );
+  }
+
   return (
     <Flex direction="column">
-      <Item />
-      <Separator m="20" />
-      <Item />
-      <Separator m="20" />
-      <Item />
+      {cart.lines
+        .sort((a, b) =>
+          a.merchandise.product.title.localeCompare(b.merchandise.product.title)
+        )
+        .map((item, i) => (
+          <div key={i}>
+            <Item item={item} updateCartItem={updateCartItem} />
+            {i < cart.lines.length - 1 && <Separator m="20" />}
+          </div>
+        ))}
     </Flex>
   );
 };

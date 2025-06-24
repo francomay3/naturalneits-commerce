@@ -1,12 +1,58 @@
+"use client";
+
+import { createCartAndSetCookie, redirectToCheckout } from "@/actions/actions";
 import IconButton from "@/components/ui/IconButton";
+import { useCart } from "@/providers/cart-context";
 import { Flex } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
+import { useEffect } from "react";
+import { useFormStatus } from "react-dom";
 import Button from "../ui/Button";
 import ItemsList from "./ItemsList";
 import Separator from "./Separator";
+import Subtotal from "./Subtotal";
 
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
-  const numberOfItems = 0; // TODO: get the number of items from the cart
+  const { cart } = useCart();
+
+  useEffect(() => {
+    if (!cart) {
+      createCartAndSetCookie();
+    }
+  }, [cart]);
+
+  if (!cart || cart.lines.length === 0) {
+    return (
+      <Flex
+        direction="column"
+        bg="var(--background-color)"
+        w="100%"
+        h="100%"
+        p="15px"
+        pos="relative"
+        align="center"
+        justify="center"
+        gap="20px"
+      >
+        <IconButton
+          onClick={toggleCart}
+          Icon={IconX}
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+          }}
+        />
+        <h3>Your cart is empty</h3>
+        <p
+          style={{ textAlign: "center", color: "var(--text-color-secondary)" }}
+        >
+          Add some items to get started
+        </p>
+      </Flex>
+    );
+  }
+
   return (
     <Flex
       direction="column"
@@ -25,36 +71,35 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
           top: 0,
         }}
       />
-      <h3>Cart ({numberOfItems})</h3>
-      <Separator m="20" />
+      <h3>Cart ({cart.totalQuantity})</h3>
+      <Separator />
       <ItemsList />
-      <Separator m="20" />
-      <Flex direction="column" justify="space-between" gap="20px">
-        <Flex direction="column" gap="10px">
-          <h5>Subtotal</h5>
-          <p
-            style={{
-              fontSize: "12px",
-              color: "var(--brand-color)",
-            }}
-          >
-            Taxes and shipping calculated at checkout
-          </p>
-        </Flex>
-        <h3>$30.00</h3>
-      </Flex>
-      <Button
-        secondary
-        style={{
-          paddingInline: "40px",
-          marginLeft: "auto",
-          marginTop: "20px",
-        }}
-      >
-        Checkout
-      </Button>
+      <Separator />
+      <Subtotal cart={cart} />
+      <form action={redirectToCheckout}>
+        <CheckoutButton />
+      </form>
     </Flex>
   );
 };
+
+function CheckoutButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      secondary
+      type="submit"
+      disabled={pending}
+      style={{
+        paddingInline: "40px",
+        marginLeft: "auto",
+        marginTop: "20px",
+      }}
+    >
+      {pending ? "Processing..." : "Checkout"}
+    </Button>
+  );
+}
 
 export default Cart;

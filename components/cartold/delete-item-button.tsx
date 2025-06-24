@@ -10,6 +10,7 @@ export function DeleteItemButton({
   optimisticUpdate,
 }: {
   item: CartItem;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   optimisticUpdate: any;
 }) {
   const [message, formAction] = useActionState(removeItem, null);

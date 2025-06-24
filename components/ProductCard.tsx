@@ -7,12 +7,6 @@ import Link from "next/link";
 import styled from "styled-components";
 import IconButton from "./ui/IconButton";
 
-const Wrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
 const ImageWrapper = styled.div<{ src: string }>`
   width: 120px;
   background-image: url(${({ src }) => src});
@@ -23,17 +17,6 @@ const ImageWrapper = styled.div<{ src: string }>`
   overflow: hidden;
   flex-shrink: 0;
 `;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex: 1;
-  padding: 5px;
-`;
-
-const loremIpsum =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 const ProductTitle = styled.h5`
   margin: 0;
@@ -54,9 +37,9 @@ const firstNChars = (str: string, n: number) =>
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Wrapper>
+    <Flex w="100%" h="100%">
       <ImageWrapper src={product.featuredImage.url} />
-      <Info>
+      <Flex direction="column" gap="5px" flex="1" p="5px">
         <Flex justify="space-between">
           <Link
             href={`/product/${product.handle}`}
@@ -65,14 +48,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           >
             <ProductTitle>{product.title}</ProductTitle>
           </Link>
-          <IconButton
-            Icon={IconShoppingBagPlus}
-            color="var(--secondary-color)"
-            style={{ flexShrink: 0 }}
-            outlined
-          />
+          <IconButton Icon={IconShoppingBagPlus} style={{ flexShrink: 0 }} />
         </Flex>
-        <p>{firstNChars(loremIpsum, 100)}</p>
+        <p>{firstNChars(product.description, 100)}</p>
         <p
           style={{
             fontWeight: "bold",
@@ -83,8 +61,8 @@ const ProductCard = ({ product }: { product: Product }) => {
           {product.priceRange.minVariantPrice.currencyCode}{" "}
           {product.priceRange.minVariantPrice.amount}
         </p>
-      </Info>
-    </Wrapper>
+      </Flex>
+    </Flex>
   );
 };
 

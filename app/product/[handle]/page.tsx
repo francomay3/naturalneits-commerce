@@ -1,3 +1,4 @@
+import ProductsCarousel from "@/components/ProductsCarousel";
 import { ProductProvider } from "components/product/product-context";
 import { ProductDescription } from "components/product/product-description";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
@@ -109,7 +110,5 @@ async function RelatedProducts({ id }: { id: string }) {
 
   if (!relatedProducts.length) return null;
 
-  return relatedProducts.map((product) => (
-    <div key={product.id}>{product.title}</div>
-  ));
+  return <ProductsCarousel products={relatedProducts} />;
 }

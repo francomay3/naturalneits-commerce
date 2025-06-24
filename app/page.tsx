@@ -1,5 +1,6 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCardV2";
 import { getProducts } from "@/lib/shopify";
+import { SimpleGrid } from "@mantine/core";
 
 export const metadata = {
   description:
@@ -25,19 +26,16 @@ export default async function HomePage() {
 
   return (
     <section>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px",
-          padding: "10px",
-          flexDirection: "column",
-        }}
+      <SimpleGrid
+        cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }}
+        spacing={{ base: 35 }}
+        verticalSpacing={{ base: 65 }}
+        p={35}
       >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </div>
+      </SimpleGrid>
     </section>
   );
 }

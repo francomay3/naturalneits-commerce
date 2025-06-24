@@ -1,8 +1,13 @@
 "use client";
 
 import IconButton from "@/components/ui/IconButton";
-import { Burger } from "@mantine/core";
-import { IconSearch, IconShoppingBag } from "@tabler/icons-react";
+import { Flex } from "@mantine/core";
+import {
+  IconMenu,
+  IconSearch,
+  IconShoppingBag,
+  IconX,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -22,10 +27,6 @@ const Wrapper = styled.header`
   background-color: var(--background-color);
 `;
 
-const RightIcons = styled.div`
-  display: flex;
-`;
-
 export default function Header({
   onBurgerClick,
   navbarOpened,
@@ -33,14 +34,20 @@ export default function Header({
 }: HeaderProps) {
   return (
     <Wrapper>
-      <IconButton
+      {/* <IconButton
         wrapperAs="div"
         Icon={Burger}
         opened={navbarOpened}
         onClick={onBurgerClick}
         size="20"
         color="var(--brand-color)"
+      /> */}
+
+      <IconButton
+        Icon={navbarOpened ? IconX : IconMenu}
+        onClick={onBurgerClick}
       />
+
       {/* TODO: unmount the burger button on desktop, because right now its still clickable even if hidden */}
       <Link
         href="/"
@@ -53,14 +60,10 @@ export default function Header({
       >
         <h1>Logo</h1>
       </Link>
-      <RightIcons>
-        <IconButton Icon={IconSearch} color="var(--brand-color)" />
-        <IconButton
-          Icon={IconShoppingBag}
-          color="var(--brand-color)"
-          onClick={onCartClick}
-        />
-      </RightIcons>
+      <Flex>
+        <IconButton Icon={IconSearch} />
+        <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
+      </Flex>
     </Wrapper>
   );
 }

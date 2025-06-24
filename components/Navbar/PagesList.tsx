@@ -1,11 +1,5 @@
+import { Flex } from "@mantine/core";
 import styled from "styled-components";
-
-const Wrapper = styled.ul`
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  padding-inline: 35px;
-`;
 
 const PageItem = styled.li`
   font-size: 18px;
@@ -26,13 +20,13 @@ const PageItem = styled.li`
 
 const PagesList = () => {
   return (
-    <Wrapper>
+    <Flex direction="column" bg="var(--background-color)" w="100%" h="100%">
       <PageItem>Home</PageItem>
       <PageItem>About</PageItem>
       <PageItem>Shop</PageItem>
       <PageItem>FAQS</PageItem>
       <PageItem>Contact</PageItem>
-    </Wrapper>
+    </Flex>
   );
 };
 

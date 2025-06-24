@@ -2,7 +2,9 @@ import Image from "next/image";
 import Label from "../label";
 
 export function GridTileImage({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isInteractive = true,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   active,
   label,
   ...props

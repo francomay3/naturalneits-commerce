@@ -49,3 +49,8 @@ export const validateEnvironmentVariables = () => {
     );
   }
 };
+
+export const formatPrice = (price: string, currencyCode: string) => {
+  const priceNumber = Number(price);
+  return `${currencyCode} ${priceNumber.toFixed(2)}`;
+};

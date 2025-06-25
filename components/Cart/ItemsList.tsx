@@ -1,7 +1,8 @@
 "use client";
 
 import { removeItem, updateItemQuantity } from "@/actions/actions";
-import { useCart } from "@/providers/cart-context";
+import { CartItem } from "@/lib/shopify/types";
+import { UpdateType, useCart } from "@/providers/cart-context";
 import { Flex } from "@mantine/core";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import { DEFAULT_OPTION } from "lib/constants";
@@ -22,8 +23,8 @@ const Item = ({
   updateCartItem,
   toggleCart,
 }: {
-  item: any;
-  updateCartItem: any;
+  item: CartItem;
+  updateCartItem: (merchandiseId: string, updateType: UpdateType) => void;
   toggleCart: () => void;
 }) => {
   const [, removeFormAction] = useActionState(removeItem, null);

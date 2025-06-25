@@ -1,4 +1,5 @@
 import ProductsCarousel from "@/components/ProductsCarousel";
+import { Flex } from "@mantine/core";
 import { ProductProvider } from "components/product/product-context";
 import { ProductDescription } from "components/product/product-description";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
@@ -110,5 +111,10 @@ async function RelatedProducts({ id }: { id: string }) {
 
   if (!relatedProducts.length) return null;
 
-  return <ProductsCarousel products={relatedProducts} />;
+  return (
+    <Flex direction="column" gap={16}>
+      <h2>Related Products</h2>
+      <ProductsCarousel products={relatedProducts} />
+    </Flex>
+  );
 }

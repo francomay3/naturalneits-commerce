@@ -2,13 +2,13 @@
 
 import { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import Link from "next/link";
 import styled from "styled-components";
 import AddToCartButton from "./AddToCartButton";
 import { ProductProvider } from "./product/product-context";
 
-const ImageWrapper = styled.div<{ src: string }>`
+const ProductImage = styled.div<{ src: string }>`
   width: 100%;
   aspect-ratio: 1/1;
   background-image: url(${({ src }) => src});
@@ -16,8 +16,6 @@ const ImageWrapper = styled.div<{ src: string }>`
   background-position: center;
   border-radius: var(--border-radius);
   overflow: hidden;
-  margin-bottom: 10px;
-  position: relative;
 `;
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -29,22 +27,25 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <ProductProvider>
-      <Link href={`/product/${product.handle}`} prefetch={true}>
-        <Flex direction="column" gap="10px">
-          <ImageWrapper src={imageUrl ?? ""}>
-            <AddToCartButton
-              product={product}
-              style={{
-                position: "absolute",
-                bottom: 5,
-                right: 5,
-              }}
-            />
-          </ImageWrapper>
-          <h5 style={{ textAlign: "center", marginBottom: 10 }}>{title}</h5>
+      <Flex direction="column">
+        <Box pos="relative" mb="18">
+          <Link href={`/product/${product.handle}`} prefetch={true}>
+            <ProductImage src={imageUrl ?? ""}></ProductImage>
+          </Link>
+          <AddToCartButton
+            product={product}
+            style={{
+              position: "absolute",
+              bottom: 5,
+              right: 5,
+            }}
+          />
+        </Box>
+        <Link href={`/product/${product.handle}`} prefetch={true}>
+          <h5 style={{ textAlign: "center", marginBottom: 8 }}>{title}</h5>
           <p style={{ textAlign: "center" }}>{formattedPrice}</p>
-        </Flex>
-      </Link>
+        </Link>
+      </Flex>
     </ProductProvider>
   );
 };

@@ -42,7 +42,6 @@ export default function Header({
         onClick={onBurgerClick}
       />
 
-      {/* TODO: unmount the burger button on desktop, because right now its still clickable even if hidden */}
       <Link
         href="/"
         prefetch={true}
@@ -56,7 +55,9 @@ export default function Header({
         <h1>Logo</h1>
       </Link>
       <Flex>
+        {/* TODO: add search support */}
         <IconButton Icon={IconSearch} />
+        {/* TODO: add a badge to the cart icon with the number of items in the cart */}
         <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
       </Flex>
     </Wrapper>

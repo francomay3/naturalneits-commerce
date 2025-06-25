@@ -91,7 +91,7 @@ export default function CartModal() {
                         src={item.merchandise.product.featuredImage.url}
                       />
                     </div>
-                    <Link href={merchandiseUrl}>
+                    <Link href={merchandiseUrl} prefetch={true}>
                       <div>
                         <span>{item.merchandise.product.title}</span>
                         {item.merchandise.title !== DEFAULT_OPTION ? (

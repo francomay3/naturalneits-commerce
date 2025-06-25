@@ -7,6 +7,8 @@ import { Product } from "lib/shopify/types";
 import { useActionState } from "react";
 import IconButton from "./ui/IconButton";
 
+// TODO: add a toast when the item is added to the cart
+
 export function AddToCartButton({
   product,
   style,

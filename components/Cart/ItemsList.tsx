@@ -68,7 +68,7 @@ const Item = ({
 
   return (
     <Flex gap="15px" pos="relative">
-      <Link href={merchandiseUrl} onClick={() => toggleCart()}>
+      <Link href={merchandiseUrl} onClick={() => toggleCart()} prefetch={true}>
         <Image
           src={item.merchandise.product.featuredImage.url}
           alt={

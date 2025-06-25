@@ -73,7 +73,6 @@ export default async function ProductPage(props: {
   };
 
   return (
-    // TODO: replace div with product loading skeleton
     <Suspense fallback={<div>Loading...</div>}>
       <ProductProvider>
         <script

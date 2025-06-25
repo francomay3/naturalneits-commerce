@@ -21,6 +21,9 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
     }
   }, [cart]);
 
+  // TODO: handle loading states. there is flickering when the cart gets emptied
+  // TODO: abstract component instead of early return here. make it a bit tidier
+
   if (!cart || cart.lines.length === 0) {
     return (
       <Flex

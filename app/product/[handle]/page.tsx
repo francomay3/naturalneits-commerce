@@ -1,4 +1,6 @@
+import ImageCarousel from "@/components/ImageCarousel";
 import ProductsCarousel from "@/components/ProductsCarousel";
+import { Image } from "@/lib/shopify/types";
 import { Flex } from "@mantine/core";
 import { ProductProvider } from "components/product/product-context";
 import { ProductDescription } from "components/product/product-description";
@@ -70,38 +72,30 @@ export default async function ProductPage(props: {
     },
   };
 
+  // TODO: replace loading fallbacks
   return (
-    // TODO: replace div with product loading skeleton
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(productJsonLd),
-          }}
-        />
-        <div>
-          <div>
-            <div>
-              <Suspense fallback={<div />}>
-                {/* <Gallery
-                  images={product.images.slice(0, 5).map((image: Image) => ({
-                    src: image.url,
-                    altText: image.altText,
-                  }))}
-                /> */}
-              </Suspense>
-            </div>
+    <Suspense fallback={<div>Loading product...</div>}>
+      <Flex direction="column" gap={16} mt="30">
+        <ProductProvider>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(productJsonLd),
+            }}
+          />
+          <Suspense fallback={<p>Loading images...</p>}>
+            <ImageCarousel
+              srcs={product.images.map((image: Image) => image.url)}
+            />
+          </Suspense>
 
-            <div>
-              <Suspense fallback={null}>
-                <ProductDescription product={product} />
-              </Suspense>
-            </div>
-          </div>
+          <Suspense fallback={<p>Loading description...</p>}>
+            <ProductDescription product={product} />
+          </Suspense>
+
           <RelatedProducts id={product.id} />
-        </div>
-      </ProductProvider>
+        </ProductProvider>
+      </Flex>
     </Suspense>
   );
 }

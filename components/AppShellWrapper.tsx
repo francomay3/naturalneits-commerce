@@ -8,7 +8,7 @@ import {
   AppShellMain,
   AppShellNavbar,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import Cart from "./Cart/Cart";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -21,12 +21,17 @@ interface AppShellWrapperProps {
 export default function AppShellWrapper({ children }: AppShellWrapperProps) {
   const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
   const [cartOpened, { toggle: toggleCart }] = useDisclosure();
+  const showHeader = useHeadroom({ fixedAt: 120 });
+  const mainFrozen = navbarOpened || cartOpened;
 
   return (
     <AppShell
       styles={{
         header: {
           borderColor: "var(--tertiary-color)",
+          transition: "opacity 0.2s ease",
+          opacity: showHeader ? 1 : 0,
+          pointerEvents: showHeader ? "auto" : "none",
         },
         navbar: {
           borderColor: "var(--tertiary-color)",
@@ -36,6 +41,9 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
         },
         main: {
           backgroundColor: "var(--background-color-lighter)",
+          pointerEvents: mainFrozen ? "none" : "auto",
+          overflow: mainFrozen ? "hidden" : "initial",
+          height: mainFrozen ? "100vh" : "auto",
         },
       }}
       header={{

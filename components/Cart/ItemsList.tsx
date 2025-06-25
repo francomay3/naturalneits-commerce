@@ -17,7 +17,15 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-const Item = ({ item, updateCartItem }: { item: any; updateCartItem: any }) => {
+const Item = ({
+  item,
+  updateCartItem,
+  toggleCart,
+}: {
+  item: any;
+  updateCartItem: any;
+  toggleCart: () => void;
+}) => {
   const [, removeFormAction] = useActionState(removeItem, null);
   const [, updateFormAction] = useActionState(updateItemQuantity, null);
   const [, startTransition] = useTransition();
@@ -59,16 +67,18 @@ const Item = ({ item, updateCartItem }: { item: any; updateCartItem: any }) => {
 
   return (
     <Flex gap="15px" pos="relative">
-      <Image
-        src={item.merchandise.product.featuredImage.url}
-        alt={
-          item.merchandise.product.featuredImage.altText ||
-          item.merchandise.product.title
-        }
-        width={70}
-        height={70}
-        style={{ objectFit: "cover" }}
-      />
+      <Link href={merchandiseUrl} onClick={() => toggleCart()}>
+        <Image
+          src={item.merchandise.product.featuredImage.url}
+          alt={
+            item.merchandise.product.featuredImage.altText ||
+            item.merchandise.product.title
+          }
+          width={70}
+          height={70}
+          style={{ objectFit: "cover" }}
+        />
+      </Link>
       <Flex direction="column" flex="1" gap="10px">
         <Link
           href={merchandiseUrl}
@@ -111,7 +121,7 @@ const Item = ({ item, updateCartItem }: { item: any; updateCartItem: any }) => {
   );
 };
 
-const ItemsList = () => {
+const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart, updateCartItem } = useCart();
 
   if (!cart || cart.lines.length === 0) {
@@ -135,7 +145,11 @@ const ItemsList = () => {
         )
         .map((item, i) => (
           <div key={i}>
-            <Item item={item} updateCartItem={updateCartItem} />
+            <Item
+              item={item}
+              updateCartItem={updateCartItem}
+              toggleCart={toggleCart}
+            />
             {i < cart.lines.length - 1 && <Separator m="20" />}
           </div>
         ))}

@@ -25,6 +25,7 @@ const Wrapper = styled.header`
   position: relative;
   justify-content: space-between;
   background-color: var(--background-color);
+  transition: opacity 0.2s ease;
 `;
 
 export default function Header({
@@ -34,15 +35,6 @@ export default function Header({
 }: HeaderProps) {
   return (
     <Wrapper>
-      {/* <IconButton
-        wrapperAs="div"
-        Icon={Burger}
-        opened={navbarOpened}
-        onClick={onBurgerClick}
-        size="20"
-        color="var(--brand-color)"
-      /> */}
-
       <IconButton
         Icon={navbarOpened ? IconX : IconMenu}
         onClick={onBurgerClick}

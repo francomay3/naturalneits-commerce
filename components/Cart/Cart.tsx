@@ -61,6 +61,7 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
       h="100%"
       p="15px"
       pos="relative"
+      style={{ overflow: "scroll" }}
     >
       <IconButton
         onClick={toggleCart}
@@ -73,7 +74,7 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
       />
       <h3>Cart ({cart.totalQuantity})</h3>
       <Separator />
-      <ItemsList />
+      <ItemsList toggleCart={toggleCart} />
       <Separator />
       <Subtotal cart={cart} />
       <form action={redirectToCheckout}>

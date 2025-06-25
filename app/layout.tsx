@@ -1,17 +1,18 @@
-import { CartProvider } from "@/providers/cart-context";
-import "@mantine/core/styles.css";
-import StyledComponentsRegistry from "lib/registry";
-import { getCart } from "lib/shopify";
-import { baseUrl } from "lib/utils";
-import { Gilda_Display, Karla } from "next/font/google";
-import { ReactNode } from "react";
-
 import AppShellWrapper from "@/components/AppShellWrapper";
+import { CartProvider } from "@/providers/cart-context";
 import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import "@mantine/core/styles.css";
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
+import StyledComponentsRegistry from "lib/registry";
+import { getCart } from "lib/shopify";
+import { baseUrl } from "lib/utils";
+import { Gilda_Display, Karla } from "next/font/google";
+import { ReactNode } from "react";
 import "./globals.css";
 
 const { SITE_NAME } = process.env;
@@ -65,6 +66,7 @@ export default async function RootLayout({
       <body className={`${karla.className} ${gildaDisplay.className}`}>
         <StyledComponentsRegistry>
           <MantineProvider>
+            <Notifications />
             <CartProvider cartPromise={cart}>
               <AppShellWrapper>{children}</AppShellWrapper>
             </CartProvider>

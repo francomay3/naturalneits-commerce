@@ -1,7 +1,8 @@
 "use client";
 
 import IconButton from "@/components/ui/IconButton";
-import { Flex } from "@mantine/core";
+import { useCart } from "@/providers/cart-context";
+import { Badge, Box, Flex } from "@mantine/core";
 import {
   IconMenu,
   IconSearch,
@@ -35,6 +36,9 @@ export default function Header({
   onCartClick,
   closeSidebars,
 }: HeaderProps) {
+  const { cart } = useCart();
+  const itemCount = cart?.totalQuantity || 0;
+
   return (
     <Wrapper>
       <IconButton
@@ -57,7 +61,22 @@ export default function Header({
       </Link>
       <Flex>
         <IconButton Icon={IconSearch} />
-        <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
+        <Box pos="relative">
+          <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
+          {itemCount > 0 && (
+            <Badge
+              pos="absolute"
+              top={5}
+              right={3}
+              circle
+              size="xs"
+              color="red"
+              styles={{ label: { color: "white" } }}
+            >
+              {itemCount}
+            </Badge>
+          )}
+        </Box>
       </Flex>
     </Wrapper>
   );

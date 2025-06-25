@@ -1,4 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
+import { Cart, Product } from "./shopify/types";
 
 export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -50,7 +51,24 @@ export const validateEnvironmentVariables = () => {
   }
 };
 
-export const formatPrice = (price: string, currencyCode: string) => {
-  const priceNumber = Number(price);
-  return `${currencyCode} ${priceNumber.toFixed(2)}`;
+// amount={cart.cost.totalAmount.amount}
+// currencyCode={cart.cost.totalAmount.currencyCode}
+
+export const formatPrice = (amount: string, currencyCode: string) => {
+  return new Intl.NumberFormat(undefined, {
+    style: "currency",
+    // currency: product.priceRange.maxVariantPrice.currencyCode,
+    currency: currencyCode,
+    currencyDisplay: "narrowSymbol",
+    // }).format(parseFloat(product.priceRange.maxVariantPrice.amount));
+  }).format(parseFloat(amount));
 };
+
+export const getProductFormattedPrice = (product: Product) =>
+  formatPrice(
+    product.priceRange.maxVariantPrice.amount,
+    product.priceRange.maxVariantPrice.currencyCode
+  );
+
+export const getCartSubtotal = (cart: Cart) =>
+  formatPrice(cart.cost.totalAmount.amount, cart.cost.totalAmount.currencyCode);

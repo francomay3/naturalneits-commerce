@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/lib/shopify/types";
-import { formatPrice } from "@/lib/utils";
+import { getProductFormattedPrice } from "@/lib/utils";
 import { Box, Flex } from "@mantine/core";
 import Link from "next/link";
 import styled from "styled-components";
@@ -21,9 +21,7 @@ const ProductImage = styled.div<{ src: string }>`
 const ProductCard = ({ product }: { product: Product }) => {
   const imageUrl = product.featuredImage?.url;
   const title = product.title;
-  const price = product.priceRange.minVariantPrice.amount;
-  const currencyCode = product.priceRange.minVariantPrice.currencyCode;
-  const formattedPrice = formatPrice(price, currencyCode);
+  const formattedPrice = getProductFormattedPrice(product);
 
   return (
     <ProductProvider>
@@ -43,7 +41,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         </Box>
         <Link href={`/product/${product.handle}`} prefetch={true}>
           <h5 style={{ textAlign: "center", marginBottom: 8 }}>{title}</h5>
-          <p style={{ textAlign: "center" }}>{formattedPrice}</p>
+          <div style={{ textAlign: "center" }}>{formattedPrice}</div>
         </Link>
       </Flex>
     </ProductProvider>

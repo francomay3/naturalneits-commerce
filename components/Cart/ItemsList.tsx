@@ -89,16 +89,18 @@ const Item = ({
           </span>
         </Link>
         {item.merchandise.title !== DEFAULT_OPTION && (
-          <p style={{ fontSize: "14px", color: "var(--text-color-secondary)" }}>
+          <span
+            style={{ fontSize: "14px", color: "var(--text-color-secondary)" }}
+          >
             {item.merchandise.title}
-          </p>
+          </span>
         )}
         <Flex gap="10px" align="center">
           <IconButton
             Icon={IconMinus}
             onClick={() => handleQuantityUpdate("minus")}
           />
-          <p>{item.quantity}</p>
+          <span>{item.quantity}</span>
           <IconButton
             Icon={IconPlus}
             onClick={() => handleQuantityUpdate("plus")}
@@ -132,7 +134,9 @@ const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
         justify="center"
         style={{ minHeight: "200px" }}
       >
-        <p style={{ color: "var(--text-color-secondary)" }}>No items in cart</p>
+        <span style={{ color: "var(--text-color-secondary)" }}>
+          No items in cart
+        </span>
       </Flex>
     );
   }

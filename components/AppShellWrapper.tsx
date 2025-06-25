@@ -9,6 +9,7 @@ import {
   AppShellNavbar,
 } from "@mantine/core";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
+import { useEffect } from "react";
 import Cart from "./Cart/Cart";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -19,10 +20,28 @@ interface AppShellWrapperProps {
 }
 
 export default function AppShellWrapper({ children }: AppShellWrapperProps) {
-  const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
-  const [cartOpened, { toggle: toggleCart }] = useDisclosure();
+  const [navbarOpened, { toggle: toggleNavbar, close: closeNavbar }] =
+    useDisclosure();
+  const [cartOpened, { toggle: toggleCart, close: closeCart }] =
+    useDisclosure();
+  const closeSidebars = () => {
+    closeNavbar();
+    closeCart();
+  };
   const showHeader = useHeadroom({ fixedAt: 120 });
   const mainFrozen = navbarOpened || cartOpened;
+
+  useEffect(() => {
+    if (cartOpened) {
+      closeNavbar();
+    }
+  }, [cartOpened]);
+
+  useEffect(() => {
+    if (navbarOpened) {
+      closeCart();
+    }
+  }, [navbarOpened]);
 
   return (
     <AppShell
@@ -65,6 +84,7 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
           onBurgerClick={toggleNavbar}
           navbarOpened={navbarOpened}
           onCartClick={toggleCart}
+          closeSidebars={closeSidebars}
         />
       </AppShellHeader>
 

@@ -11,6 +11,9 @@ const Image = styled.div<{ src: string }>`
   background-position: center;
 `;
 
+// TODO: when clicking on the image, it should open a modal with the image
+// TODO: add arrows control to the carousel
+
 const ImageCarousel = ({
   srcs,
   style,

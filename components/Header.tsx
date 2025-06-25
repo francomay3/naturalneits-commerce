@@ -15,6 +15,7 @@ interface HeaderProps {
   onBurgerClick: () => void;
   navbarOpened: boolean;
   onCartClick: () => void;
+  closeSidebars: () => void;
 }
 
 const Wrapper = styled.header`
@@ -32,6 +33,7 @@ export default function Header({
   onBurgerClick,
   navbarOpened,
   onCartClick,
+  closeSidebars,
 }: HeaderProps) {
   return (
     <Wrapper>
@@ -49,6 +51,7 @@ export default function Header({
           left: "50%",
           transform: "translateX(-50%)",
         }}
+        onClick={closeSidebars}
       >
         <h1>Logo</h1>
       </Link>

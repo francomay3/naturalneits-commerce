@@ -1,9 +1,12 @@
+import { AddToCartButton } from "@/components/AddToCartButton";
 import ImageCarousel from "@/components/ImageCarousel";
+import { VariantSelector } from "@/components/product/variant-selector";
 import ProductsCarousel from "@/components/ProductsCarousel";
+import Prose from "@/components/prose";
 import { Image } from "@/lib/shopify/types";
-import { Flex } from "@mantine/core";
+import { getProductFormattedPrice } from "@/lib/utils";
+import { Box, Flex } from "@mantine/core";
 import { ProductProvider } from "components/product/product-context";
-import { ProductDescription } from "components/product/product-description";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
 import type { Metadata } from "next";
@@ -55,6 +58,8 @@ export default async function ProductPage(props: {
 
   if (!product) return notFound();
 
+  const formattedPrice = getProductFormattedPrice(product);
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -75,8 +80,8 @@ export default async function ProductPage(props: {
   // TODO: replace loading fallbacks
   return (
     <Suspense fallback={<div>Loading product...</div>}>
-      <Flex direction="column" gap={16} mt="30">
-        <ProductProvider>
+      <ProductProvider>
+        <Flex direction="column" gap={16} my="30">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -90,12 +95,31 @@ export default async function ProductPage(props: {
           </Suspense>
 
           <Suspense fallback={<p>Loading description...</p>}>
-            <ProductDescription product={product} />
+            <Box p="30">
+              <h1 style={{ marginBottom: "18px" }}>{product.title}</h1>
+              <p
+                style={{
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  marginBottom: "30px",
+                }}
+              >
+                {formattedPrice}
+              </p>
+              {product.descriptionHtml && (
+                <Prose html={product.descriptionHtml} />
+              )}
+              <VariantSelector
+                options={product.options}
+                variants={product.variants}
+              />
+              <AddToCartButton product={product} />
+            </Box>
           </Suspense>
 
           <RelatedProducts id={product.id} />
-        </ProductProvider>
-      </Flex>
+        </Flex>
+      </ProductProvider>
     </Suspense>
   );
 }

@@ -1,103 +1,51 @@
+import type { ButtonProps as MantineButtonProps } from "@mantine/core";
+import { Button as MantineButton } from "@mantine/core";
 import React from "react";
-import { css, styled } from "styled-components";
 
-const Wrapper = styled.button.withConfig({
-  shouldForwardProp: (prop) =>
-    !["primary", "secondary", "outlined"].includes(prop),
-})<ButtonProps>`
-  all: unset;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  padding: 15px;
-  font-size: 18px;
-  text-transform: uppercase;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--border-radius);
-
-  background-color: var(--brand-color);
-  color: var(--background-color);
-
-  ${({ secondary, outlined }) => {
-    const primary = !secondary;
-    const filled = !outlined;
-
-    if (primary && filled) {
-      return css`
-        background-color: var(--brand-color);
-        color: var(--background-color);
-
-        &:hover {
-          background-color: var(--brand-color-lighter);
-        }
-
-        &:active {
-          background-color: var(--brand-color-darker);
-        }
-      `;
-    }
-
-    if (primary && outlined) {
-      return css`
-        background-color: var(--background-color);
-        color: var(--brand-color);
-        border: 1px solid var(--brand-color);
-
-        &:hover {
-          background-color: var(--brand-color-lighter);
-        }
-
-        &:active {
-          background-color: var(--brand-color-darker);
-        }
-      `;
-    }
-
-    if (secondary && filled) {
-      return css`
-        background-color: var(--secondary-color);
-        color: var(--background-color);
-
-        &:hover {
-          background-color: var(--secondary-color-lighter);
-        }
-
-        &:active {
-          background-color: var(--secondary-color-darker);
-        }
-      `;
-    }
-
-    if (secondary && outlined) {
-      return css`
-        background-color: var(--background-color);
-        color: var(--secondary-color);
-        border: 1px solid var(--secondary-color);
-
-        &:hover {
-          background-color: var(--secondary-color-lighter);
-        }
-
-        &:active {
-          background-color: var(--secondary-color-darker);
-        }
-      `;
-    }
-  }}
-`;
-
-interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
+interface ButtonProps extends MantineButtonProps {
   children: React.ReactNode;
-  primary?: boolean;
   secondary?: boolean;
-  outlined?: boolean;
+  variant?: "filled" | "outline";
+  formAction?: () => void;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
-const Button = ({ children, ...rest }: ButtonProps) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
+const Button = ({
+  children,
+  formAction,
+  secondary,
+  variant = "filled",
+  disabled,
+  type,
+  ...rest
+}: ButtonProps) => {
+  const filled = variant === "filled";
+
+  const buttonColor = secondary
+    ? "var(--secondary-color)"
+    : "var(--brand-color)";
+  const textColor = filled ? "var(--background-color)" : buttonColor;
+
+  return (
+    <MantineButton
+      formAction={formAction}
+      type={formAction ? "submit" : type}
+      h="44"
+      color={!disabled ? buttonColor : undefined}
+      styles={{
+        label: {
+          color: !disabled ? textColor : undefined,
+        },
+      }}
+      disabled={disabled}
+      variant={variant}
+      radius="var(--border-radius)"
+      {...rest}
+    >
+      {children}
+    </MantineButton>
+  );
 };
 
 export default Button;

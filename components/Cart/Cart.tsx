@@ -77,7 +77,10 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
       <ItemsList toggleCart={toggleCart} />
       <Separator />
       <Subtotal cart={cart} />
-      <form action={redirectToCheckout}>
+      <form
+        action={redirectToCheckout}
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
         <CheckoutButton />
       </form>
     </Flex>
@@ -94,7 +97,6 @@ function CheckoutButton() {
       disabled={pending}
       style={{
         paddingInline: "40px",
-        marginLeft: "auto",
         marginTop: "20px",
       }}
     >

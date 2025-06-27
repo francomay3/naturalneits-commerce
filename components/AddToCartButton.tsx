@@ -28,6 +28,7 @@ export function AddToCartButton({
       action={async () => {
         addCartItem(variant, product);
         addItemAction();
+        // TODO: this says that the item was added inmediately, before waiting for the action to complete. fix!
         notifications.show({
           message: "Item added to cart!",
           withCloseButton: true,

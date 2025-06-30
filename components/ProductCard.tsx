@@ -1,68 +1,78 @@
 "use client";
 
 import { Product } from "@/lib/shopify/types";
-import { Flex } from "@mantine/core";
-import { IconShoppingBagPlus } from "@tabler/icons-react";
+import { getProductFormattedPrice } from "@/lib/utils";
+import { useCart } from "@/providers/cart-context";
+import { ProductProvider } from "@/providers/product-context";
+import { ActionIcon, Box, Flex } from "@mantine/core";
+import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
-import IconButton from "./ui/IconButton";
+import AddToCartButton from "./AddToCartButton";
 
-const ImageWrapper = styled.div<{ src: string }>`
-  width: 120px;
+const ProductImage = styled.div<{ src: string }>`
+  width: 100%;
+  aspect-ratio: 1/1;
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   border-radius: var(--border-radius);
   overflow: hidden;
-  flex-shrink: 0;
 `;
 
-const ProductTitle = styled.h5`
-  margin: 0;
-  cursor: pointer;
-  transition: color 0.2s ease;
+const useItemIsInCart = ({ product }: { product: Product }) => {
+  const { cart } = useCart();
+  const variant = product.variants[0]!;
+  const itemIsInCart = cart?.lines.find(
+    (line) => line.merchandise.id === variant.id
+  );
 
-  &:hover {
-    color: var(--brand-color-lighter);
-  }
-
-  &:active {
-    color: var(--brand-color-darker);
-  }
-`;
-
-const firstNChars = (str: string, n: number) =>
-  str.length > n ? str.slice(0, n) + "..." : str;
+  return itemIsInCart;
+};
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const imageUrl = product.featuredImage?.url;
+  const title = product.title;
+  const formattedPrice = getProductFormattedPrice(product);
+  const itemIsInCart = useItemIsInCart({ product });
+
   return (
-    <Flex w="100%" h="100%">
-      <ImageWrapper src={product.featuredImage.url} />
-      <Flex direction="column" gap="5px" flex="1" p="5px">
-        <Flex justify="space-between">
-          <Link
-            href={`/product/${product.handle}`}
-            style={{ textDecoration: "none" }}
-            prefetch={true}
-          >
-            <ProductTitle>{product.title}</ProductTitle>
+    <ProductProvider>
+      <Flex direction="column">
+        <Box pos="relative" mb="18">
+          <Link href={`/product/${product.handle}`} prefetch={true}>
+            <ProductImage src={imageUrl ?? ""}></ProductImage>
           </Link>
-          <IconButton Icon={IconShoppingBagPlus} style={{ flexShrink: 0 }} />
-        </Flex>
-        <p>{firstNChars(product.description, 100)}</p>
-        <p
-          style={{
-            fontWeight: "bold",
-            textAlign: "right",
-            marginTop: "auto",
-          }}
-        >
-          {product.priceRange.minVariantPrice.currencyCode}{" "}
-          {product.priceRange.minVariantPrice.amount}
-        </p>
+          {itemIsInCart ? (
+            <ActionIcon
+              variant="filled"
+              color="green"
+              size={44}
+              style={{
+                position: "absolute",
+                bottom: 5,
+                right: 5,
+              }}
+            >
+              <IconShoppingBagCheck size={20} color="white" />
+            </ActionIcon>
+          ) : (
+            <AddToCartButton
+              product={product}
+              style={{
+                position: "absolute",
+                bottom: 5,
+                right: 5,
+              }}
+            />
+          )}
+        </Box>
+        <Link href={`/product/${product.handle}`} prefetch={true}>
+          <h5 style={{ textAlign: "center", marginBottom: 8 }}>{title}</h5>
+          <div style={{ textAlign: "center" }}>{formattedPrice}</div>
+        </Link>
       </Flex>
-    </Flex>
+    </ProductProvider>
   );
 };
 

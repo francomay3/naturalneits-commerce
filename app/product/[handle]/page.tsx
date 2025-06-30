@@ -1,12 +1,12 @@
 import { AddToCartButton } from "@/components/AddToCartButton";
 import ImageCarousel from "@/components/ImageCarousel";
-import { VariantSelector } from "@/components/product/variant-selector";
 import ProductsCarousel from "@/components/ProductsCarousel";
 import Prose from "@/components/prose";
+import { VariantSelector } from "@/components/VariantSelector";
 import { Image } from "@/lib/shopify/types";
 import { getProductFormattedPrice } from "@/lib/utils";
+import { ProductProvider } from "@/providers/product-context";
 import { Box, Flex } from "@mantine/core";
-import { ProductProvider } from "components/product/product-context";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
 import type { Metadata } from "next";

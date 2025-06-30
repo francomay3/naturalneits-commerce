@@ -1,16 +1,9 @@
-"use client";
-
 import IconButton from "@/components/ui/IconButton";
-import { useCart } from "@/providers/cart-context";
-import { Badge, Box, Flex } from "@mantine/core";
-import {
-  IconMenu,
-  IconSearch,
-  IconShoppingBag,
-  IconX,
-} from "@tabler/icons-react";
+import { Flex } from "@mantine/core";
+import { IconMenu, IconSearch, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
+import CartButton from "./CartButton";
 
 interface HeaderProps {
   onBurgerClick: () => void;
@@ -36,16 +29,12 @@ export default function Header({
   onCartClick,
   closeSidebars,
 }: HeaderProps) {
-  const { cart } = useCart();
-  const itemCount = cart?.totalQuantity || 0;
-
   return (
     <Wrapper>
       <IconButton
         Icon={navbarOpened ? IconX : IconMenu}
         onClick={onBurgerClick}
       />
-
       <Link
         href="/"
         prefetch={true}
@@ -61,22 +50,7 @@ export default function Header({
       <Flex>
         {/* TODO: add search support */}
         <IconButton Icon={IconSearch} />
-        <Box pos="relative">
-          <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
-          {itemCount > 0 && (
-            <Badge
-              pos="absolute"
-              top={5}
-              right={3}
-              circle
-              size="xs"
-              color="red"
-              styles={{ label: { color: "white" } }}
-            >
-              {itemCount}
-            </Badge>
-          )}
-        </Box>
+        <CartButton onCartClick={onCartClick} />
       </Flex>
     </Wrapper>
   );

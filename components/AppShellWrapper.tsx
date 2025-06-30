@@ -12,7 +12,7 @@ import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import { useEffect } from "react";
 import Cart from "./Cart/Cart";
 import Footer from "./Footer";
-import Header from "./Header";
+import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
 
 interface AppShellWrapperProps {

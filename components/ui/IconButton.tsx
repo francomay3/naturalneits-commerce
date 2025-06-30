@@ -1,6 +1,4 @@
 import { ActionIcon } from "@mantine/core";
-import { IconLoader2 } from "@tabler/icons-react";
-import { useMemo } from "react";
 
 interface IconButtonProps {
   Icon: React.ElementType;
@@ -10,72 +8,36 @@ interface IconButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
   loading?: boolean;
+  disabled?: boolean;
 }
 
 type IconColors = {
   wrapperColor: string;
   iconColor: string;
-  disabledColor: string;
 };
 
 type IconVariants = "filled" | "subtle" | "outlined";
 
-const getPrimaryVariants = (variant: IconVariants): IconColors => {
+const getIconColors = (variant: IconVariants, mode: string): IconColors => {
+  let color = "var(--brand-color)";
+
+  if (mode === "secondary") {
+    color = "var(--secondary-color)";
+  }
+  if (mode === "tertiary") {
+    color = "var(--tertiary-color)";
+  }
+
   if (variant === "filled") {
     return {
-      wrapperColor: "var(--brand-color)",
+      wrapperColor: color,
       iconColor: "white",
-      disabledColor: "var(--brand-color-lighter)",
     };
   }
   return {
-    wrapperColor: "var(--brand-color)",
-    iconColor: "var(--brand-color)",
-    disabledColor: "var(--brand-color-lighter)",
+    wrapperColor: color,
+    iconColor: color,
   };
-};
-
-const getSecondaryVariants = (variant: IconVariants): IconColors => {
-  if (variant === "filled") {
-    return {
-      wrapperColor: "var(--secondary-color)",
-      iconColor: "white",
-      disabledColor: "var(--secondary-color-lighter)",
-    };
-  }
-  return {
-    wrapperColor: "var(--secondary-color)",
-    iconColor: "var(--secondary-color)",
-    disabledColor: "var(--secondary-color-lighter)",
-  };
-};
-
-const getTertiaryVariants = (variant: IconVariants): IconColors => {
-  if (variant === "filled") {
-    return {
-      wrapperColor: "var(--tertiary-color)",
-      iconColor: "white",
-      disabledColor: "var(--tertiary-color-lighter)",
-    };
-  }
-  return {
-    wrapperColor: "var(--tertiary-color)",
-    iconColor: "var(--tertiary-color)",
-    disabledColor: "var(--tertiary-color-lighter)",
-  };
-};
-
-const getIconColors = (variant: IconVariants, color: string): IconColors => {
-  if (color === "primary") {
-    return getPrimaryVariants(variant);
-  }
-  if (color === "secondary") {
-    return getSecondaryVariants(variant);
-  }
-  if (color === "tertiary") {
-    return getTertiaryVariants(variant);
-  }
-  return getPrimaryVariants(variant);
 };
 
 const IconButton = ({
@@ -86,11 +48,9 @@ const IconButton = ({
   style,
   type,
   loading,
+  disabled,
 }: IconButtonProps) => {
-  const iconColors = useMemo(
-    () => getIconColors(variant, mode),
-    [variant, mode]
-  );
+  const iconColors = getIconColors(variant, mode);
 
   return (
     <ActionIcon
@@ -98,27 +58,18 @@ const IconButton = ({
       autoContrast
       size={44}
       radius="var(--border-radius)"
-      color={loading ? iconColors.disabledColor : iconColors.wrapperColor}
+      color={iconColors.wrapperColor}
       variant={variant}
       onClick={onClick}
-      style={{
-        pointerEvents: loading ? "none" : "auto",
-        cursor: loading ? "not-allowed" : "pointer",
-        ...style,
-      }}
+      style={style}
+      loading={loading}
+      disabled={disabled}
     >
-      {loading ? (
-        <IconLoader2
-          size={20}
-          stroke={1.5}
-          color={iconColors.iconColor}
-          style={{
-            animation: "spin 1s linear infinite",
-          }}
-        />
-      ) : (
-        <Icon size={20} stroke={1.5} color={iconColors.iconColor} />
-      )}
+      <Icon
+        size={20}
+        stroke={1.5}
+        color={disabled ? "gray" : iconColors.iconColor}
+      />
     </ActionIcon>
   );
 };

@@ -15,46 +15,16 @@ import Subtotal from "./Subtotal";
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart } = useCart();
 
+  if (!cart) {
+    // this should never happen
+    return <p>loading cart...</p>;
+  }
+
   useEffect(() => {
     if (!cart) {
       createCartAndSetCookie();
     }
   }, [cart]);
-
-  // TODO: handle loading states. there is flickering when the cart gets emptied
-  // TODO: abstract component instead of early return here. make it a bit tidier
-
-  if (!cart || cart.lines.length === 0) {
-    return (
-      <Flex
-        direction="column"
-        bg="var(--background-color)"
-        w="100%"
-        h="100%"
-        p="15px"
-        pos="relative"
-        align="center"
-        justify="center"
-        gap="20px"
-      >
-        <IconButton
-          onClick={toggleCart}
-          Icon={IconX}
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-          }}
-        />
-        <h3>Your cart is empty</h3>
-        <p
-          style={{ textAlign: "center", color: "var(--text-color-secondary)" }}
-        >
-          Add some items to get started
-        </p>
-      </Flex>
-    );
-  }
 
   return (
     <Flex
@@ -75,7 +45,7 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
           top: 0,
         }}
       />
-      <h3>Cart ({cart.totalQuantity})</h3>
+      <h3>Cart ({cart?.totalQuantity || 0})</h3>
       <Separator />
       <ItemsList toggleCart={toggleCart} />
       <Separator />

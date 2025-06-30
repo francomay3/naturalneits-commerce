@@ -1,9 +1,9 @@
 "use client";
 
+import { useProduct, useUpdateURL } from "@/providers/product-context";
 import { ButtonGroup, Tooltip } from "@mantine/core";
-import { useProduct, useUpdateURL } from "components/product/product-context";
 import { ProductOption, ProductVariant } from "lib/shopify/types";
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 
 type Combination = {
   id: string;

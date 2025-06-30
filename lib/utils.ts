@@ -51,16 +51,11 @@ export const validateEnvironmentVariables = () => {
   }
 };
 
-// amount={cart.cost.totalAmount.amount}
-// currencyCode={cart.cost.totalAmount.currencyCode}
-
 export const formatPrice = (amount: string, currencyCode: string) => {
   return new Intl.NumberFormat(undefined, {
     style: "currency",
-    // currency: product.priceRange.maxVariantPrice.currencyCode,
     currency: currencyCode,
     currencyDisplay: "narrowSymbol",
-    // }).format(parseFloat(product.priceRange.maxVariantPrice.amount));
   }).format(parseFloat(amount));
 };
 

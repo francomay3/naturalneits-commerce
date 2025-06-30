@@ -4,7 +4,19 @@ export default {
     useCache: true,
   },
   compiler: {
-    styledComponents: true,
+    styledComponents: {
+      ssr: true,
+      displayName: process.env.NODE_ENV === "development",
+    },
+  },
+  webpack: (config: any) => {
+    // Suppress webpack cache warnings about big strings
+    config.infrastructureLogging = {
+      ...config.infrastructureLogging,
+      level: "error",
+    };
+
+    return config;
   },
   images: {
     formats: ["image/avif", "image/webp"],

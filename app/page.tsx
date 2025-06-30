@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCardV2";
+import ProductCard from "@/components/ProductCard";
 import { getProducts } from "@/lib/shopify";
 import { SimpleGrid } from "@mantine/core";
 

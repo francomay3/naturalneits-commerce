@@ -12,6 +12,8 @@ import ItemsList from "./ItemsList";
 import Separator from "./Separator";
 import Subtotal from "./Subtotal";
 
+// TODO: when navigating to a product page from the cartFragment, close the cart aside
+
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart } = useCart();
 

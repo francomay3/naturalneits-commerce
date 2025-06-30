@@ -2,6 +2,7 @@
 
 import { useCart } from "@/providers/cart-context";
 import { Flex } from "@mantine/core";
+import EmptyCart from "./EmptyCart";
 import Item from "./Item";
 import Separator from "./Separator";
 
@@ -9,18 +10,7 @@ const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart, updateCartItem } = useCart();
 
   if (!cart || cart.lines.length === 0) {
-    return (
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        style={{ minHeight: "200px" }}
-      >
-        <span style={{ color: "var(--text-color-secondary)" }}>
-          No items in cart
-        </span>
-      </Flex>
-    );
+    return <EmptyCart />;
   }
 
   return (

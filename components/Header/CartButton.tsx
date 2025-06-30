@@ -18,11 +18,11 @@ const CartButton = ({ onCartClick }: { onCartClick: () => void }) => {
       // open the cart
       notifications.show({
         message: "Items added to cart",
-        color: "green",
+        color: "#74b816",
         icon: <IconShoppingBagPlus size={16} />,
       });
     } else if (lineCount < prevLineCount) {
-      console.log("Items removed from cart");
+      // Code to run when items are removed from the cart
     }
 
     prevLineCountRef.current = lineCount;

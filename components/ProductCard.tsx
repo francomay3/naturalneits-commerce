@@ -24,7 +24,7 @@ const useItemIsInCart = ({ product }: { product: Product }) => {
   const { cart } = useCart();
   const variant = product.variants[0]!;
   const itemIsInCart = cart?.lines.find(
-    (line) => line.merchandise.id === variant.id
+    (line) => line.merchandise.id === variant.id,
   );
 
   return itemIsInCart;

@@ -15,16 +15,16 @@ import Subtotal from "./Subtotal";
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart } = useCart();
 
-  if (!cart) {
-    // this should never happen
-    return <p>loading cart...</p>;
-  }
-
   useEffect(() => {
     if (!cart) {
       createCartAndSetCookie();
     }
   }, [cart]);
+
+  if (!cart) {
+    // this will probably only render to users with very slow internet connection
+    return <p>loading cart...</p>;
+  }
 
   return (
     <Flex

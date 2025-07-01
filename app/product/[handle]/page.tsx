@@ -79,6 +79,7 @@ export default async function ProductPage(props: {
 
   // TODO: replace loading fallbacks
   return (
+    // TODO: at least the product data should be server-side rendered - fix!
     <Suspense fallback={<div>Loading product...</div>}>
       <ProductProvider>
         <Flex direction="column" gap={16} my="30">
@@ -113,6 +114,7 @@ export default async function ProductPage(props: {
                 options={product.options}
                 variants={product.variants}
               />
+              {/* TODO: if clicking multiple times, the previous fetches should be cancelled */}
               <AddToCartButton product={product} />
             </Box>
           </Suspense>

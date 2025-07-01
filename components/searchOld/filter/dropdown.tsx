@@ -1,16 +1,15 @@
-'use client';
+"use client";
 
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import type { ListItem } from '.';
-import { FilterItem } from './item';
+import { IconChevronDown } from "@tabler/icons-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import type { ListItem } from ".";
+import { FilterItem } from "./item";
 
 export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState("");
   const [openSelect, setOpenSelect] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -21,15 +20,15 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
   useEffect(() => {
     list.forEach((listItem: ListItem) => {
       if (
-        ('path' in listItem && pathname === listItem.path) ||
-        ('slug' in listItem && searchParams.get('sort') === listItem.slug)
+        ("path" in listItem && pathname === listItem.path) ||
+        ("slug" in listItem && searchParams.get("sort") === listItem.slug)
       ) {
         setActive(listItem.title);
       }
@@ -45,7 +44,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         className="flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30"
       >
         <div>{active}</div>
-        <ChevronDownIcon className="h-4" />
+        <IconChevronDown className="h-4" />
       </div>
       {openSelect && (
         <div

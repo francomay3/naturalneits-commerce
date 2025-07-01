@@ -34,12 +34,12 @@ const Item = ({
       if (value !== DEFAULT_OPTION) {
         merchandiseSearchParams[name.toLowerCase()] = value;
       }
-    }
+    },
   );
 
   const merchandiseUrl = createUrl(
     `/product/${item.merchandise.product.handle}`,
-    new URLSearchParams(merchandiseSearchParams)
+    new URLSearchParams(merchandiseSearchParams),
   );
 
   const handleQuantityUpdate = (type: "plus" | "minus") => {
@@ -112,7 +112,7 @@ const Item = ({
       <div style={{ marginTop: "auto", textAlign: "right" }}>
         {formatPrice(
           item.cost.totalAmount.amount,
-          item.cost.totalAmount.currencyCode
+          item.cost.totalAmount.currencyCode,
         )}
       </div>
       <IconButton

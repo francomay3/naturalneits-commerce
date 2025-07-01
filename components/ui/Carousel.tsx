@@ -111,7 +111,7 @@ function Carousel({
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
     },
-    [emblaMainApi, emblaThumbsApi]
+    [emblaMainApi, emblaThumbsApi],
   );
 
   const onSelect = useCallback(() => {

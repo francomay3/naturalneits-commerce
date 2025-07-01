@@ -423,6 +423,7 @@ export async function getProductRecommendations(
   productId: string
 ): Promise<Product[]> {
   "use cache";
+  // TODO: investigate what the logic is behind the related products. how are they decided?
   cacheTag(TAGS.products);
   cacheLife("days");
 

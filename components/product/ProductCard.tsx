@@ -8,7 +8,7 @@ import { ActionIcon, Box, Flex } from "@mantine/core";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const ProductImage = styled.div<{ src: string }>`
   width: 100%;

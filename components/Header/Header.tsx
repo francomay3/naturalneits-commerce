@@ -45,6 +45,7 @@ export default function Header({
         }}
         onClick={closeSidebars}
       >
+        {/* TODO: change the logo for an placeholder image logo */}
         <h1>Logo</h1>
       </Link>
       <Flex>

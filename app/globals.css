@@ -84,7 +84,10 @@ h6 {
 a,
 p,
 span,
-div {
+div,
+dd,
+dt,
+dl {
   font-size: 15px;
   font-family: var(--font-family-texts);
   font-weight: 400;
@@ -120,4 +123,8 @@ a {
   @media (max-width: 768px) {
     width: calc(100vw - 15px);
   }
+}
+
+p:has(img) {
+  overflow: hidden;
 }

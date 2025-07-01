@@ -2,6 +2,7 @@ import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import Thumbnail from "./Thumbnail";
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -27,13 +28,12 @@ const SlideWrapper = styled.div.withConfig(config)<{
   margin-inline: ${({ gapPixels }) => (gapPixels ? gapPixels / 2 : 0)}px;
 `;
 
-// Thumbnail styles
-const ThumbsWrapper = styled.div`
+const ThumbnailsWrapper = styled.div`
   margin-top: 8px;
   margin-inline: 8px;
 `;
 
-const ThumbsContainer = styled.div`
+const ThumbnailsContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   scrollbar-width: none;
@@ -44,60 +44,26 @@ const ThumbsContainer = styled.div`
   }
 `;
 
-const ThumbButton = styled.div<{ selected: boolean }>`
-  flex: 0 0 60px;
-  height: 60px;
-  border: 2px solid
-    ${({ selected }) => (selected ? "var(--brand-color)" : "transparent")};
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  cursor: pointer;
-  background: none;
-  padding: 0;
-  transition: border-color 0.2s ease;
-
-  &:hover {
-    border-color: ${({ selected }) =>
-      selected ? "var(--color-primary)" : "transparent"};
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const Thumb: React.FC<{
-  onClick: () => void;
-  selected: boolean;
-  children: React.ReactNode;
-}> = ({ onClick, selected, children }) => {
-  return (
-    <ThumbButton selected={selected} onClick={onClick}>
-      {children}
-    </ThumbButton>
-  );
-};
-
 function Carousel({
   children,
   options,
   slideWidth,
   gap,
-  thumbs,
+  thumbnails,
   style,
+  onClick,
 }: {
   children: React.ReactNode;
   options?: EmblaOptionsType;
   slideWidth?: number;
   gap?: number;
-  thumbs?: boolean;
+  thumbnails?: boolean;
   style?: React.CSSProperties;
+  onClick?: (index: number) => void;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
-  const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
+  const [emblaThumbnailsRef, emblaThumbnailsApi] = useEmblaCarousel({
     containScroll: "keepSnaps",
     dragFree: true,
   });
@@ -108,17 +74,17 @@ function Carousel({
 
   const onThumbClick = useCallback(
     (index: number) => {
-      if (!emblaMainApi || !emblaThumbsApi) return;
+      if (!emblaMainApi || !emblaThumbnailsApi) return;
       emblaMainApi.scrollTo(index);
     },
-    [emblaMainApi, emblaThumbsApi]
+    [emblaMainApi, emblaThumbnailsApi]
   );
 
   const onSelect = useCallback(() => {
-    if (!emblaMainApi || !emblaThumbsApi) return;
+    if (!emblaMainApi || !emblaThumbnailsApi) return;
     setSelectedIndex(emblaMainApi.selectedScrollSnap());
-    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
-  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
+    emblaThumbnailsApi.scrollTo(emblaMainApi.selectedScrollSnap());
+  }, [emblaMainApi, emblaThumbnailsApi, setSelectedIndex]);
 
   useEffect(() => {
     if (!emblaMainApi) return;
@@ -137,10 +103,8 @@ function Carousel({
     // Set initial width
     updateWrapperWidth();
 
-    // Add resize listener
     window.addEventListener("resize", updateWrapperWidth);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", updateWrapperWidth);
     };
@@ -163,6 +127,7 @@ function Carousel({
               key={index}
               slideWidth={slideWidthInPixels}
               gapPixels={gapInPixels}
+              onClick={() => onClick?.(index)}
             >
               {child}
             </SlideWrapper>
@@ -170,20 +135,20 @@ function Carousel({
         </Container>
       </Wrapper>
 
-      {thumbs && (
-        <ThumbsWrapper ref={emblaThumbsRef}>
-          <ThumbsContainer>
+      {thumbnails && (
+        <ThumbnailsWrapper ref={emblaThumbnailsRef}>
+          <ThumbnailsContainer>
             {childrenArray.map((child, index) => (
-              <Thumb
+              <Thumbnail
                 key={index}
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
               >
                 {child}
-              </Thumb>
+              </Thumbnail>
             ))}
-          </ThumbsContainer>
-        </ThumbsWrapper>
+          </ThumbnailsContainer>
+        </ThumbnailsWrapper>
       )}
     </div>
   );

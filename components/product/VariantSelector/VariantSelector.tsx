@@ -1,9 +1,8 @@
 "use client";
 
+import { Box } from "@mantine/core";
 import { ProductOption, ProductVariant } from "lib/shopify/types";
 import Options from "./Options";
-
-// TODO: refine this components UI. it looks horrible
 
 export function VariantSelector({
   options,
@@ -20,12 +19,19 @@ export function VariantSelector({
     return null;
   }
 
-  return options.map((option) => (
-    <Options
-      option={option}
-      options={options}
-      variants={variants}
-      key={option.id}
-    />
-  ));
+  return (
+    <Box>
+      <h2 style={{ marginBottom: 24 }}>Options</h2>
+      <Box ml="7">
+        {options.map((option) => (
+          <Options
+            option={option}
+            options={options}
+            variants={variants}
+            key={option.id}
+          />
+        ))}
+      </Box>
+    </Box>
+  );
 }

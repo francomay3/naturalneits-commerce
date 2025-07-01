@@ -10,9 +10,11 @@ type OptionsProps = {
 
 const Options = ({ option, options, variants }: OptionsProps) => {
   return (
-    <form key={option.id} style={{ clear: "both" }}>
+    <form key={option.id} style={{ marginBottom: 24 }}>
       <dl>
-        <dt>{option.name}</dt>
+        <dt>
+          <h5 style={{ marginBottom: 8 }}>{option.name}</h5>
+        </dt>
         <dd>
           <ButtonGroup>
             {option.values.map((value) => (

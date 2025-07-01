@@ -8,6 +8,7 @@ import { Product, ProductVariant } from "lib/shopify/types";
 import { useActionState } from "react";
 import IconButton from "./ui/IconButton";
 
+// TODO: find a way to separate the logic from the UI, so that we can use this component in other places with different looks. maybe passing the UI as a prop.
 export function AddToCartButton({
   product,
   style,

@@ -1,5 +1,5 @@
 import { AddToCartButton } from "@/components/AddToCartButton";
-import ImageCarousel from "@/components/ImageCarousel";
+import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { Image } from "@/lib/shopify/types";
@@ -87,7 +87,7 @@ export default async function ProductPage(props: {
 
         <ImageCarousel srcs={product.images.map((image: Image) => image.url)} />
 
-        <Box p="30">
+        <Box p="30" pb="0" mb="60">
           <h1 style={{ marginBottom: "18px" }}>{product.title}</h1>
           <p
             style={{
@@ -108,9 +108,9 @@ export default async function ProductPage(props: {
             variants={product.variants}
           />
           {/* TODO: if clicking multiple times, the previous fetches should be cancelled */}
+          {/* TODO: this button is not intuitive at all. fix the design. how should the add to cart UI look like? */}
           <AddToCartButton product={product} />
         </Box>
-
         <RelatedProducts id={product.id} />
       </Flex>
     </ProductProvider>

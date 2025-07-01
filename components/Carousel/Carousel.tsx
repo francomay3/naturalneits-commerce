@@ -51,6 +51,7 @@ function Carousel({
   gap,
   thumbnails,
   style,
+  onClick,
 }: {
   children: React.ReactNode;
   options?: EmblaOptionsType;
@@ -58,6 +59,7 @@ function Carousel({
   gap?: number;
   thumbnails?: boolean;
   style?: React.CSSProperties;
+  onClick?: (index: number) => void;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -125,6 +127,7 @@ function Carousel({
               key={index}
               slideWidth={slideWidthInPixels}
               gapPixels={gapInPixels}
+              onClick={() => onClick?.(index)}
             >
               {child}
             </SlideWrapper>

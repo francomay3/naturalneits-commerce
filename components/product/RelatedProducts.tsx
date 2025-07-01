@@ -9,7 +9,7 @@ export async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <Flex direction="column" gap={16}>
-      <h2>Related Products</h2>
+      <h2 style={{ marginInline: 30 }}>Related Products</h2>
       <ProductsCarousel products={relatedProducts} />
     </Flex>
   );

@@ -8,7 +8,7 @@ import { ActionIcon, Box, Flex } from "@mantine/core";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const ProductImage = styled.div<{ src: string }>`
   width: 100%;
@@ -24,7 +24,7 @@ const useItemIsInCart = ({ product }: { product: Product }) => {
   const { cart } = useCart();
   const variant = product.variants[0]!;
   const itemIsInCart = cart?.lines.find(
-    (line) => line.merchandise.id === variant.id,
+    (line) => line.merchandise.id === variant.id
   );
 
   return itemIsInCart;

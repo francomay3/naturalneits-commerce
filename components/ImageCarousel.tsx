@@ -1,7 +1,7 @@
 "use client";
 
 import { styled } from "styled-components";
-import Carousel from "./ui/Carousel";
+import Carousel from "./Carousel/Carousel";
 
 const Image = styled.div<{ src: string }>`
   width: 100%;
@@ -28,7 +28,7 @@ const ImageCarousel = ({
       options={{ loop: true }}
       slideWidth={100}
       gap={0}
-      thumbs
+      thumbnails
       style={style}
     >
       {images}

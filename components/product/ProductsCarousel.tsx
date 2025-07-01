@@ -1,8 +1,8 @@
 "use client";
 
 import { Product } from "@/lib/shopify/types";
+import Carousel from "../Carousel/Carousel";
 import ProductCard from "./ProductCard";
-import Carousel from "./ui/Carousel";
 
 const ProductsCarousel = ({ products }: { products: Product[] }) => {
   return (

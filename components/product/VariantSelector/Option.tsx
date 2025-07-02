@@ -18,7 +18,6 @@ type OptionProps = {
 
 const Option = ({ option, variants, value, options }: OptionProps) => {
   const { state, updateOption } = useProduct();
-  console.log(state);
   const updateURL = useUpdateURL();
 
   const combinations: Combination[] = variants.map((variant) => ({

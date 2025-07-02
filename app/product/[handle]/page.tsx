@@ -1,9 +1,7 @@
-import { AddToCartButton } from "@/components/AddToCartButton";
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { Image } from "@/lib/shopify/types";
-import { getProductFormattedPrice } from "@/lib/utils";
 import { ProductProvider } from "@/providers/product-context";
 import { Box, Flex } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
@@ -58,8 +56,6 @@ export default async function ProductPage(props: {
 
   if (!product) return notFound();
 
-  const formattedPrice = getProductFormattedPrice(product);
-
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -91,27 +87,12 @@ export default async function ProductPage(props: {
 
         <Box p="30" pb="0" mb="60">
           <h1 style={{ marginBottom: "18px" }}>{product.title}</h1>
-          <p
-            style={{
-              fontSize: "22px",
-              fontWeight: "bold",
-              marginBottom: "30px",
-            }}
-          >
-            {formattedPrice}
-          </p>
           {product.descriptionHtml && (
             <div
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
           )}
-          <VariantSelector
-            options={product.options}
-            variants={product.variants}
-          />
-          {/* TODO: if clicking multiple times, the previous fetches should be cancelled */}
-          {/* TODO: this button is not intuitive at all. fix the design. how should the add to cart UI look like? */}
-          <AddToCartButton product={product} />
+          <VariantSelector product={product} />
         </Box>
         <RelatedProducts id={product.id} />
       </Flex>

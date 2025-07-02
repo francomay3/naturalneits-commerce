@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductVariant } from "@/lib/shopify/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, {
   createContext,
@@ -14,10 +15,16 @@ type ProductState = {
   image?: string;
 };
 
-type ProductContextType = {
+// TODO: this code is crap. how can the vercel team write such piece of crap? refactor and make it beautiful.
+// the product privider shoudl return the product and a bunch of related data/functions. like for example the variants, the selected variant, the price, the default... etc.
+
+export type ProductContextType = {
   state: ProductState;
   updateOption: (name: string, value: string) => ProductState;
   updateImage: (index: string) => ProductState;
+  getSelectedVariant: (
+    variants: ProductVariant[]
+  ) => ProductVariant | undefined;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -38,7 +45,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     (prevState: ProductState, update: ProductState) => ({
       ...prevState,
       ...update,
-    }),
+    })
   );
 
   const updateOption = (name: string, value: string) => {
@@ -53,13 +60,21 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     return { ...state, ...newState };
   };
 
+  const getSelectedVariant = (variants: ProductVariant[]) =>
+    variants.find((variant) =>
+      variant.selectedOptions.every(
+        (option) => option.value === state[option.name.toLowerCase()]
+      )
+    );
+
   const value = useMemo(
     () => ({
       state,
       updateOption,
       updateImage,
+      getSelectedVariant,
     }),
-    [state],
+    [state]
   );
 
   return (

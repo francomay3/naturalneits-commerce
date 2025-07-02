@@ -1,7 +1,7 @@
 "use client";
 
 import { Product } from "@/lib/shopify/types";
-import { getProductFormattedPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/providers/cart-context";
 import { ProductProvider } from "@/providers/product-context";
 import { ActionIcon, Box, Flex } from "@mantine/core";
@@ -33,8 +33,16 @@ const useItemIsInCart = ({ product }: { product: Product }) => {
 const ProductCard = ({ product }: { product: Product }) => {
   const imageUrl = product.featuredImage?.url;
   const title = product.title;
-  const formattedPrice = getProductFormattedPrice(product);
+  const formattedPrice = formatPrice(
+    product.priceRange.minVariantPrice.amount,
+    product.priceRange.minVariantPrice.currencyCode
+  );
   const itemIsInCart = useItemIsInCart({ product });
+
+  const variantPrices = product.variants.map((variant) => variant.price.amount);
+  const hasMultiplePrices = variantPrices.find(
+    (price) => price !== variantPrices[0]
+  );
 
   return (
     <ProductProvider>
@@ -69,7 +77,10 @@ const ProductCard = ({ product }: { product: Product }) => {
         </Box>
         <Link href={`/product/${product.handle}`} prefetch={true}>
           <h5 style={{ textAlign: "center", marginBottom: 8 }}>{title}</h5>
-          <div style={{ textAlign: "center" }}>{formattedPrice}</div>
+          <div style={{ textAlign: "center" }}>
+            {hasMultiplePrices ? "from " : ""}
+            {formattedPrice}
+          </div>
         </Link>
       </Flex>
     </ProductProvider>

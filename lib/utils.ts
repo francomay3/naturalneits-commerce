@@ -1,5 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { Cart, Product } from "./shopify/types";
+import { Cart, Product, ProductVariant } from "./shopify/types";
 
 export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -7,7 +7,7 @@ export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export const createUrl = (
   pathname: string,
-  params: URLSearchParams | ReadonlyURLSearchParams,
+  params: URLSearchParams | ReadonlyURLSearchParams
 ) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
@@ -36,8 +36,8 @@ export const validateEnvironmentVariables = () => {
   if (missingEnvironmentVariables.length) {
     throw new Error(
       `The following environment variables are missing. Your site will not work without them. Read more: https://vercel.com/docs/integrations/shopify#configure-environment-variables\n\n${missingEnvironmentVariables.join(
-        "\n",
-      )}\n`,
+        "\n"
+      )}\n`
     );
   }
 
@@ -46,7 +46,7 @@ export const validateEnvironmentVariables = () => {
     process.env.SHOPIFY_STORE_DOMAIN?.includes("]")
   ) {
     throw new Error(
-      "Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.",
+      "Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them."
     );
   }
 };
@@ -62,8 +62,13 @@ export const formatPrice = (amount: string, currencyCode: string) => {
 export const getProductFormattedPrice = (product: Product) =>
   formatPrice(
     product.priceRange.maxVariantPrice.amount,
-    product.priceRange.maxVariantPrice.currencyCode,
+    product.priceRange.maxVariantPrice.currencyCode
   );
 
 export const getCartSubtotal = (cart: Cart) =>
   formatPrice(cart.cost.totalAmount.amount, cart.cost.totalAmount.currencyCode);
+
+export const getCheapestAvailableVariant = (variants: ProductVariant[]) =>
+  variants
+    .filter((variant) => variant.availableForSale)
+    .sort((a, b) => Number(a.price.amount) - Number(b.price.amount))[0];

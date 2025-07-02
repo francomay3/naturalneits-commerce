@@ -40,7 +40,7 @@ export function AddToCartButton({
   return (
     <form
       action={async () => {
-        addCartItem(variant!, product);
+        addCartItem(finalVariant, product);
         addItemAction();
       }}
     >

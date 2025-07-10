@@ -17,6 +17,7 @@ const PageItem = styled.li`
 `;
 
 // TODO: add links and create the pages
+// TODO: what are the pages that i should have anyway? maybe the whole seciton is not needed if i will only have an about page... think!
 
 const PagesList = () => {
   return (

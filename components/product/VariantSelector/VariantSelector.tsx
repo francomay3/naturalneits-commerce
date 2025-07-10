@@ -2,14 +2,13 @@
 
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { formatPrice } from "@/lib/utils";
-import { useProduct } from "@/providers/product-context";
+import { useProduct } from "@/providers/ProductContext";
 import { Box } from "@mantine/core";
-import { Product } from "lib/shopify/types";
-import Options from "./Options";
+import Option from "./Option";
 
-export function VariantSelector({ product }: { product: Product }) {
-  const { options, variants } = product;
-  const { getSelectedVariant } = useProduct();
+export function VariantSelector() {
+  const { product, selectedVariant } = useProduct();
+  const { options } = product;
 
   const hasNoOptionsOrJustOneOption =
     !options.length ||
@@ -19,7 +18,6 @@ export function VariantSelector({ product }: { product: Product }) {
     return null;
   }
 
-  const selectedVariant = getSelectedVariant(variants);
   const formattedPrice = selectedVariant
     ? formatPrice(
         selectedVariant?.price.amount,
@@ -32,12 +30,7 @@ export function VariantSelector({ product }: { product: Product }) {
       <h2 style={{ marginBottom: 24 }}>Options</h2>
       <Box ml="8">
         {options.map((option) => (
-          <Options
-            option={option}
-            options={options}
-            variants={variants}
-            key={option.id}
-          />
+          <Option option={option} key={option.id} />
         ))}
       </Box>
       <p

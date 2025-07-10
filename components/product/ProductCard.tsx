@@ -3,7 +3,7 @@
 import { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/providers/cart-context";
-import { ProductProvider } from "@/providers/product-context";
+import { ProductProvider } from "@/providers/ProductContext";
 import { ActionIcon, Box, Flex } from "@mantine/core";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";
@@ -45,7 +45,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 
   return (
-    <ProductProvider>
+    <ProductProvider product={product}>
       <Flex direction="column">
         <Box pos="relative" mb="18">
           <Link href={`/product/${product.handle}`} prefetch={true}>

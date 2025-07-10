@@ -68,7 +68,13 @@ export const getProductFormattedPrice = (product: Product) =>
 export const getCartSubtotal = (cart: Cart) =>
   formatPrice(cart.cost.totalAmount.amount, cart.cost.totalAmount.currencyCode);
 
-export const getCheapestAvailableVariant = (variants: ProductVariant[]) =>
-  variants
-    .filter((variant) => variant.availableForSale)
-    .sort((a, b) => Number(a.price.amount) - Number(b.price.amount))[0];
+export const getCheapestAvailableVariant = (
+  variants: ProductVariant[]
+): ProductVariant | null => {
+  return (
+    variants
+      .filter((variant) => variant.availableForSale)
+      .sort((a, b) => Number(a.price.amount) - Number(b.price.amount))[0] ||
+    null
+  );
+};

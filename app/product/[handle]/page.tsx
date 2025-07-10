@@ -2,7 +2,7 @@ import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { Image } from "@/lib/shopify/types";
-import { ProductProvider } from "@/providers/product-context";
+import { ProductProvider } from "@/providers/ProductContext";
 import { Box, Flex } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct } from "lib/shopify";
@@ -74,7 +74,7 @@ export default async function ProductPage(props: {
   };
 
   return (
-    <ProductProvider>
+    <ProductProvider product={product}>
       <Flex direction="column" gap={16} my="30">
         <script
           type="application/ld+json"
@@ -92,7 +92,7 @@ export default async function ProductPage(props: {
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
           )}
-          <VariantSelector product={product} />
+          <VariantSelector />
         </Box>
         <RelatedProducts id={product.id} />
       </Flex>

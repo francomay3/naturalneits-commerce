@@ -3,21 +3,25 @@
 import { Product, ProductVariant } from "@/lib/shopify/types";
 import { getCheapestAvailableVariant } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
-import { useCart } from "./cart-context";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { useCart } from "./CartContext";
+
+export function useUpdateURL() {
+  const router = useRouter();
+
+  return (state: Record<string, string>) => {
+    const newParams = new URLSearchParams(window.location.search);
+    Object.entries(state).forEach(([key, value]) => {
+      newParams.set(key, value);
+    });
+    router.push(`?${newParams.toString()}`, { scroll: false });
+  };
+}
 
 interface ProductContextType {
   product: Product;
   selectedVariant: ProductVariant | null;
-  setSelectedVariant: Dispatch<SetStateAction<ProductVariant | null>>;
+  setSelectedVariant: (variant: ProductVariant | null) => void;
   addToCart: () => void;
   availableForSale: boolean;
 }
@@ -31,6 +35,7 @@ interface ProductProviderProps {
 
 export function ProductProvider({ children, product }: ProductProviderProps) {
   const searchParams = useSearchParams();
+  const updateURL = useUpdateURL();
 
   // Get the default variant based on URL parameters or fall back to cheapest
   const defaultVariant = useMemo(() => {
@@ -66,12 +71,24 @@ export function ProductProvider({ children, product }: ProductProviderProps) {
     }
   };
 
+  const handleSetSelectedVariant = (variant: ProductVariant | null) => {
+    setSelectedVariant(variant);
+    const newState = variant?.selectedOptions.reduce(
+      (acc, selectedOption) => {
+        acc[selectedOption.name.toLowerCase()] = selectedOption.value;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
+    updateURL(newState || {});
+  };
+
   return (
     <ProductContext.Provider
       value={{
         product,
         selectedVariant,
-        setSelectedVariant,
+        setSelectedVariant: handleSetSelectedVariant,
         addToCart,
         availableForSale: Boolean(selectedVariant?.availableForSale),
       }}
@@ -87,16 +104,4 @@ export function useProduct(): ProductContextType {
     throw new Error("useProduct must be used within a ProductProvider");
   }
   return context;
-}
-
-export function useUpdateURL() {
-  const router = useRouter();
-
-  return (state: Record<string, string>) => {
-    const newParams = new URLSearchParams(window.location.search);
-    Object.entries(state).forEach(([key, value]) => {
-      newParams.set(key, value);
-    });
-    router.push(`?${newParams.toString()}`, { scroll: false });
-  };
 }

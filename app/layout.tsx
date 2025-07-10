@@ -1,5 +1,5 @@
 import AppShellWrapper from "@/components/AppShellWrapper";
-import { CartProvider } from "@/providers/cart-context";
+import { CartProvider } from "@/contexts/CartContext";
 import {
   ColorSchemeScript,
   MantineProvider,

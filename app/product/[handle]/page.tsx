@@ -1,8 +1,8 @@
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
+import { ProductProvider } from "@/contexts/ProductContext";
 import { Image } from "@/lib/shopify/types";
-import { ProductProvider } from "@/providers/ProductContext";
 import { Box, Flex } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct } from "lib/shopify";

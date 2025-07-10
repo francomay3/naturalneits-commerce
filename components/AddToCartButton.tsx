@@ -1,6 +1,6 @@
 "use client";
 
-import { useProduct } from "@/providers/ProductContext";
+import { useProduct } from "@/contexts/ProductContext";
 import { IconShoppingBagPlus } from "@tabler/icons-react";
 import { Product } from "lib/shopify/types";
 import IconButton from "./ui/IconButton";

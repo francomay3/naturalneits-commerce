@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button";
+import { useProduct } from "@/contexts/ProductContext";
 import { ProductOption } from "@/lib/shopify/types";
-import { useProduct, useUpdateURL } from "@/providers/ProductContext";
 import { Tooltip } from "@mantine/core";
 
 type ValueProps = {
@@ -10,7 +10,6 @@ type ValueProps = {
 
 const Value = ({ option, value }: ValueProps) => {
   const { selectedVariant, setSelectedVariant, product } = useProduct();
-  const updateURL = useUpdateURL();
 
   const isSelected =
     selectedVariant?.selectedOptions.find(
@@ -46,22 +45,7 @@ const Value = ({ option, value }: ValueProps) => {
       closeDelay={100}
     >
       <Button
-        formAction={() => {
-          setSelectedVariant(thisButtonVariant);
-          const newState =
-            selectedVariant?.selectedOptions.reduce(
-              (acc, selectedOption) => {
-                if (selectedOption.name === option.name) {
-                  acc[selectedOption.name.toLowerCase()] = value;
-                } else {
-                  acc[selectedOption.name.toLowerCase()] = selectedOption.value;
-                }
-                return acc;
-              },
-              {} as Record<string, string>
-            ) || {};
-          updateURL(newState);
-        }}
+        formAction={() => setSelectedVariant(thisButtonVariant)}
         aria-disabled={!isAvailableForSale}
         disabled={!isAvailableForSale}
         variant={isSelected ? "filled" : "outline"}

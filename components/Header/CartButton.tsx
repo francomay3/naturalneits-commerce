@@ -1,5 +1,5 @@
 import IconButton from "@/components/ui/IconButton";
-import { useCart } from "@/providers/cart-context";
+import { useCart } from "@/contexts/CartContext";
 import { Badge, Box } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconShoppingBag, IconShoppingBagPlus } from "@tabler/icons-react";

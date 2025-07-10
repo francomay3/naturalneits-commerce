@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/providers/cart-context";
+import { useCart } from "@/contexts/CartContext";
 import { Flex } from "@mantine/core";
 import EmptyCart from "./EmptyCart";
 import Item from "./Item";
@@ -17,9 +17,7 @@ const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
     <Flex direction="column">
       {cart.lines
         .sort((a, b) =>
-          a.merchandise.product.title.localeCompare(
-            b.merchandise.product.title,
-          ),
+          a.merchandise.product.title.localeCompare(b.merchandise.product.title)
         )
         .map((item, i) => (
           <div key={i}>

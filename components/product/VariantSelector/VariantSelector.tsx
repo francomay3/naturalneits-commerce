@@ -1,8 +1,8 @@
 "use client";
 
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { useProduct } from "@/contexts/ProductContext";
 import { formatPrice } from "@/lib/utils";
-import { useProduct } from "@/providers/ProductContext";
 import { Box } from "@mantine/core";
 import Option from "./Option";
 

@@ -1,9 +1,9 @@
 "use client";
 
+import { useCart } from "@/contexts/CartContext";
+import { ProductProvider } from "@/contexts/ProductContext";
 import { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
-import { useCart } from "@/providers/cart-context";
-import { ProductProvider } from "@/providers/ProductContext";
 import { ActionIcon, Box, Flex } from "@mantine/core";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";

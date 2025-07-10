@@ -2,7 +2,7 @@
 
 import { createCartAndSetCookie, redirectToCheckout } from "@/actions/actions";
 import IconButton from "@/components/ui/IconButton";
-import { useCart } from "@/providers/cart-context";
+import { useCart } from "@/contexts/CartContext";
 import { Flex } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 import { useEffect } from "react";

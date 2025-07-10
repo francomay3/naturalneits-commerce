@@ -1,7 +1,7 @@
+import { UpdateType } from "@/contexts/CartContext";
 import { DEFAULT_OPTION } from "@/lib/constants";
 import { CartItem } from "@/lib/shopify/types";
 import { createUrl, formatPrice } from "@/lib/utils";
-import { UpdateType } from "@/providers/cart-context";
 import { Flex } from "@mantine/core";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";

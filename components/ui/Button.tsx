@@ -9,6 +9,7 @@ interface ButtonProps extends MantineButtonProps {
   formAction?: () => void;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   variant = "filled",
   disabled,
   type,
+  onClick,
   ...rest
 }: ButtonProps) => {
   const filled = variant === "filled";
@@ -29,6 +31,7 @@ const Button = ({
 
   return (
     <MantineButton
+      onClick={onClick}
       formAction={formAction}
       type={formAction ? "submit" : type}
       h="44"

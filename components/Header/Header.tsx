@@ -3,6 +3,7 @@ import { Flex } from "@mantine/core";
 import { IconMenu, IconSearch, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
+import Logo from "../Logo";
 import CartButton from "./CartButton";
 
 interface HeaderProps {
@@ -45,8 +46,7 @@ export default function Header({
         }}
         onClick={closeSidebars}
       >
-        {/* TODO: change the logo for an placeholder image logo */}
-        <h1>Logo</h1>
+        <Logo />
       </Link>
       <Flex>
         {/* TODO: add search support */}

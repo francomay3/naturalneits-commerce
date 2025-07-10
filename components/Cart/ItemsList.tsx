@@ -1,10 +1,10 @@
 "use client";
 
+import Separator from "@/components/Separator";
 import { useCart } from "@/contexts/CartContext";
 import { Flex } from "@mantine/core";
 import EmptyCart from "./EmptyCart";
 import Item from "./Item";
-import Separator from "./Separator";
 
 const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart, updateCartItem } = useCart();

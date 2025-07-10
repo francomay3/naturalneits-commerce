@@ -9,6 +9,7 @@ interface IconButtonProps {
   type?: "button" | "submit" | "reset";
   loading?: boolean;
   disabled?: boolean;
+  size?: number;
 }
 
 type IconColors = {
@@ -49,6 +50,7 @@ const IconButton = ({
   type,
   loading,
   disabled,
+  size = 20,
 }: IconButtonProps) => {
   const iconColors = getIconColors(variant, mode);
 
@@ -66,7 +68,7 @@ const IconButton = ({
       disabled={disabled}
     >
       <Icon
-        size={20}
+        size={size}
         stroke={1.5}
         color={disabled ? "gray" : iconColors.iconColor}
       />

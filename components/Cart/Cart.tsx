@@ -1,6 +1,7 @@
 "use client";
 
 import { createCartAndSetCookie, redirectToCheckout } from "@/actions/actions";
+import Separator from "@/components/Separator";
 import IconButton from "@/components/ui/IconButton";
 import { useCart } from "@/contexts/CartContext";
 import { Flex } from "@mantine/core";
@@ -9,7 +10,6 @@ import { useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import Button from "../ui/Button";
 import ItemsList from "./ItemsList";
-import Separator from "./Separator";
 import Subtotal from "./Subtotal";
 
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {

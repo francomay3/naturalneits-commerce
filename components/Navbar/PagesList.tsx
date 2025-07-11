@@ -3,7 +3,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styled from "styled-components";
 
-const PageItem = styled.li<{ active: boolean }>`
+const config = {
+  shouldForwardProp: (prop: string) => prop !== "active",
+};
+
+const PageItem = styled.li.withConfig(config)<{ active: boolean }>`
   font-size: 18px;
   padding-block: 20px;
   border-bottom: 1px solid var(--brand-color);

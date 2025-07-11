@@ -10,7 +10,7 @@ const Navbar = ({ toggleNavbar }: { toggleNavbar: () => void }) => {
         <IconButton onClick={toggleNavbar} Icon={IconX} />
       </Box>
 
-      <PagesList />
+      <PagesList closeSidebars={toggleNavbar} />
     </Box>
   );
 };

@@ -15,6 +15,8 @@ import { Gilda_Display, Karla } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
 
+// TODO: change favicon
+
 const { SITE_NAME } = process.env;
 
 // Initialize Google Fonts

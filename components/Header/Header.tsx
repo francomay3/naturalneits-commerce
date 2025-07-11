@@ -1,4 +1,5 @@
 import IconButton from "@/components/ui/IconButton";
+import { HEADER_HEIGHT } from "@/lib/constants";
 import { Flex } from "@mantine/core";
 import { IconMenu, IconX } from "@tabler/icons-react";
 import Link from "next/link";
@@ -46,7 +47,7 @@ export default function Header({
         }}
         onClick={closeSidebars}
       >
-        <Logo />
+        <Logo size={HEADER_HEIGHT} />
       </Link>
       <Flex>
         {/* TODO: add search support */}

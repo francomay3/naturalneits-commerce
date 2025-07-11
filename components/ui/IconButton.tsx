@@ -54,6 +54,8 @@ const IconButton = ({
 }: IconButtonProps) => {
   const iconColors = getIconColors(variant, mode);
 
+  // TODO: bugfix: outlined button color are wrong
+
   return (
     <ActionIcon
       type={type}

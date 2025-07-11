@@ -54,6 +54,7 @@ const ImageCarousel = ({
             backgroundColor: "transparent",
           },
           close: {
+            // TODO: bugfix: close button color on hover is weird
             color: "white",
           },
           title: {

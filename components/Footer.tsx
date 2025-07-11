@@ -1,5 +1,3 @@
-// TODO: add an actual footer
-
 import {
   IconBrandGithubFilled,
   IconBrandLinkedinFilled,
@@ -30,7 +28,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   return (
     <FooterWrapper>
-      <Logo />
+      <Logo size={100} />
       <Separator m="8" />
       <div>© {currentYear}, Bruna A.B.</div>
       <DeveloperLinks>

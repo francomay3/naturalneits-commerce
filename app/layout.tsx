@@ -15,8 +15,6 @@ import { Gilda_Display, Karla } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
 
-// TODO: change favicon
-
 const { SITE_NAME } = process.env;
 
 // Initialize Google Fonts
@@ -64,6 +62,10 @@ export default async function RootLayout({
     >
       <head>
         <ColorSchemeScript />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
+        />
       </head>
       <body className={`${karla.className} ${gildaDisplay.className}`}>
         <StyledComponentsRegistry>

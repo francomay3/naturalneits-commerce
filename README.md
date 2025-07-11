@@ -1,75 +1,274 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME)
+# Naturalneits Commerce
 
-# Next.js Commerce
+A modern, high-performance ecommerce storefront built with Next.js 15, React 19, and Shopify. This project showcases cutting-edge web technologies with a focus on performance, user experience, and developer experience.
 
-A high-performance, server-rendered Next.js App Router ecommerce application.
+![Next.js](https://img.shields.io/badge/Next.js-15.0.0-black)
+![React](https://img.shields.io/badge/React-19.0.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue)
+![Shopify](https://img.shields.io/badge/Shopify-API-green)
 
-This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
+## ✨ Features
 
-<h3 id="v1-note"></h3>
+### 🛍️ Ecommerce Functionality
 
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
+- **Product Catalog**: Browse products with responsive grid layout
+- **Product Details**: Rich product pages with image carousels, variant selection, and detailed descriptions
+- **Shopping Cart**: Persistent cart with optimistic updates and real-time quantity management
+- **Checkout Integration**: Seamless Shopify checkout flow
+- **Product Variants**: Support for multiple product options (size, color, etc.)
+- **Related Products**: AI-powered product recommendations
 
-## Providers
+### 🎨 Modern UI/UX
 
-Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
+- **Responsive Design**: Mobile-first approach with adaptive layouts
+- **Mantine UI**: Beautiful, accessible components
+- **Image Carousel**: Interactive product image galleries with zoom functionality
+- **Smooth Animations**: Headroom effects, transitions, and micro-interactions
+- **Typography**: Custom Google Fonts (Karla & Gilda Display) for optimal readability
 
-Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
+### ⚡ Performance & SEO
 
-- Shopify (this repository)
-- [BigCommerce](https://github.com/bigcommerce/nextjs-commerce) ([Demo](https://next-commerce-v2.vercel.app/))
-- [Ecwid by Lightspeed](https://github.com/Ecwid/ecwid-nextjs-commerce/) ([Demo](https://ecwid-nextjs-commerce.vercel.app/))
-- [Geins](https://github.com/geins-io/vercel-nextjs-commerce) ([Demo](https://geins-nextjs-commerce-starter.vercel.app/))
-- [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
-- [Prodigy Commerce](https://github.com/prodigycommerce/nextjs-commerce) ([Demo](https://prodigy-nextjs-commerce.vercel.app/))
-- [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
-- [Shopware](https://github.com/shopwareLabs/vercel-commerce) ([Demo](https://shopware-vercel-commerce-react.vercel.app/))
-- [Swell](https://github.com/swellstores/verswell-commerce) ([Demo](https://verswell-commerce.vercel.app/))
-- [Umbraco](https://github.com/umbraco/Umbraco.VercelCommerce.Demo) ([Demo](https://vercel-commerce-demo.umbraco.com/))
-- [Wix](https://github.com/wix/headless-templates/tree/main/nextjs/commerce) ([Demo](https://wix-nextjs-commerce.vercel.app/))
-- [Fourthwall](https://github.com/FourthwallHQ/vercel-commerce) ([Demo](https://vercel-storefront.fourthwall.app/))
+- **Server-Side Rendering**: Fast initial page loads with Next.js App Router
+- **Optimistic Updates**: Instant UI feedback with React 19's `useOptimistic`
+- **Image Optimization**: Next.js Image component with WebP/AVIF support
+- **SEO Optimized**: Meta tags, structured data, and sitemap generation
+- **TypeScript**: Full type safety throughout the application
 
-> Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
+### 🔧 Developer Experience
 
-## Integrations
+- **Modern Stack**: Next.js 15, React 19, TypeScript 5.8
+- **Styling**: Styled Components with SSR support
+- **State Management**: React Context with optimistic updates
+- **Code Quality**: ESLint, Prettier, and TypeScript strict mode
+- **Development Tools**: Turbopack for fast development builds
 
-Integrations enable upgraded or additional functionality for Next.js Commerce
+## 🏗️ Architecture
 
-- [Orama](https://github.com/oramasearch/nextjs-commerce) ([Demo](https://vercel-commerce.oramasearch.com/))
+### Core Technologies
 
-  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based configuration.
-  - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
+- **Frontend**: Next.js 15 with App Router
+- **UI Framework**: Mantine v8 with custom theming
+- **Styling**: Styled Components with SSR
+- **Ecommerce**: Shopify Storefront API
+- **State Management**: React Context + Server Actions
+- **Type Safety**: TypeScript throughout
 
-- [React Bricks](https://github.com/ReactBricks/nextjs-commerce-rb) ([Demo](https://nextjs-commerce.reactbricks.com/))
-  - Edit pages, product details, and footer content visually using [React Bricks](https://www.reactbricks.com) visual headless CMS.
+### Key Components
 
-## Running locally
-
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
-
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
-
-```bash
-pnpm install
-pnpm dev
+```
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Homepage with product grid
+│   ├── product/[handle]/   # Dynamic product pages
+│   └── layout.tsx         # Root layout with providers
+├── components/            # Reusable UI components
+│   ├── Cart/             # Shopping cart functionality
+│   ├── Header/           # Navigation and branding
+│   ├── product/          # Product-related components
+│   └── ui/               # Base UI components
+├── contexts/             # React Context providers
+│   ├── CartContext.tsx   # Shopping cart state
+│   └── ProductContext.tsx # Product selection state
+├── lib/                  # Utilities and configurations
+│   ├── shopify/          # Shopify API integration
+│   └── utils.ts          # Helper functions
+└── actions/              # Server Actions for mutations
 ```
 
-Your app should now be running on [localhost:3000](http://localhost:3000/).
+## 🚀 Getting Started
 
-<details>
-  <summary>Expand if you work at Vercel and want to run locally and / or contribute</summary>
+### Prerequisites
 
-1. Run `vc link`.
-1. Select the `Vercel Solutions` scope.
-1. Connect to the existing `commerce-shopify` project.
-1. Run `vc env pull` to get environment variables.
-1. Run `pnpm dev` to ensure everything is working correctly.
-</details>
+- Node.js 18+
+- pnpm (recommended) or npm
+- Shopify store with Storefront API access
 
-## Vercel, Next.js Commerce, and Shopify Integration Guide
+### Environment Variables
 
-You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+Create a `.env.local` file with your Shopify credentials:
+
+```bash
+SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+SHOPIFY_STOREFRONT_ACCESS_TOKEN=your-storefront-access-token
+SHOPIFY_REVALIDATION_SECRET=your-revalidation-secret
+SITE_NAME=Your Store Name
+```
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/francomay3/naturalneits-commerce.git
+   cd naturalneits-commerce
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your Shopify credentials
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Available Scripts
+
+```bash
+pnpm dev          # Start development server with Turbopack
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint
+pnpm lint:fix     # Fix ESLint errors
+pnpm prettier     # Format code with Prettier
+pnpm test         # Run tests (currently prettier check)
+```
+
+## 🛠️ Development
+
+### Project Structure
+
+#### Pages & Routing
+
+- **Homepage** (`app/page.tsx`): Product catalog with grid layout
+- **Product Pages** (`app/product/[handle]/page.tsx`): Dynamic product detail pages
+- **Static Pages**: About, Contact pages
+
+#### Components
+
+- **AppShellWrapper**: Main layout with header, navbar, and cart sidebar
+- **ProductCard**: Individual product display with add-to-cart functionality
+- **ImageCarousel**: Product image gallery with zoom and modal view
+- **Cart Components**: Shopping cart with item management
+- **VariantSelector**: Product option selection (size, color, etc.)
+
+#### State Management
+
+- **CartContext**: Manages shopping cart state with optimistic updates
+- **ProductContext**: Handles product variant selection and URL state
+- **Server Actions**: Handle cart mutations and checkout redirects
+
+### Key Features Implementation
+
+#### Shopping Cart
+
+- Persistent cart using Shopify's cart API
+- Optimistic updates for instant UI feedback
+- Real-time quantity management
+- Checkout integration with Shopify
+
+#### Product Management
+
+- Dynamic product pages with SEO optimization
+- Image carousels with zoom functionality
+- Variant selection with URL state management
+- Related products recommendations
+
+#### Performance Optimizations
+
+- Server-side rendering for fast initial loads
+- Image optimization with Next.js Image component
+- Code splitting and lazy loading
+- Turbopack for faster development builds
+
+## 🎨 Customization
+
+### Theming
+
+The app uses CSS custom properties for theming. Key variables:
+
+```css
+--brand-color: #your-brand-color;
+--secondary-color: #your-secondary-color;
+--background-color: #your-background-color;
+--border-radius: 8px;
+```
+
+### Styling
+
+- **Mantine**: Primary UI component library
+- **Styled Components**: Custom styling with SSR support
+- **CSS Variables**: Consistent theming across components
+
+### Adding New Features
+
+1. Create components in `components/` directory
+2. Add pages in `app/` directory (App Router)
+3. Update types in `lib/shopify/types.ts`
+4. Add GraphQL queries in `lib/shopify/queries/`
+
+## 📦 Dependencies
+
+### Core Dependencies
+
+- **Next.js 15**: React framework with App Router
+- **React 19**: Latest React with new features
+- **Mantine v8**: UI component library
+- **Shopify Storefront API**: Ecommerce backend
+- **Styled Components**: CSS-in-JS styling
+
+### Development Dependencies
+
+- **TypeScript 5.8**: Type safety
+- **ESLint**: Code linting
+- **Prettier**: Code formatting
+- **Turbopack**: Fast development builds
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Add environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+### Other Platforms
+
+The app can be deployed to any platform that supports Next.js:
+
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [license.md](license.md) file for details.
+
+## 👨‍💻 Developer
+
+**Franco May** - Full Stack Developer
+
+- [LinkedIn](https://www.linkedin.com/in/francomay/)
+- [GitHub](https://github.com/francomay3/)
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js Commerce](https://github.com/vercel/commerce) template
+- UI components from [Mantine](https://mantine.dev/)
+- Ecommerce powered by [Shopify](https://shopify.com/)
+- Icons from [Tabler Icons](https://tabler-icons.io/)
+
+---
+
+Made with ❤️ by Franco May

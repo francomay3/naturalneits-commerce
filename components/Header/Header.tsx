@@ -1,6 +1,6 @@
 import IconButton from "@/components/ui/IconButton";
 import { Flex } from "@mantine/core";
-import { IconMenu, IconSearch, IconX } from "@tabler/icons-react";
+import { IconMenu, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import styled from "styled-components";
 import Logo from "../Logo";
@@ -50,7 +50,7 @@ export default function Header({
       </Link>
       <Flex>
         {/* TODO: add search support */}
-        <IconButton Icon={IconSearch} />
+        {/* <IconButton Icon={IconSearch} /> */}
         <CartButton onCartClick={onCartClick} />
       </Flex>
     </Wrapper>

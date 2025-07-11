@@ -2,11 +2,13 @@ import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import Arrows from "./Arrows";
 import Thumbnail from "./Thumbnail";
 
 const Wrapper = styled.div`
   overflow: hidden;
   width: 100%;
+  position: relative;
 `;
 
 const config = {
@@ -52,6 +54,7 @@ function Carousel({
   thumbnails,
   style,
   onClick,
+  arrows,
 }: {
   children: React.ReactNode;
   options?: EmblaOptionsType;
@@ -60,6 +63,7 @@ function Carousel({
   thumbnails?: boolean;
   style?: React.CSSProperties;
   onClick?: (index: number) => void;
+  arrows?: boolean;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -133,6 +137,7 @@ function Carousel({
             </SlideWrapper>
           ))}
         </Container>
+        {arrows && emblaMainApi && <Arrows emblaMainApi={emblaMainApi} />}
       </Wrapper>
 
       {thumbnails && (

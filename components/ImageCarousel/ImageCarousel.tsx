@@ -5,17 +5,17 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { styled } from "styled-components";
 import Carousel from "../Carousel/Carousel";
+import Zoom from "../Zoom";
 
 const Image = styled.div<{ src: string }>`
   width: 100%;
+  height: 100%;
   aspect-ratio: 1/1;
   background-image: url(${({ src }) => src});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 `;
-
-// TODO: make the modal be more intuitive. picture should be zoomable, take the full width and the background should be dark to highlight the image.
-// TODO: add arrows control to the carousel
 
 const ImageCarousel = ({
   srcs,
@@ -42,8 +42,32 @@ const ImageCarousel = ({
         title="Image Preview"
         fullScreen
         radius={0}
+        styles={{
+          body: {
+            padding: 0,
+            height: "100%",
+          },
+          content: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+          header: {
+            backgroundColor: "transparent",
+          },
+          close: {
+            color: "white",
+          },
+          title: {
+            color: "white",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontFamily: "var(--font-family-texts)",
+          },
+        }}
       >
-        <Image src={srcs[selectedIndex]!} />
+        <Zoom>
+          <Image src={srcs[selectedIndex]!} />
+        </Zoom>
       </Modal>
       <Carousel
         options={{ loop: true }}
@@ -52,6 +76,7 @@ const ImageCarousel = ({
         thumbnails
         style={style}
         onClick={handleClick}
+        arrows
       >
         {images}
       </Carousel>

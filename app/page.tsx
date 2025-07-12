@@ -30,7 +30,6 @@ export default async function HomePage() {
         cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }}
         spacing={{ base: 35 }}
         verticalSpacing={{ base: 65 }}
-        p={35}
       >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

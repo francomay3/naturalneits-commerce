@@ -43,6 +43,7 @@ export function VariantSelector() {
         {formattedPrice}
       </p>
       {/* TODO: this button is not intuitive at all. fix the design. how should the add to cart UI look like? */}
+      {/* TODO: take inspiration from https://thoroughfaredesign.com/shop/art-prints/crossing-the-quiet */}
       <AddToCartButton product={product} />
     </Box>
   );

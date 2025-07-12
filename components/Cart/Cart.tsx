@@ -34,7 +34,10 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
       h="100%"
       p="15px"
       pos="relative"
-      style={{ overflow: "scroll" }}
+      style={{
+        overflow: "scroll",
+      }}
+      className="hide-scrollbar"
     >
       <IconButton
         onClick={toggleCart}

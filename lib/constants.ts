@@ -49,4 +49,5 @@ export const TAGS = {
 export const HIDDEN_PRODUCT_TAG = "nextjs-frontend-hidden";
 export const DEFAULT_OPTION = "Default Title";
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = "/api/2025-04/graphql.json";
-export const HEADER_HEIGHT = 64;
+export const HEADER_HEIGHT = 72;
+export const BORDER_COLOR = "var(--background-color-darker)";

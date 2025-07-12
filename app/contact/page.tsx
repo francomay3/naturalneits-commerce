@@ -85,7 +85,7 @@ const ContactPage = () => {
 
   return (
     <section>
-      <h1 style={{ marginBottom: "20px" }}>Contact Me</h1>
+      <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Contact Me</h1>
       <p>
         Whether you have a question, a special request, or just want to say
         hello, I'd love to hear from you!

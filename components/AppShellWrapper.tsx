@@ -1,6 +1,6 @@
 "use client";
 
-import { HEADER_HEIGHT } from "@/lib/constants";
+import { BORDER_COLOR, HEADER_HEIGHT } from "@/lib/constants";
 import {
   AppShell,
   AppShellAside,
@@ -47,16 +47,16 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
     <AppShell
       styles={{
         header: {
-          borderColor: "var(--tertiary-color)",
+          borderColor: BORDER_COLOR,
           transition: "opacity 0.2s ease",
           opacity: showHeader ? 1 : 0,
           pointerEvents: showHeader ? "auto" : "none",
         },
         navbar: {
-          borderColor: "var(--tertiary-color)",
+          borderColor: BORDER_COLOR,
         },
         aside: {
-          borderColor: "var(--tertiary-color)",
+          borderColor: BORDER_COLOR,
         },
         main: {
           backgroundColor: "var(--background-color-lighter)",

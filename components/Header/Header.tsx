@@ -47,7 +47,7 @@ export default function Header({
         }}
         onClick={closeSidebars}
       >
-        <Logo size={HEADER_HEIGHT} />
+        <Logo size={HEADER_HEIGHT - 10} />
       </Link>
       <Flex>
         {/* TODO: add search support */}

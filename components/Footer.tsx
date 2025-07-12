@@ -1,3 +1,4 @@
+import { BORDER_COLOR } from "@/lib/constants";
 import {
   IconBrandGithubFilled,
   IconBrandLinkedinFilled,
@@ -11,6 +12,7 @@ import IconButton from "./ui/IconButton";
 
 const FooterWrapper = styled.footer`
   background-color: var(--background-color);
+  border-top: 1px solid ${BORDER_COLOR};
   display: flex;
   flex-direction: column;
   align-items: center;

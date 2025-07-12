@@ -2,7 +2,7 @@ const page = () => {
   // TODO: add a photo of natasha. maybe as a hero image.
   return (
     <section>
-      <h1 style={{ marginBottom: "20px" }}>About</h1>
+      <h1 style={{ marginBottom: "20px", textAlign: "center" }}>About</h1>
       <p>
         Hi! I'm Natasha. I sew everything you see here. By hand, at home, often
         with a cup of tea nearby and my little one playing at my feet.

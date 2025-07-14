@@ -135,6 +135,24 @@ export type ShopifyProduct = {
   updatedAt: string;
 };
 
+export type ShopifyProductSimple = {
+  handle: string;
+  availableForSale: boolean;
+  title: string;
+  description: string;
+  descriptionHtml: string;
+  priceRange: {
+    maxVariantPrice: Money;
+    minVariantPrice: Money;
+  };
+  variants: Connection<ProductVariant>;
+  featuredImage: Image;
+  images: Connection<Image>;
+  seo: SEO;
+  tags: string[];
+  updatedAt: string;
+};
+
 export type ShopifyCartOperation = {
   data: {
     cart: ShopifyCart;

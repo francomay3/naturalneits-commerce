@@ -30,7 +30,7 @@ import { getPageQuery, getPagesQuery } from "./queries/page";
 import {
   getProductQuery,
   getProductRecommendationsQuery,
-  getProductsQuery,
+  getProductsSimpleQuery,
 } from "./queries/product";
 import {
   Cart,
@@ -181,7 +181,7 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
 const reshapeProduct = (
   product: ShopifyProduct,
   filterHiddenProducts: boolean = true
-) => {
+): Product | undefined => {
   if (
     !product ||
     (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))
@@ -198,12 +198,48 @@ const reshapeProduct = (
   };
 };
 
+const reshapeProductSimple = (
+  product: ShopifyProduct,
+  filterHiddenProducts: boolean = true
+): Product | undefined => {
+  if (
+    !product ||
+    (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))
+  ) {
+    return undefined;
+  }
+
+  const { variants, ...rest } = product;
+
+  return {
+    ...rest,
+    images: product.featuredImage ? [product.featuredImage] : [],
+    variants: removeEdgesAndNodes(variants),
+  };
+};
+
 const reshapeProducts = (products: ShopifyProduct[]) => {
   const reshapedProducts = [];
 
   for (const product of products) {
     if (product) {
       const reshapedProduct = reshapeProduct(product);
+
+      if (reshapedProduct) {
+        reshapedProducts.push(reshapedProduct);
+      }
+    }
+  }
+
+  return reshapedProducts;
+};
+
+const reshapeProductsSimple = (products: any[]) => {
+  const reshapedProducts = [];
+
+  for (const product of products) {
+    if (product) {
+      const reshapedProduct = reshapeProductSimple(product);
 
       if (reshapedProduct) {
         reshapedProducts.push(reshapedProduct);
@@ -446,12 +482,13 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
+  // Re-enable caching with the working simplified query
   "use cache";
   cacheTag(TAGS.products);
   cacheLife("days");
 
   const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsQuery,
+    query: getProductsSimpleQuery, // Use simplified query
     variables: {
       query,
       reverse,
@@ -459,7 +496,7 @@ export async function getProducts({
     },
   });
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

@@ -1,3 +1,4 @@
+import { BORDER_COLOR } from "@/lib/constants";
 import styled from "styled-components";
 
 const config = {
@@ -7,7 +8,7 @@ const config = {
 
 const Separator = styled.div.withConfig(config)<{ m?: string }>`
   height: 1px;
-  background-color: #c0523a40;
+  background-color: ${BORDER_COLOR};
   margin-block: ${({ m }) => m || "20"}px;
   width: 100%;
 `;

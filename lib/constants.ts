@@ -51,3 +51,23 @@ export const DEFAULT_OPTION = "Default Title";
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = "/api/2025-04/graphql.json";
 export const HEADER_HEIGHT = 72;
 export const BORDER_COLOR = "var(--background-color-darker)";
+
+type Route = {
+  title: string;
+  href: string;
+};
+
+export const ROUTES: Record<string, Route> = {
+  about: {
+    title: "About",
+    href: "/about",
+  },
+  contact: {
+    title: "Contact",
+    href: "/contact",
+  },
+  shop: {
+    title: "Shop",
+    href: "/",
+  },
+};

@@ -5,6 +5,7 @@ import { IconMenu, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import Logo from "../Logo";
 import CartButton from "./CartButton";
+import HeaderLinks from "./HeaderLinks";
 
 interface HeaderProps {
   onBurgerClick: () => void;
@@ -34,7 +35,9 @@ export default function Header({
       <IconButton
         Icon={navbarOpened ? IconX : IconMenu}
         onClick={onBurgerClick}
+        hiddenFrom="sm"
       />
+      <HeaderLinks visibleFrom="sm" />
       <Link
         href="/"
         prefetch={true}

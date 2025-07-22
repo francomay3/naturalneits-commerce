@@ -1,6 +1,6 @@
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, BoxProps } from "@mantine/core";
 
-interface IconButtonProps {
+interface IconButtonProps extends BoxProps {
   Icon: React.ElementType;
   mode?: "primary" | "secondary" | "tertiary";
   variant?: "filled" | "subtle" | "outlined";
@@ -51,6 +51,7 @@ const IconButton = ({
   loading,
   disabled,
   size = 20,
+  ...boxProps
 }: IconButtonProps) => {
   const iconColors = getIconColors(variant, mode);
 
@@ -68,6 +69,7 @@ const IconButton = ({
       style={style}
       loading={loading}
       disabled={disabled}
+      {...boxProps}
     >
       <Icon
         size={size}

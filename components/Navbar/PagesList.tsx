@@ -1,3 +1,4 @@
+import { ROUTES } from "@/lib/constants";
 import { Flex } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,15 +9,16 @@ const PagesList = ({ closeSidebars }: { closeSidebars: () => void }) => {
 
   return (
     <Flex direction="column" bg="var(--background-color)" w="100%" h="100%">
-      <Link href="/about" prefetch onClick={closeSidebars}>
-        <PageItem active={pathname === "/about"}>About</PageItem>
-      </Link>
-      <Link href="/" prefetch onClick={closeSidebars}>
-        <PageItem active={pathname === "/"}>Shop</PageItem>
-      </Link>
-      <Link href="/contact" prefetch onClick={closeSidebars}>
-        <PageItem active={pathname === "/contact"}>Contact</PageItem>
-      </Link>
+      {Object.values(ROUTES).map((route) => (
+        <Link
+          key={route.href}
+          href={route.href}
+          prefetch
+          onClick={closeSidebars}
+        >
+          <PageItem active={pathname === route.href}>{route.title}</PageItem>
+        </Link>
+      ))}
     </Flex>
   );
 };

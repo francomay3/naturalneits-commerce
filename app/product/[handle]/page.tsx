@@ -1,4 +1,5 @@
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
+import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { Image } from "@/lib/shopify/types";
@@ -103,8 +104,7 @@ export default async function ProductPage(props: {
           <VariantSelector />
         </Box>
         <Box className={styles.relatedProducts}>
-          {/* <RelatedProducts id={product.id} /> */}
-          hello
+          <RelatedProducts id={product.id} />
         </Box>
       </Box>
     </ProductProvider>

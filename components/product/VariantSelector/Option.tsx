@@ -1,5 +1,5 @@
 import { ProductOption } from "@/lib/shopify/types";
-import { ButtonGroup } from "@mantine/core";
+import { ButtonGroup, Title } from "@mantine/core";
 import Value from "./Value";
 
 type OptionProps = {
@@ -10,16 +10,14 @@ const Option = ({ option }: OptionProps) => {
   return (
     <form key={option.id} style={{ marginBottom: 24 }}>
       <dl>
-        <dt>
-          <h5 style={{ marginBottom: 8 }}>{option.name}</h5>
-        </dt>
-        <dd>
-          <ButtonGroup>
-            {option.values.map((value) => (
-              <Value option={option} value={value} key={value} />
-            ))}
-          </ButtonGroup>
-        </dd>
+        <Title order={5} mb="8" component="dt">
+          {option.name}
+        </Title>
+        <ButtonGroup component="dd">
+          {option.values.map((value) => (
+            <Value option={option} value={value} key={value} />
+          ))}
+        </ButtonGroup>
       </dl>
     </form>
   );

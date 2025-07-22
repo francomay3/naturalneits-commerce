@@ -37,7 +37,6 @@ A modern, high-performance ecommerce storefront built with Next.js 15, React 19,
 ### 🔧 Developer Experience
 
 - **Modern Stack**: Next.js 15, React 19, TypeScript 5.8
-- **Styling**: Styled Components with SSR support
 - **State Management**: React Context with optimistic updates
 - **Code Quality**: ESLint, Prettier, and TypeScript strict mode
 - **Development Tools**: Turbopack for fast development builds
@@ -48,7 +47,6 @@ A modern, high-performance ecommerce storefront built with Next.js 15, React 19,
 
 - **Frontend**: Next.js 15 with App Router
 - **UI Framework**: Mantine v8 with custom theming
-- **Styling**: Styled Components with SSR
 - **Ecommerce**: Shopify Storefront API
 - **State Management**: React Context + Server Actions
 - **Type Safety**: TypeScript throughout
@@ -199,7 +197,7 @@ The app uses CSS custom properties for theming. Key variables:
 ### Styling
 
 - **Mantine**: Primary UI component library
-- **Styled Components**: Custom styling with SSR support
+- ** Components**: Custom styling with SSR support
 - **CSS Variables**: Consistent theming across components
 
 ### Adding New Features
@@ -217,7 +215,6 @@ The app uses CSS custom properties for theming. Key variables:
 - **React 19**: Latest React with new features
 - **Mantine v8**: UI component library
 - **Shopify Storefront API**: Ecommerce backend
-- **Styled Components**: CSS-in-JS styling
 
 ### Development Dependencies
 

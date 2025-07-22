@@ -2,7 +2,7 @@
 
 import Separator from "@/components/Separator";
 import { useCart } from "@/contexts/CartContext";
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import EmptyCart from "./EmptyCart";
 import Item from "./Item";
 
@@ -20,14 +20,14 @@ const ItemsList = ({ toggleCart }: { toggleCart: () => void }) => {
           a.merchandise.product.title.localeCompare(b.merchandise.product.title)
         )
         .map((item, i) => (
-          <div key={i}>
+          <Box key={i}>
             <Item
               item={item}
               updateCartItem={updateCartItem}
               toggleCart={toggleCart}
             />
             {i < cart.lines.length - 1 && <Separator m="20" />}
-          </div>
+          </Box>
         ))}
     </Flex>
   );

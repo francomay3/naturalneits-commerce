@@ -4,7 +4,7 @@ import { createCartAndSetCookie, redirectToCheckout } from "@/actions/actions";
 import Separator from "@/components/Separator";
 import IconButton from "@/components/ui/IconButton";
 import { useCart } from "@/contexts/CartContext";
-import { Flex } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { useFormStatus } from "react-dom";
@@ -23,7 +23,7 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
 
   if (!cart) {
     // this will probably only render to users with very slow internet connection
-    return <p>loading cart...</p>;
+    return <Text>loading cart...</Text>;
   }
 
   return (
@@ -48,7 +48,7 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
           top: 0,
         }}
       />
-      <h3>Cart ({cart?.totalQuantity || 0})</h3>
+      <Title order={3}>Cart ({cart?.totalQuantity || 0})</Title>
       <Separator />
       <ItemsList toggleCart={toggleCart} />
       <Separator />

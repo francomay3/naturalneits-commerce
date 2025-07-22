@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 
 const EmptyCart = () => {
   return (
@@ -13,10 +13,10 @@ const EmptyCart = () => {
       justify="center"
       gap="20px"
     >
-      <h3>Your cart is empty</h3>
-      <p style={{ textAlign: "center", color: "var(--text-color-secondary)" }}>
+      <Title order={3}>Your cart is empty</Title>
+      <Text ta="center" c="var(--text-color-secondary)">
         Add some items to get started
-      </p>
+      </Text>
     </Flex>
   );
 };

@@ -1,5 +1,5 @@
 import { getProductRecommendations } from "@/lib/shopify";
-import { Flex } from "@mantine/core";
+import { Flex, Title } from "@mantine/core";
 import ProductsCarousel from "./ProductsCarousel";
 
 export async function RelatedProducts({ id }: { id: string }) {
@@ -8,8 +8,10 @@ export async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <Flex direction="column" gap={16}>
-      <h2 style={{ marginInline: 30 }}>Related Products</h2>
+    <Flex direction="column" gap={16} component="section">
+      <Title order={2} mx={{ base: 14, md: 30 }}>
+        Related Products
+      </Title>
       <ProductsCarousel products={relatedProducts} />
     </Flex>
   );

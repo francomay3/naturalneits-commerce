@@ -3,7 +3,7 @@ import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { Image } from "@/lib/shopify/types";
-import { Box, Flex } from "@mantine/core";
+import { Box, Flex, Title } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct } from "lib/shopify";
 import type { Metadata } from "next";
@@ -75,7 +75,7 @@ export default async function ProductPage(props: {
 
   return (
     <ProductProvider product={product}>
-      <Flex direction="column" gap={16} my="30">
+      <Flex direction="column" gap={16} py="30px" component="section">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -83,12 +83,17 @@ export default async function ProductPage(props: {
           }}
         />
 
-        <ImageCarousel srcs={product.images.map((image: Image) => image.url)} />
+        <ImageCarousel
+          className=""
+          srcs={product.images.map((image: Image) => image.url)}
+        />
 
-        <Box p="30" pb="0" mb="60">
-          <h1 style={{ marginBottom: "18px" }}>{product.title}</h1>
+        <Box p={{ base: "14", md: "30" }} pb="0" mb="60">
+          <Title order={1} mb="18">
+            {product.title}
+          </Title>
           {product.descriptionHtml && (
-            <div
+            <Box
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
           )}

@@ -1,25 +1,24 @@
 "use client";
 import Button from "@/components/ui/Button";
-import styled from "styled-components";
+import { Flex, Text, Title } from "@mantine/core";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-`;
-
-export default function Error({ reset }: { reset: () => void }) {
+const Error = ({ reset }: { reset: () => void }) => {
   return (
-    <Wrapper>
-      <h2>Oh no!</h2>
-      <p style={{ textAlign: "center" }}>
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      gap="1rem"
+      p="2rem"
+    >
+      <Title order={2}>Oh no!</Title>
+      <Text ta="center">
         There was an issue with our storefront. This could be a temporary issue,
         please try your action again.
-      </p>
+      </Text>
       <Button onClick={reset}>Try Again</Button>
-    </Wrapper>
+    </Flex>
   );
-}
+};
+
+export default Error;

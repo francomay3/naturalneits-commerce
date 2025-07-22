@@ -39,6 +39,7 @@ const Button = ({
       styles={{
         label: {
           color: !disabled ? textColor : undefined,
+          overflow: "visible",
         },
       }}
       disabled={disabled}

@@ -8,7 +8,6 @@ import {
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
-import StyledComponentsRegistry from "lib/registry";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 import { Gilda_Display, Karla } from "next/font/google";
@@ -71,14 +70,12 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${karla.className} ${gildaDisplay.className}`}>
-        <StyledComponentsRegistry>
-          <MantineProvider>
-            <Notifications />
-            <CartProvider cartPromise={cart}>
-              <AppShellWrapper>{children}</AppShellWrapper>
-            </CartProvider>
-          </MantineProvider>
-        </StyledComponentsRegistry>
+        <MantineProvider>
+          <Notifications />
+          <CartProvider cartPromise={cart}>
+            <AppShellWrapper>{children}</AppShellWrapper>
+          </CartProvider>
+        </MantineProvider>
       </body>
     </html>
   );

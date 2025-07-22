@@ -1,12 +1,12 @@
 import { Cart } from "@/lib/shopify/types";
 import { getCartSubtotal } from "@/lib/utils";
-import { Flex } from "@mantine/core";
+import { Flex, Title } from "@mantine/core";
 
 const Subtotal = ({ cart }: { cart: Cart }) => {
   return (
     <Flex justify="space-between" gap="20px" wrap="wrap">
       <Flex direction="column" gap="10px">
-        <h5>Subtotal</h5>
+        <Title order={5}>Subtotal</Title>
         <span
           style={{
             fontSize: "12px",

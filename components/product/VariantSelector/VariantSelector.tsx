@@ -3,7 +3,7 @@
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { useProduct } from "@/contexts/ProductContext";
 import { formatPrice } from "@/lib/utils";
-import { Box } from "@mantine/core";
+import { Box, Text, Title } from "@mantine/core";
 import Option from "./Option";
 
 export function VariantSelector() {
@@ -27,21 +27,17 @@ export function VariantSelector() {
 
   return (
     <Box>
-      <h2 style={{ marginBottom: 24 }}>Options</h2>
+      <Title order={2} mb="24">
+        Options
+      </Title>
       <Box ml="8">
         {options.map((option) => (
           <Option option={option} key={option.id} />
         ))}
       </Box>
-      <p
-        style={{
-          fontSize: "22px",
-          fontWeight: "bold",
-          marginBottom: "30px",
-        }}
-      >
+      <Text fz="22px" fw="bold" mb="30px">
         {formattedPrice}
-      </p>
+      </Text>
       {/* TODO: this button is not intuitive at all. fix the design. how should the add to cart UI look like? */}
       {/* TODO: take inspiration from https://thoroughfaredesign.com/shop/art-prints/crossing-the-quiet */}
       <AddToCartButton product={product} />

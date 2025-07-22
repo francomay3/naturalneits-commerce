@@ -4,21 +4,10 @@ import { useCart } from "@/contexts/CartContext";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
-import { ActionIcon, Box, Flex } from "@mantine/core";
+import { ActionIcon, Box, Flex, Text, Title } from "@mantine/core";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Link from "next/link";
-import styled from "styled-components";
 import AddToCartButton from "../AddToCartButton";
-
-const ProductImage = styled.div<{ src: string }>`
-  width: 100%;
-  aspect-ratio: 1/1;
-  background-image: url(${({ src }) => src});
-  background-size: cover;
-  background-position: center;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-`;
 
 const useItemIsInCart = ({ product }: { product: Product }) => {
   const { cart } = useCart();
@@ -46,10 +35,20 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <ProductProvider product={product}>
-      <Flex direction="column">
+      <Flex direction="column" w="100%">
         <Box pos="relative" mb="18">
           <Link href={`/product/${product.handle}`} prefetch={true}>
-            <ProductImage src={imageUrl ?? ""}></ProductImage>
+            <Box
+              w="100%"
+              bgsz="cover"
+              bgp="center"
+              style={{
+                backgroundImage: `url(${imageUrl ?? ""})`,
+                overflow: "hidden",
+                aspectRatio: "1/1",
+              }}
+              bdrs="var(--border-radius)"
+            ></Box>
           </Link>
           {itemIsInCart ? (
             <ActionIcon
@@ -76,11 +75,13 @@ const ProductCard = ({ product }: { product: Product }) => {
           )}
         </Box>
         <Link href={`/product/${product.handle}`} prefetch={true}>
-          <h5 style={{ textAlign: "center", marginBottom: 8 }}>{title}</h5>
-          <div style={{ textAlign: "center" }}>
+          <Title order={5} mb="8" ta="center">
+            {title}
+          </Title>
+          <Text ta="center">
             {hasMultiplePrices ? "from " : ""}
             {formattedPrice}
-          </div>
+          </Text>
         </Link>
       </Flex>
     </ProductProvider>

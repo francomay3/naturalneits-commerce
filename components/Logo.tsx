@@ -1,13 +1,17 @@
 import logo from "@/public/logo.webp";
-import { styled } from "styled-components";
+import { Box } from "@mantine/core";
 
-const Logo = styled.div<{ size: number }>`
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  background-image: url(${logo.src});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
+const Logo = ({ size }: { size: number }) => (
+  <Box
+    w={size}
+    h={size}
+    bgsz="contain"
+    bgp="center"
+    bgr="no-repeat"
+    style={{
+      backgroundImage: `url(${logo.src})`,
+    }}
+  />
+);
 
 export default Logo;

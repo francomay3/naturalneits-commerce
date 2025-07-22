@@ -3,7 +3,6 @@ import { HEADER_HEIGHT } from "@/lib/constants";
 import { Flex } from "@mantine/core";
 import { IconMenu, IconX } from "@tabler/icons-react";
 import Link from "next/link";
-import styled from "styled-components";
 import Logo from "../Logo";
 import CartButton from "./CartButton";
 
@@ -14,17 +13,6 @@ interface HeaderProps {
   closeSidebars: () => void;
 }
 
-const Wrapper = styled.header`
-  padding-inline: 14px;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  position: relative;
-  justify-content: space-between;
-  background-color: var(--background-color);
-  transition: opacity 0.2s ease;
-`;
-
 export default function Header({
   onBurgerClick,
   navbarOpened,
@@ -32,7 +20,17 @@ export default function Header({
   closeSidebars,
 }: HeaderProps) {
   return (
-    <Wrapper>
+    <Flex
+      justify="space-between"
+      px="14"
+      align="center"
+      h="100%"
+      pos="relative"
+      bg="var(--background-color)"
+      style={{
+        transition: "opacity 0.2s ease",
+      }}
+    >
       <IconButton
         Icon={navbarOpened ? IconX : IconMenu}
         onClick={onBurgerClick}
@@ -54,6 +52,6 @@ export default function Header({
         {/* <IconButton Icon={IconSearch} /> */}
         <CartButton onCartClick={onCartClick} />
       </Flex>
-    </Wrapper>
+    </Flex>
   );
 }

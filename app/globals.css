@@ -24,6 +24,30 @@
   --tertiary-color-darker: hsl(40, 63%, 58%);
 
   --border-radius: 3px;
+
+  --page-margin: 14px;
+
+  *:not(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-family-texts);
+    font-size: 15px;
+    font-family: var(--font-family-texts);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--font-color);
+  }
+
+  .mantine-Title-root {
+    font-family: var(--font-family-titles);
+    font-weight: 400;
+    color: var(--brand-color);
+  }
+
+  --mantine-h1-font-size: 43px;
+  --mantine-h2-font-size: 34px;
+  --mantine-h3-font-size: 30px;
+  --mantine-h4-font-size: 26px;
+  --mantine-h5-font-size: 21px;
+  --mantine-h6-font-size: 17px;
 }
 
 section:not([class*="mantine-"]) {
@@ -33,10 +57,6 @@ section:not([class*="mantine-"]) {
 main {
   display: flex;
   flex-direction: column;
-}
-
-footer {
-  margin-top: auto;
 }
 
 @keyframes spin {
@@ -54,60 +74,6 @@ html {
 
 * {
   box-sizing: border-box;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-family-titles);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--brand-color);
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  font-size: 43px;
-}
-
-h2 {
-  font-size: 34px;
-}
-
-h3 {
-  font-size: 30px;
-}
-
-h4 {
-  font-size: 26px;
-}
-
-h5 {
-  font-size: 21px;
-}
-
-h6 {
-  font-size: 17px;
-}
-
-a,
-p,
-span,
-div,
-dd,
-dt,
-dl {
-  font-size: 15px;
-  font-family: var(--font-family-texts);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--font-color);
-  margin: 0;
-  padding: 0;
 }
 
 p {

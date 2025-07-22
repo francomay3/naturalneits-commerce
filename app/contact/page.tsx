@@ -5,9 +5,9 @@
 
 import Button from "@/components/ui/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Flex, Text, Title } from "@mantine/core";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { z } from "zod";
 
 // Contact form validation schema
@@ -20,24 +20,6 @@ const contactFormSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
-
-const SuccessCard = styled.div`
-  margin-bottom: 24px;
-  padding: 16px;
-  background-color: hsl(120, 50%, 95%);
-  border: 1px solid hsl(120, 50%, 80%);
-  border-radius: var(--border-radius);
-  color: hsl(120, 50%, 25%);
-`;
-
-const ErrorCard = styled.div`
-  margin-bottom: 24px;
-  padding: 16px;
-  background-color: hsl(0, 50%, 95%);
-  border: 1px solid hsl(0, 50%, 80%);
-  border-radius: var(--border-radius);
-  color: hsl(0, 50%, 25%);
-`;
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,22 +67,38 @@ const ContactPage = () => {
 
   return (
     <section>
-      <h1 style={{ marginBottom: "20px", textAlign: "center" }}>Contact Me</h1>
-      <p>
+      <Title order={1} mb="20" ta="center">
+        Contact Me
+      </Title>
+      <Text>
         Whether you have a question, a special request, or just want to say
         hello, I'd love to hear from you!
-      </p>
+      </Text>
 
       {submitStatus === "success" && (
-        <SuccessCard>
+        <Box
+          mb="24px"
+          p="16px"
+          bg="hsl(120, 50%, 95%)"
+          bd="1px solid hsl(120, 50%, 80%)"
+          bdrs="var(--border-radius)"
+          c="hsl(120, 50%, 25%)"
+        >
           Thank you for your message! I'll get back to you soon.
-        </SuccessCard>
+        </Box>
       )}
 
       {submitStatus === "error" && (
-        <ErrorCard>
+        <Box
+          mb="24px"
+          p="16px"
+          bg="hsl(0, 50%, 95%)"
+          bd="1px solid hsl(0, 50%, 80%)"
+          bdrs="var(--border-radius)"
+          c="hsl(0, 50%, 25%)"
+        >
           Sorry, there was an error sending your message. Please try again.
-        </ErrorCard>
+        </Box>
       )}
 
       <form
@@ -108,23 +106,17 @@ const ContactPage = () => {
         style={{ display: "flex", flexDirection: "column", gap: "24px" }}
       >
         {/* Honeypot field - hidden from users */}
-        <div style={{ display: "none" }}>
+        <Box hidden>
           <input
             type="text"
             {...register("honeypot")}
             tabIndex={-1}
             autoComplete="off"
           />
-        </div>
+        </Box>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
-          <div>
+        <Flex direction="column" gap="24px">
+          <Box>
             <label
               htmlFor="name"
               style={{
@@ -153,19 +145,13 @@ const ContactPage = () => {
               placeholder="Your name"
             />
             {errors.name && (
-              <p
-                style={{
-                  marginTop: "4px",
-                  fontSize: "12px",
-                  color: "hsl(0, 50%, 50%)",
-                }}
-              >
+              <Text mt="4px" size="12px" color="hsl(0, 50%, 50%)">
                 {errors.name.message}
-              </p>
+              </Text>
             )}
-          </div>
+          </Box>
 
-          <div>
+          <Box>
             <label
               htmlFor="email"
               style={{
@@ -194,20 +180,14 @@ const ContactPage = () => {
               placeholder="your.email@example.com"
             />
             {errors.email && (
-              <p
-                style={{
-                  marginTop: "4px",
-                  fontSize: "12px",
-                  color: "hsl(0, 50%, 50%)",
-                }}
-              >
+              <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
                 {errors.email.message}
-              </p>
+              </Text>
             )}
-          </div>
-        </div>
+          </Box>
+        </Flex>
 
-        <div>
+        <Box>
           <label
             htmlFor="subject"
             style={{
@@ -236,19 +216,13 @@ const ContactPage = () => {
             placeholder="What is this about?"
           />
           {errors.subject && (
-            <p
-              style={{
-                marginTop: "4px",
-                fontSize: "12px",
-                color: "hsl(0, 50%, 50%)",
-              }}
-            >
+            <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
               {errors.subject.message}
-            </p>
+            </Text>
           )}
-        </div>
+        </Box>
 
-        <div>
+        <Box>
           <label
             htmlFor="message"
             style={{
@@ -278,23 +252,17 @@ const ContactPage = () => {
             placeholder="Tell us more about your inquiry..."
           />
           {errors.message && (
-            <p
-              style={{
-                marginTop: "4px",
-                fontSize: "12px",
-                color: "hsl(0, 50%, 50%)",
-              }}
-            >
+            <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
               {errors.message.message}
-            </p>
+            </Text>
           )}
-        </div>
+        </Box>
 
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Flex justify="flex-end">
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Sending..." : "Send Message"}
           </Button>
-        </div>
+        </Flex>
       </form>
     </section>
   );

@@ -3,12 +3,6 @@ export default {
     inlineCss: true,
     useCache: true,
   },
-  compiler: {
-    styledComponents: {
-      ssr: true,
-      displayName: process.env.NODE_ENV === "development",
-    },
-  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

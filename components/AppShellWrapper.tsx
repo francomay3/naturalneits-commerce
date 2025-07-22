@@ -7,6 +7,7 @@ import {
   AppShellHeader,
   AppShellMain,
   AppShellNavbar,
+  Box,
 } from "@mantine/core";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import { useEffect } from "react";
@@ -97,7 +98,7 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
       </AppShellAside>
 
       <AppShellMain>
-        <div>{children}</div>
+        <Box>{children}</Box>
         <Footer />
       </AppShellMain>
     </AppShell>

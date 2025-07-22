@@ -2,7 +2,7 @@ import { UpdateType } from "@/contexts/CartContext";
 import { DEFAULT_OPTION } from "@/lib/constants";
 import { CartItem } from "@/lib/shopify/types";
 import { createUrl, formatPrice } from "@/lib/utils";
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -91,12 +91,12 @@ const Item = ({
           />
         </Flex>
       </Flex>
-      <div style={{ marginTop: "auto", textAlign: "right" }}>
+      <Box mt="auto" ta="right">
         {formatPrice(
           item.cost.totalAmount.amount,
           item.cost.totalAmount.currencyCode
         )}
-      </div>
+      </Box>
       <IconButton
         Icon={IconTrash}
         onClick={handleRemove}

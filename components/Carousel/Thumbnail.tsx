@@ -1,28 +1,4 @@
-import styled from "styled-components";
-
-const ThumbnailButton = styled.div<{ selected: boolean }>`
-  flex: 0 0 60px;
-  height: 60px;
-  border: 2px solid
-    ${({ selected }) => (selected ? "var(--brand-color)" : "transparent")};
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  cursor: pointer;
-  background: none;
-  padding: 0;
-  transition: border-color 0.2s ease;
-
-  &:hover {
-    border-color: ${({ selected }) =>
-      selected ? "var(--color-primary)" : "transparent"};
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
+import { Box } from "@mantine/core";
 
 const Thumbnail: React.FC<{
   onClick: () => void;
@@ -30,9 +6,22 @@ const Thumbnail: React.FC<{
   children: React.ReactNode;
 }> = ({ onClick, selected, children }) => {
   return (
-    <ThumbnailButton selected={selected} onClick={onClick}>
+    <Box
+      onClick={onClick}
+      flex="0 0 60px"
+      h="60px"
+      bd={`2px solid ${selected ? "var(--brand-color)" : "transparent"}`}
+      bdrs=""
+      bg="none"
+      style={{
+        transition: "border-color 0.2s ease",
+        overflow: "hidden",
+        cursor: "pointer",
+        borderRadius: "var(--border-radius)",
+      }}
+    >
       {children}
-    </ThumbnailButton>
+    </Box>
   );
 };
 

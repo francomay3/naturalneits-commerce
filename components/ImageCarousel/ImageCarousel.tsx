@@ -1,33 +1,36 @@
 "use client";
 
-import { Modal } from "@mantine/core";
+import { Box, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
-import { styled } from "styled-components";
 import Carousel from "../Carousel/Carousel";
 import Zoom from "../Zoom";
-
-const Image = styled.div<{ src: string }>`
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1/1;
-  background-image: url(${({ src }) => src});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
 
 const ImageCarousel = ({
   srcs,
   style,
+  className,
 }: {
   srcs: string[];
   style?: React.CSSProperties;
+  className?: string;
 }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const images = srcs.map((src) => <Image src={src} />);
+  const images = srcs.map((src) => (
+    <Box
+      w="100%"
+      h="100%"
+      bgsz="cover"
+      bgp="center"
+      bgr="no-repeat"
+      style={{
+        aspectRatio: "1/1",
+        backgroundImage: `url(${src})`,
+      }}
+    />
+  ));
 
   const handleClick = (index: number) => {
     setSelectedIndex(index);
@@ -67,10 +70,21 @@ const ImageCarousel = ({
         }}
       >
         <Zoom>
-          <Image src={srcs[selectedIndex]!} />
+          <Box
+            h="100%"
+            w="100%"
+            bgsz="contain"
+            bgp="center"
+            bgr="no-repeat"
+            style={{
+              aspectRatio: "1/1",
+              backgroundImage: `url(${srcs[selectedIndex]!})`,
+            }}
+          />
         </Zoom>
       </Modal>
       <Carousel
+        className={className}
         options={{ loop: true }}
         slideWidth={100}
         gap={0}

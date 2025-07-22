@@ -1,26 +1,7 @@
 import { Flex } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import styled from "styled-components";
-
-const config = {
-  shouldForwardProp: (prop: string) => prop !== "active",
-};
-
-const PageItem = styled.li.withConfig(config)<{ active: boolean }>`
-  font-size: 18px;
-  padding-block: 20px;
-  border-bottom: 1px solid var(--brand-color);
-  text-transform: uppercase;
-  list-style: none;
-  font-weight: 600;
-  cursor: pointer;
-  color: ${({ active }) =>
-    active ? "var(--secondary-color)" : "var(--brand-color)"};
-  &:hover {
-    color: var(--secondary-color);
-  }
-`;
+import PageItem from "./PageItem";
 
 const PagesList = ({ closeSidebars }: { closeSidebars: () => void }) => {
   const pathname = usePathname();

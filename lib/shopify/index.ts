@@ -30,6 +30,7 @@ import { getPageQuery, getPagesQuery } from "./queries/page";
 import {
   getProductQuery,
   getProductRecommendationsQuery,
+  getProductsSimpleQuery,
 } from "./queries/product";
 import {
   Cart,
@@ -498,22 +499,16 @@ export async function getProducts({
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  try {
-    const res = await shopifyFetch<ShopifyProductsOperation>({
-      query: getProductsQuery,
-      variables: {
-        query,
-        reverse,
-        sortKey,
-      },
-    });
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getProductsSimpleQuery, // Use simplified query
+    variables: {
+      query,
+      reverse,
+      sortKey,
+    },
+  });
 
-    return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
-  } catch (error) {
-    // Invalidate cache on error to prevent caching failed responses
-    revalidateTag(TAGS.products);
-    throw error;
-  }
+  return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

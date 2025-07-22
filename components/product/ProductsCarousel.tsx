@@ -8,7 +8,7 @@ const ProductsCarousel = ({ products }: { products: Product[] }) => {
   return (
     <Carousel options={{ loop: true }} slideWidth={70} gap={15}>
       {products.map((product) => (
-        <ProductCard product={product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </Carousel>
   );

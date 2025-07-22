@@ -27,6 +27,10 @@
 
   --page-margin: 14px;
 
+  @media (min-width: 992px) {
+    --page-margin: 30px;
+  }
+
   *:not(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-family-texts);
     font-size: 15px;
@@ -48,10 +52,6 @@
   --mantine-h4-font-size: 26px;
   --mantine-h5-font-size: 21px;
   --mantine-h6-font-size: 17px;
-}
-
-section:not([class*="mantine-"]) {
-  padding: 35px;
 }
 
 main {
@@ -115,4 +115,10 @@ p:has(img) {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+dd,
+dt,
+dl {
+  margin: 0;
 }

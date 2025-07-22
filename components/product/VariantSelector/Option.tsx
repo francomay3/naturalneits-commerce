@@ -8,7 +8,7 @@ type OptionProps = {
 
 const Option = ({ option }: OptionProps) => {
   return (
-    <form key={option.id} style={{ marginBottom: 24 }}>
+    <form key={option.id}>
       <dl>
         <Title order={5} mb="8" component="dt">
           {option.name}

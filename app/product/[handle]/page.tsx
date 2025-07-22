@@ -1,13 +1,13 @@
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
-import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { Image } from "@/lib/shopify/types";
-import { Box, Flex, Title } from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct } from "lib/shopify";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import styles from "./style.module.css";
 
 // TODO: add support for color variants
 
@@ -75,7 +75,7 @@ export default async function ProductPage(props: {
 
   return (
     <ProductProvider product={product}>
-      <Flex direction="column" gap={16} py="30px" component="section">
+      <Box display="grid" className={styles.productPage} component="section">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -83,12 +83,13 @@ export default async function ProductPage(props: {
           }}
         />
 
-        <ImageCarousel
-          className=""
-          srcs={product.images.map((image: Image) => image.url)}
-        />
+        <Box className={styles.carousel}>
+          <ImageCarousel
+            srcs={product.images.map((image: Image) => image.url)}
+          />
+        </Box>
 
-        <Box p={{ base: "14", md: "30" }} pb="0" mb="60">
+        <Box className={styles.description}>
           <Title order={1} mb="18">
             {product.title}
           </Title>
@@ -97,10 +98,15 @@ export default async function ProductPage(props: {
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
           )}
+        </Box>
+        <Box className={styles.variantSelector}>
           <VariantSelector />
         </Box>
-        <RelatedProducts id={product.id} />
-      </Flex>
+        <Box className={styles.relatedProducts}>
+          {/* <RelatedProducts id={product.id} /> */}
+          hello
+        </Box>
+      </Box>
     </ProductProvider>
   );
 }

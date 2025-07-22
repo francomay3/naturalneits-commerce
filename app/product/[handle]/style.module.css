@@ -1,0 +1,47 @@
+.productPage {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  padding-block: 35px;
+
+  grid-template-areas:
+    "carousel           carousel"
+    "description        description"
+    "variant-selector   variant-selector"
+    "related-products   related-products";
+
+  @media (min-width: 992px) {
+    grid-template-areas:
+      "carousel           description"
+      "carousel           description"
+      "variant-selector   variant-selector"
+      "related-products   related-products";
+  }
+
+  @media (min-width: 992px) {
+    padding-inline: var(--page-margin);
+  }
+}
+
+.carousel {
+  grid-area: carousel;
+}
+
+.description {
+  grid-area: description;
+
+  padding-inline: var(--page-margin);
+}
+
+.variantSelector {
+  grid-area: variant-selector;
+
+  padding-inline: var(--page-margin);
+  @media (min-width: 992px) {
+    padding-inline: 0;
+    margin-top: 30px;
+  }
+}
+
+.relatedProducts {
+  grid-area: related-products;
+}

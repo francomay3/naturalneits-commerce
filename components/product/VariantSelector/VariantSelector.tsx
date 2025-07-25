@@ -1,12 +1,12 @@
 "use client";
 
-import { AddToCartButton } from "@/components/AddToCartButton";
 import { useProduct } from "@/contexts/ProductContext";
 import { formatPrice } from "@/lib/utils";
-import { Box, Flex, Text, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, Text, Title } from "@mantine/core";
+import AddToCart from "./AddToCart";
 import Option from "./Option";
 
-export function VariantSelector() {
+export function VariantSelector(props: BoxProps) {
   const { product, selectedVariant } = useProduct();
   const { options } = product;
 
@@ -26,32 +26,26 @@ export function VariantSelector() {
     : "";
 
   return (
-    <Box>
-      <Title
-        order={2}
-        mb="24"
-        ta={{ base: "start", md: "end" }}
-        mr={{ base: "0", md: "24" }}
-      >
+    <Box {...props}>
+      <Title order={2} mb="24" ta={{ base: "start" }} mr={{ base: "0" }}>
         Options
       </Title>
-      <Flex
-        ml="8"
-        gap="16"
-        wrap="wrap"
-        mb="24"
-        justify={{ base: "start", md: "end" }}
-      >
+      <Flex ml="8" gap="16" wrap="wrap" mb="50" justify={{ base: "start" }}>
         {options.map((option) => (
           <Option option={option} key={option.id} />
         ))}
       </Flex>
-      <Text fz="22px" fw="bold" mb="30px" ta="end">
-        {formattedPrice}
-      </Text>
-      {/* TODO: this button is not intuitive at all. fix the design. how should the add to cart UI look like? */}
-      {/* TODO: take inspiration from https://thoroughfaredesign.com/shop/art-prints/crossing-the-quiet */}
-      <AddToCartButton product={product} />
+      <Flex direction="column" align="end">
+        <Flex gap="4">
+          <Text fz="22px" fw="bold">
+            {formattedPrice}
+          </Text>
+          <Text fz="16px" fw="normal">
+            each
+          </Text>
+        </Flex>
+        <AddToCart />
+      </Flex>
     </Box>
   );
 }

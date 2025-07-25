@@ -73,7 +73,16 @@ function Carousel({
     return () => {
       window.removeEventListener("resize", updateWrapperWidth);
     };
-  }, []);
+  }, [childrenArray]);
+
+  useEffect(() => {
+    if (emblaMainApi) {
+      emblaMainApi.reInit();
+    }
+    if (emblaThumbnailsApi) {
+      emblaThumbnailsApi.reInit();
+    }
+  }, [childrenArray, emblaMainApi, emblaThumbnailsApi]);
 
   const gapInPixels = gap ? (wrapperWidth * gap) / 100 : 0;
   const slideWidthInPixels = slideWidth ? (wrapperWidth * slideWidth) / 100 : 0;

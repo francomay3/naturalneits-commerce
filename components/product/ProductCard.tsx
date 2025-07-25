@@ -5,7 +5,9 @@ import { ProductProvider } from "@/contexts/ProductContext";
 import { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 import { ActionIcon, Box, Flex, Text, Title } from "@mantine/core";
+import { useWindowScroll } from "@mantine/hooks";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
+import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "../AddToCartButton";
 
@@ -20,7 +22,10 @@ const useItemIsInCart = ({ product }: { product: Product }) => {
 };
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const [, scrollTo] = useWindowScroll();
+
   const imageUrl = product.featuredImage?.url;
+  const imageAlt = product.featuredImage?.altText || product.title;
   const title = product.title;
   const formattedPrice = formatPrice(
     product.priceRange.minVariantPrice.amount,
@@ -37,18 +42,34 @@ const ProductCard = ({ product }: { product: Product }) => {
     <ProductProvider product={product}>
       <Flex direction="column" w="100%">
         <Box pos="relative" mb="18">
-          <Link href={`/product/${product.handle}`} prefetch={true}>
+          <Link
+            href={`/product/${product.handle}`}
+            prefetch={true}
+            onClick={() => {
+              scrollTo({ y: 0 });
+            }}
+          >
             <Box
               w="100%"
-              bgsz="cover"
-              bgp="center"
+              pos="relative"
               style={{
-                backgroundImage: `url(${imageUrl ?? ""})`,
                 overflow: "hidden",
                 aspectRatio: "1/1",
               }}
               bdrs="var(--border-radius)"
-            ></Box>
+            >
+              {imageUrl && (
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+                  style={{ objectFit: "cover" }}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                />
+              )}
+            </Box>
           </Link>
           {itemIsInCart ? (
             <ActionIcon
@@ -65,7 +86,6 @@ const ProductCard = ({ product }: { product: Product }) => {
             </ActionIcon>
           ) : (
             <AddToCartButton
-              product={product}
               style={{
                 position: "absolute",
                 bottom: 5,

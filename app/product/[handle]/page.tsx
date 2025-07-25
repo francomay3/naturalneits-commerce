@@ -1,9 +1,10 @@
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
+import ProductDescription from "@/components/product/ProductDescription";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { VariantSelector } from "@/components/product/VariantSelector/VariantSelector";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { Image } from "@/lib/shopify/types";
-import { Box, Title } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct } from "lib/shopify";
 import type { Metadata } from "next";
@@ -84,28 +85,14 @@ export default async function ProductPage(props: {
           }}
         />
 
-        <Box className={styles.carousel}>
-          <ImageCarousel
-            srcs={product.images.map((image: Image) => image.url)}
-          />
-        </Box>
+        <ImageCarousel
+          className={styles.carousel}
+          srcs={product.images.map((image: Image) => image.url)}
+        />
 
-        <Box className={styles.description}>
-          <Title order={1} mb="18">
-            {product.title}
-          </Title>
-          {product.descriptionHtml && (
-            <Box
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            />
-          )}
-        </Box>
-        <Box className={styles.variantSelector}>
-          <VariantSelector />
-        </Box>
-        <Box className={styles.relatedProducts}>
-          <RelatedProducts id={product.id} />
-        </Box>
+        <ProductDescription className={styles.description} />
+        <VariantSelector className={styles.variantSelector} />
+        <RelatedProducts className={styles.relatedProducts} id={product.id} />
       </Box>
     </ProductProvider>
   );

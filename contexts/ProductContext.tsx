@@ -22,7 +22,7 @@ interface ProductContextType {
   product: Product;
   selectedVariant: ProductVariant | null;
   setSelectedVariant: (variant: ProductVariant | null) => void;
-  addToCart: () => void;
+  addToCart: (quantity?: number) => void;
   availableForSale: boolean;
 }
 
@@ -65,9 +65,9 @@ export function ProductProvider({ children, product }: ProductProviderProps) {
   );
   const { addCartItem } = useCart();
 
-  const addToCart = () => {
+  const addToCart = (quantity: number = 1) => {
     if (selectedVariant) {
-      addCartItem(selectedVariant, product);
+      addCartItem(selectedVariant, product, quantity);
     }
   };
 

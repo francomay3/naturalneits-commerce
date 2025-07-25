@@ -129,3 +129,17 @@ dt,
 dl {
   margin: 0;
 }
+
+.mantine-Container-root {
+  width: 100%;
+  max-width: 1200px;
+  padding-block: 15px;
+
+  @media (min-width: 992px) {
+    padding-block: 30px;
+  }
+}
+
+section:not(:last-child) {
+  margin-bottom: 50px;
+}

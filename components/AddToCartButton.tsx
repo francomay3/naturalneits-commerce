@@ -2,29 +2,24 @@
 
 import { useProduct } from "@/contexts/ProductContext";
 import { IconShoppingBagPlus } from "@tabler/icons-react";
-import { Product } from "lib/shopify/types";
 import IconButton from "./ui/IconButton";
 
-export function AddToCartButton({
-  product,
-  style,
-}: {
-  product: Product;
-  style?: React.CSSProperties;
-}) {
-  const { addToCart } = useProduct();
+export function AddToCartButton({ style }: { style?: React.CSSProperties }) {
+  const { product, addToCart } = useProduct();
   const { availableForSale } = product;
 
+  const handleAddToCart = () => {
+    addToCart(1);
+  };
+
   return (
-    <form action={addToCart}>
-      <IconButton
-        type="submit"
-        Icon={IconShoppingBagPlus}
-        variant="filled"
-        style={style}
-        disabled={!availableForSale}
-      />
-    </form>
+    <IconButton
+      onClick={handleAddToCart}
+      Icon={IconShoppingBagPlus}
+      variant="filled"
+      style={style}
+      disabled={!availableForSale}
+    />
   );
 }
 

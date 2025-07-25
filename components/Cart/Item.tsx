@@ -51,7 +51,7 @@ const Item = ({
 
   return (
     <Flex gap="15px" pos="relative">
-      <Link {...linkProps}>
+      <Link {...linkProps} prefetch={true}>
         <Image
           src={item.merchandise.product.featuredImage.url}
           alt={
@@ -66,6 +66,7 @@ const Item = ({
       <Flex direction="column" flex="1" gap="10px">
         <Link
           {...linkProps}
+          prefetch={true}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <span style={{ fontWeight: "500" }}>

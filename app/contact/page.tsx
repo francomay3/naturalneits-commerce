@@ -1,11 +1,11 @@
 "use client";
 
-// TODO: this was completely AI generated. I need to refactor it cause its kinda messy.
 // TODO: a Hero image would be nice here too
 
 import Button from "@/components/ui/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Flex, Text, Title } from "@mantine/core";
+import { Box, Flex, Text, TextInput, Textarea, Title } from "@mantine/core";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -101,169 +101,84 @@ const ContactPage = () => {
         </Box>
       )}
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-      >
-        {/* Honeypot field - hidden from users */}
-        <Box hidden>
-          <input
-            type="text"
+      <Flex gap="24px" w="100%">
+        <Box visibleFrom="md" style={{ flex: 1 }}>
+          <Image
+            src="/contact-image.png"
+            alt="Girl dress"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "cover",
+              borderRadius: "var(--border-radius)",
+            }}
+          />
+        </Box>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            padding: "12px",
+            border: `1px solid ${errors.name ? "hsl(0, 50%, 70%)" : "var(--background-color-darker)"}`,
+            borderRadius: "var(--border-radius)",
+            backgroundColor: "var(--background-color)",
+            flex: 3,
+          }}
+        >
+          {/* Honeypot field - hidden from users */}
+          <TextInput
+            hiddenFrom="xs"
             {...register("honeypot")}
             tabIndex={-1}
             autoComplete="off"
           />
-        </Box>
 
-        <Flex direction="column" gap="24px">
-          <Box>
-            <label
-              htmlFor="name"
-              style={{
-                display: "block",
-                fontSize: "14px",
-                fontWeight: "500",
-                color: "var(--font-color)",
-                marginBottom: "8px",
-              }}
-            >
-              Name *
-            </label>
-            <input
-              type="text"
-              id="name"
-              {...register("name")}
-              style={{
-                width: "100%",
-                padding: "12px",
-                border: `1px solid ${errors.name ? "hsl(0, 50%, 70%)" : "var(--secondary-background-color)"}`,
-                borderRadius: "var(--border-radius)",
-                backgroundColor: "var(--background-color)",
-                color: "var(--font-color)",
-                fontSize: "15px",
-              }}
-              placeholder="Your name"
-            />
-            {errors.name && (
-              <Text mt="4px" size="12px" color="hsl(0, 50%, 50%)">
-                {errors.name.message}
-              </Text>
-            )}
-          </Box>
+          <TextInput
+            label="Name *"
+            id="name"
+            {...register("name")}
+            placeholder="Your name"
+            error={Boolean(errors.name?.message)}
+          />
 
-          <Box>
-            <label
-              htmlFor="email"
-              style={{
-                display: "block",
-                fontSize: "14px",
-                fontWeight: "500",
-                color: "var(--font-color)",
-                marginBottom: "8px",
-              }}
-            >
-              Email *
-            </label>
-            <input
-              type="email"
-              id="email"
-              {...register("email")}
-              style={{
-                width: "100%",
-                padding: "12px",
-                border: `1px solid ${errors.email ? "hsl(0, 50%, 70%)" : "var(--secondary-background-color)"}`,
-                borderRadius: "var(--border-radius)",
-                backgroundColor: "var(--background-color)",
-                color: "var(--font-color)",
-                fontSize: "15px",
-              }}
-              placeholder="your.email@example.com"
-            />
-            {errors.email && (
-              <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
-                {errors.email.message}
-              </Text>
-            )}
-          </Box>
-        </Flex>
+          <TextInput
+            label="Email *"
+            type="email"
+            id="email"
+            {...register("email")}
+            placeholder="your.email@example.com"
+            error={Boolean(errors.email?.message)}
+          />
 
-        <Box>
-          <label
-            htmlFor="subject"
-            style={{
-              display: "block",
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "var(--font-color)",
-              marginBottom: "8px",
-            }}
-          >
-            Subject *
-          </label>
-          <input
-            type="text"
+          <TextInput
+            label="Subject *"
             id="subject"
             {...register("subject")}
-            style={{
-              width: "100%",
-              padding: "12px",
-              border: `1px solid ${errors.subject ? "hsl(0, 50%, 70%)" : "var(--secondary-background-color)"}`,
-              borderRadius: "var(--border-radius)",
-              backgroundColor: "var(--background-color)",
-              color: "var(--font-color)",
-              fontSize: "15px",
-            }}
             placeholder="What is this about?"
+            error={Boolean(errors.subject?.message)}
           />
-          {errors.subject && (
-            <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
-              {errors.subject.message}
-            </Text>
-          )}
-        </Box>
 
-        <Box>
-          <label
-            htmlFor="message"
-            style={{
-              display: "block",
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "var(--font-color)",
-              marginBottom: "8px",
-            }}
-          >
-            Message *
-          </label>
-          <textarea
+          <Textarea
+            label="Message *"
             id="message"
             rows={6}
             {...register("message")}
-            style={{
-              width: "100%",
-              padding: "12px",
-              border: `1px solid ${errors.message ? "hsl(0, 50%, 70%)" : "var(--secondary-background-color)"}`,
-              borderRadius: "var(--border-radius)",
-              backgroundColor: "var(--background-color)",
-              color: "var(--font-color)",
-              fontSize: "15px",
-              resize: "vertical",
-            }}
             placeholder="Tell us more about your inquiry..."
+            error={Boolean(errors.message?.message)}
           />
-          {errors.message && (
-            <Text mt="4px" fz="12px" c="hsl(0, 50%, 50%)">
-              {errors.message.message}
-            </Text>
-          )}
-        </Box>
 
-        <Flex justify="flex-end">
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </Button>
-        </Flex>
-      </form>
+          <Flex justify="flex-end">
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </Button>
+          </Flex>
+        </form>
+      </Flex>
     </section>
   );
 };

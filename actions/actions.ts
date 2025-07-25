@@ -14,14 +14,15 @@ import { redirect } from "next/navigation";
 
 export async function addItem(
   _prevState: unknown,
-  selectedVariantId: string | undefined,
+  payload: { selectedVariantId: string | undefined; quantity: number }
 ) {
+  const { selectedVariantId, quantity } = payload;
   if (!selectedVariantId) {
     return "Error adding item to cart";
   }
 
   try {
-    await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    await addToCart([{ merchandiseId: selectedVariantId, quantity }]);
     revalidateTag(TAGS.cart);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
@@ -38,7 +39,7 @@ export async function removeItem(_prevState: unknown, merchandiseId: string) {
     }
 
     const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId,
+      (line) => line.merchandise.id === merchandiseId
     );
 
     if (lineItem && lineItem.id) {
@@ -59,7 +60,7 @@ export async function updateItemQuantity(
   payload: {
     merchandiseId: string;
     quantity: number;
-  },
+  }
 ) {
   const { merchandiseId, quantity } = payload;
 
@@ -71,7 +72,7 @@ export async function updateItemQuantity(
     }
 
     const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId,
+      (line) => line.merchandise.id === merchandiseId
     );
 
     if (lineItem && lineItem.id) {

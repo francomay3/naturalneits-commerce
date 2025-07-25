@@ -11,7 +11,7 @@ const page = () => {
       <Flex gap="24px">
         <Box visibleFrom="md" style={{ flex: 1 }}>
           <Image
-            src="/about-image.png"
+            src="/about-image.webp"
             alt="Girl dress"
             width={0}
             height={0}

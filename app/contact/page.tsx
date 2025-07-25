@@ -104,7 +104,7 @@ const ContactPage = () => {
       <Flex gap="24px" w="100%">
         <Box visibleFrom="md" style={{ flex: 1 }}>
           <Image
-            src="/contact-image.png"
+            src="/contact-image.webp"
             alt="Girl dress"
             width={0}
             height={0}

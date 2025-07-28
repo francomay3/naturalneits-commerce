@@ -5,6 +5,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import Arrows from "./Arrows";
 import Thumbnail from "./Thumbnail";
 
+// TODO: replace with mantine carousel
+
 function Carousel({
   children,
   options,

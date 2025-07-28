@@ -2,18 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
-// Contact form validation schema (same as frontend)
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  honeypot: z.string().max(0, "Invalid submission detected"),
-});
+// Import environment validation to ensure all required variables are set
+import "lib/env-validation";
 
-// Simple in-memory rate limiting (for production, use Redis or similar)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
+// Rate limiting configuration
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
 const MAX_REQUESTS_PER_WINDOW = 5;
 
@@ -33,6 +25,18 @@ function checkRateLimit(ip: string): boolean {
   record.count++;
   return true;
 }
+
+// Contact form validation schema (same as frontend)
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  honeypot: z.string().max(0, "Invalid submission detected"),
+});
+
+// Simple in-memory rate limiting (for production, use Redis or similar)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
 export async function POST(request: NextRequest) {
   try {
@@ -65,8 +69,8 @@ export async function POST(request: NextRequest) {
 
     // Create transporter (configure with your email service)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT!),
       secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USER,

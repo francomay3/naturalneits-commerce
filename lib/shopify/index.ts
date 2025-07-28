@@ -78,45 +78,64 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
-  try {
-    const result = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": key,
-        ...headers,
-      },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables }),
-      }),
-    });
+  const maxRetries = 3;
+  const baseDelay = 1000; // 1 second
 
-    const body = await result.json();
-
-    if (body.errors) {
-      throw body.errors[0];
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    if (attempt > 1) {
+      console.info(`Retrying request (attempt ${attempt})...`);
     }
 
-    return {
-      status: result.status,
-      body,
-    };
-  } catch (e) {
-    if (isShopifyError(e)) {
-      throw {
-        cause: e.cause?.toString() || "unknown",
-        status: e.status || 500,
-        message: e.message,
-        query,
+    try {
+      const result = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": key,
+          ...headers,
+        },
+        body: JSON.stringify({
+          ...(query && { query }),
+          ...(variables && { variables }),
+        }),
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      });
+
+      const body = await result.json();
+
+      if (body.errors) {
+        throw body.errors[0];
+      }
+
+      return {
+        status: result.status,
+        body,
       };
-    }
+    } catch (e) {
+      if (attempt === maxRetries) {
+        console.error("Failed to fetch products:", e);
 
-    throw {
-      error: e,
-      query,
-    };
+        if (isShopifyError(e)) {
+          throw {
+            cause: e.cause?.toString() || "unknown",
+            status: e.status || 500,
+            message: e.message,
+            query,
+          };
+        }
+        throw {
+          error: e,
+          query,
+        };
+      }
+
+      // Wait before retrying with exponential backoff
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
   }
+
+  throw new Error("Unexpected end of shopifyFetch function");
 }
 
 const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
@@ -455,6 +474,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 
     return reshapeProduct(res.body.data.product, false);
   } catch (error) {
+    console.error("Failed to fetch product:", error);
     // Invalidate cache on error to prevent caching failed responses
     revalidateTag(TAGS.products);
     throw error;
@@ -479,12 +499,62 @@ export async function getProductRecommendations(
 
     return reshapeProducts(res.body.data.productRecommendations);
   } catch (error) {
+    console.error("Failed to fetch product recommendations:", error);
     // Invalidate cache on error to prevent caching failed responses
     revalidateTag(TAGS.products);
     throw error;
   }
 }
 
+/**
+ * Fetches products from Shopify with optional filtering, sorting, and pagination.
+ *
+ * This function retrieves products from your Shopify store using the Storefront API.
+ * The results are cached for performance and automatically revalidated when products are updated.
+ *
+ * @param options - Optional configuration options for fetching products
+ * @param options.query - Optional search query to filter products by title, description, or tags
+ * @param options.reverse - Whether to reverse the sort order (default: false)
+ * @param options.sortKey - Sort key for ordering products. Available options:
+ *   - 'TITLE' - Sort by product title alphabetically
+ *   - 'CREATED_AT' - Sort by creation date (newest first)
+ *   - 'UPDATED_AT' - Sort by last update date
+ *   - 'PRICE' - Sort by price (low to high)
+ *   - 'ID' - Sort by product ID
+ *   - 'MANUAL' - Sort by manual order (if set in Shopify admin)
+ *   - 'COLLECTION_DEFAULT' - Use collection's default sort order
+ *   - 'RELEVANCE' - Sort by relevance (when using search query)
+ *
+ * @returns Promise that resolves to an array of Product objects
+ *
+ * @example
+ * // Get all products
+ * const allProducts = await getProducts();
+ *
+ * @example
+ * // Search for products containing "shirt"
+ * const shirts = await getProducts({ query: "shirt" });
+ *
+ * @example
+ * // Get products sorted by price (low to high)
+ * const productsByPrice = await getProducts({
+ *   sortKey: "PRICE",
+ *   reverse: false
+ * });
+ *
+ * @example
+ * // Get newest products first
+ * const newestProducts = await getProducts({
+ *   sortKey: "CREATED_AT",
+ *   reverse: true
+ * });
+ *
+ * @throws {Error} When the Shopify API request fails
+ *
+ * @see {@link Product} - For the structure of returned product objects
+ * @see {@link getProduct} - For fetching a single product by handle
+ * @see {@link getCollectionProducts} - For fetching products from a specific collection
+ */
 export async function getProducts({
   query,
   reverse,
@@ -493,22 +563,28 @@ export async function getProducts({
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
-  // Re-enable caching with the working simplified query
+} = {}): Promise<Product[]> {
   "use cache";
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsSimpleQuery, // Use simplified query
-    variables: {
-      query,
-      reverse,
-      sortKey,
-    },
-  });
+  try {
+    const res = await shopifyFetch<ShopifyProductsOperation>({
+      query: getProductsSimpleQuery,
+      variables: {
+        query,
+        reverse,
+        sortKey,
+      },
+    });
 
-  return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
+    return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    // Invalidate cache on error to prevent caching failed responses
+    revalidateTag(TAGS.products);
+    throw error;
+  }
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

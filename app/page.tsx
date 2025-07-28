@@ -1,6 +1,9 @@
 import ProductCard from "@/components/product/ProductCard";
 import { getProducts } from "@/lib/shopify";
 import { SimpleGrid } from "@mantine/core";
+import "lib/env-validation";
+
+// TODO: i lost the smtp password. without it, the contact form doesnt work. get a new one!
 
 export const metadata = {
   description:
@@ -12,10 +15,7 @@ export const metadata = {
 
 export default async function HomePage() {
   // Get all products with default sorting
-  const products = await getProducts({
-    sortKey: "CREATED_AT",
-    reverse: false,
-  });
+  const products = await getProducts();
 
   // Or with search query
   // const products = await getProducts({

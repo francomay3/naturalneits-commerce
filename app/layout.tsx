@@ -14,6 +14,9 @@ import { Gilda_Display, Karla } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
 
+// Import environment validation to ensure all required variables are set
+import "lib/env-validation";
+
 // TODO: there is no 404 page. create one.
 // TODO: I think that when there is an API error and we get the "Oh no! There was an issue with our storefront..." message, the broken page still gets cached. I need to fix this.
 

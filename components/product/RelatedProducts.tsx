@@ -2,6 +2,8 @@ import { getProductRecommendations } from "@/lib/shopify";
 import { BoxProps, Flex, Title } from "@mantine/core";
 import ProductsCarousel from "./ProductsCarousel";
 
+// TODO. after replacing the carousel with mantine carousel, this should show several products on desktop, and only one in mobile.
+
 export async function RelatedProducts({
   id,
   ...boxProps

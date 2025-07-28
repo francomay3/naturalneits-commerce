@@ -1,13 +1,12 @@
 "use client";
 
 import { useProduct } from "@/contexts/ProductContext";
-import { formatPrice } from "@/lib/utils";
-import { Box, BoxProps, Flex, Text, Title } from "@mantine/core";
+import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import AddToCart from "./AddToCart";
 import Option from "./Option";
 
 export function VariantSelector(props: BoxProps) {
-  const { product, selectedVariant } = useProduct();
+  const { product } = useProduct();
   const { options } = product;
 
   const hasNoOptionsOrJustOneOption =
@@ -17,13 +16,6 @@ export function VariantSelector(props: BoxProps) {
   if (hasNoOptionsOrJustOneOption) {
     return null;
   }
-
-  const formattedPrice = selectedVariant
-    ? formatPrice(
-        selectedVariant?.price.amount,
-        selectedVariant?.price.currencyCode
-      )
-    : "";
 
   return (
     <Box {...props}>
@@ -35,17 +27,8 @@ export function VariantSelector(props: BoxProps) {
           <Option option={option} key={option.id} />
         ))}
       </Flex>
-      <Flex direction="column" align="end">
-        <Flex gap="4">
-          <Text fz="22px" fw="bold">
-            {formattedPrice}
-          </Text>
-          <Text fz="16px" fw="normal">
-            each
-          </Text>
-        </Flex>
-        <AddToCart />
-      </Flex>
+
+      <AddToCart />
     </Box>
   );
 }

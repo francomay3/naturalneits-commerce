@@ -1,6 +1,38 @@
 import productFragment from "../fragments/product";
 import productSimpleFragment from "../fragments/product-simple";
 
+export const testQuery = /* GraphQL */ `
+  query test {
+    products(first: 100) {
+      edges {
+        node {
+          handle
+          totalInventory
+          variants(first: 250) {
+            edges {
+              node {
+                id
+                title
+                availableForSale
+                currentlyNotInStock
+                quantityAvailable
+                selectedOptions {
+                  name
+                  value
+                }
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getProductsSimpleQuery = /* GraphQL */ `
   query getProductsSimple(
     $sortKey: ProductSortKeys

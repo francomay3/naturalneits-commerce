@@ -82,10 +82,6 @@ export async function shopifyFetch<T>({
   const baseDelay = 1000; // 1 second
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    if (attempt > 1) {
-      console.info(`Retrying request (attempt ${attempt})...`);
-    }
-
     try {
       const result = await fetch(endpoint, {
         method: "POST",
@@ -113,8 +109,6 @@ export async function shopifyFetch<T>({
       };
     } catch (e) {
       if (attempt === maxRetries) {
-        console.error("Failed to fetch products:", e);
-
         if (isShopifyError(e)) {
           throw {
             cause: e.cause?.toString() || "unknown",

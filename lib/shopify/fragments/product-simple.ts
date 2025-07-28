@@ -21,6 +21,8 @@ const productSimpleFragment = /* GraphQL */ `
           id
           title
           availableForSale
+          currentlyNotInStock
+          quantityAvailable
           selectedOptions {
             name
             value

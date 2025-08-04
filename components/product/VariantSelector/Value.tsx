@@ -1,7 +1,6 @@
-import Button from "@/components/ui/Button";
 import { useProduct } from "@/contexts/ProductContext";
 import { Product, ProductOption, ProductVariant } from "@/lib/shopify/types";
-import { Tooltip } from "@mantine/core";
+import { Button, Tooltip } from "@mantine/core";
 
 type ValueProps = {
   option: ProductOption;
@@ -78,7 +77,7 @@ const Value = ({ option, value }: ValueProps) => {
   const tooltipText = getTooltipText(variantForThisValue, option, value);
 
   return (
-    <Tooltip label={tooltipText} openDelay={500} closeDelay={100}>
+    <Tooltip label={tooltipText}>
       <Button
         formAction={() => setSelectedVariant(variantForThisValue || null)}
         aria-disabled={!variantForThisValue?.availableForSale}

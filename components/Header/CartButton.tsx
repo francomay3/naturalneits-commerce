@@ -1,6 +1,5 @@
-import IconButton from "@/components/ui/IconButton";
 import { useCart } from "@/contexts/CartContext";
-import { Badge, Box } from "@mantine/core";
+import { ActionIcon, Badge, Box } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconShoppingBag, IconShoppingBagPlus } from "@tabler/icons-react";
 import { useEffect, useRef } from "react";
@@ -32,7 +31,9 @@ const CartButton = ({ onCartClick }: { onCartClick: () => void }) => {
 
   return (
     <Box pos="relative">
-      <IconButton Icon={IconShoppingBag} onClick={onCartClick} />
+      <ActionIcon variant="subtle" onClick={onCartClick}>
+        <IconShoppingBag size={20} stroke={1.5} />
+      </ActionIcon>
       {itemCount > 0 && (
         <Badge
           pos="absolute"

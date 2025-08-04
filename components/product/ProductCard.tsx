@@ -8,8 +8,8 @@ import { ActionIcon, Box, Flex, Text, Title } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { IconShoppingBagCheck } from "@tabler/icons-react";
 import Image from "next/image";
-import Link from "next/link";
 import AddToCartButton from "../AddToCartButton";
+import Link from "../ui/Link";
 
 const useItemIsInCart = ({ product }: { product: Product }) => {
   const { cart } = useCart();
@@ -44,7 +44,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <Box pos="relative" mb="18">
           <Link
             href={`/product/${product.handle}`}
-            prefetch={true}
+            prefetch
             onClick={() => {
               scrollTo({ y: 0 });
             }}
@@ -94,11 +94,11 @@ const ProductCard = ({ product }: { product: Product }) => {
             />
           )}
         </Box>
-        <Link href={`/product/${product.handle}`} prefetch={true}>
+        <Link href={`/product/${product.handle}`} prefetch>
           <Title order={5} mb="8" ta="center">
             {title}
           </Title>
-          <Text ta="center">
+          <Text ta="center" c="var(--mantine-color-black)">
             {hasMultiplePrices ? "from " : ""}
             {formattedPrice}
           </Text>

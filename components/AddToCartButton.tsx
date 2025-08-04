@@ -1,8 +1,8 @@
 "use client";
 
 import { useProduct } from "@/contexts/ProductContext";
+import { ActionIcon } from "@mantine/core";
 import { IconShoppingBagPlus } from "@tabler/icons-react";
-import IconButton from "./ui/IconButton";
 
 export function AddToCartButton({ style }: { style?: React.CSSProperties }) {
   const { product, addToCart } = useProduct();
@@ -13,13 +13,14 @@ export function AddToCartButton({ style }: { style?: React.CSSProperties }) {
   };
 
   return (
-    <IconButton
+    <ActionIcon
       onClick={handleAddToCart}
-      Icon={IconShoppingBagPlus}
       variant="filled"
       style={style}
       disabled={!availableForSale}
-    />
+    >
+      <IconShoppingBagPlus size={20} />
+    </ActionIcon>
   );
 }
 

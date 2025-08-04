@@ -1,7 +1,7 @@
 import { ROUTES } from "@/lib/constants";
 import { Flex } from "@mantine/core";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Link from "../ui/Link";
 import PageItem from "./PageItem";
 
 const PagesList = ({ closeSidebars }: { closeSidebars: () => void }) => {

@@ -247,7 +247,7 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-const reshapeProductsSimple = (products: any[]) => {
+const reshapeProductsSimple = (products: ShopifyProduct[]) => {
   const reshapedProducts = [];
 
   for (const product of products) {

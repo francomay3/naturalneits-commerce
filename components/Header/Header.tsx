@@ -1,9 +1,8 @@
-import IconButton from "@/components/ui/IconButton";
 import { HEADER_HEIGHT } from "@/lib/constants";
-import { Flex } from "@mantine/core";
+import { ActionIcon, Flex } from "@mantine/core";
 import { IconMenu, IconX } from "@tabler/icons-react";
-import Link from "next/link";
 import Logo from "../Logo";
+import Link from "../ui/Link";
 import CartButton from "./CartButton";
 import HeaderLinks from "./HeaderLinks";
 
@@ -27,20 +26,18 @@ export default function Header({
       align="center"
       h="100%"
       pos="relative"
-      bg="var(--background-color)"
+      bg="var(--mantine-color-neutral-1)"
       style={{
         transition: "opacity 0.2s ease",
       }}
     >
-      <IconButton
-        Icon={navbarOpened ? IconX : IconMenu}
-        onClick={onBurgerClick}
-        hiddenFrom="sm"
-      />
+      <ActionIcon variant="subtle" onClick={onBurgerClick} hiddenFrom="sm">
+        {navbarOpened ? <IconX size={20} /> : <IconMenu size={20} />}
+      </ActionIcon>
       <HeaderLinks visibleFrom="sm" />
       <Link
         href="/"
-        prefetch={true}
+        prefetch
         style={{
           position: "absolute",
           left: "50%",

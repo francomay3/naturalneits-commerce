@@ -1,8 +1,7 @@
-import Button from "@/components/ui/Button";
 import { useProduct } from "@/contexts/ProductContext";
 import { ProductVariant } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
-import { Flex, NumberInput, Text } from "@mantine/core";
+import { Button, Flex, NumberInput, Text } from "@mantine/core";
 import { IconShoppingBagPlus } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
@@ -73,7 +72,7 @@ const AddToCart = () => {
     : "";
 
   return (
-    <Flex direction="column" align="end">
+    <Flex direction="column" align="end" gap="10">
       <Flex gap="4">
         <Text fz="22px" fw="bold">
           {totalFormattedPrice}
@@ -103,9 +102,7 @@ const AddToCart = () => {
               letterSpacing: "1.3px",
             },
           }}
-          rightSection={
-            <IconShoppingBagPlus color="var(--background-color)" size={20} />
-          }
+          rightSection={<IconShoppingBagPlus size={20} />}
         >
           ADD TO CART
         </Button>

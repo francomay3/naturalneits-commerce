@@ -2,7 +2,7 @@
 
 import { ROUTES } from "@/lib/constants";
 import { BoxProps, Flex } from "@mantine/core";
-import Link from "next/link";
+import Link from "../ui/Link";
 
 const HeaderLinks = (props: BoxProps) => {
   return (

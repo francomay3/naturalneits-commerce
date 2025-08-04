@@ -2,13 +2,11 @@
 
 import { createCartAndSetCookie, redirectToCheckout } from "@/actions/actions";
 import Separator from "@/components/Separator";
-import IconButton from "@/components/ui/IconButton";
 import { useCart } from "@/contexts/CartContext";
-import { Flex, Text, Title } from "@mantine/core";
+import { ActionIcon, Button, Flex, Text, Title } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import Button from "../ui/Button";
 import ItemsList from "./ItemsList";
 import Subtotal from "./Subtotal";
 
@@ -39,15 +37,15 @@ const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
       }}
       className="hide-scrollbar"
     >
-      <IconButton
+      <ActionIcon
         onClick={toggleCart}
-        Icon={IconX}
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-        }}
-      />
+        variant="subtle"
+        pos="absolute"
+        right="0"
+        top="0"
+      >
+        <IconX size={20} />
+      </ActionIcon>
       <Title order={3}>Cart ({cart?.totalQuantity || 0})</Title>
       <Separator />
       <ItemsList toggleCart={toggleCart} />
@@ -68,15 +66,12 @@ function CheckoutButton() {
 
   return (
     <Button
-      secondary
+      color="var(--mantine-color-secondary-filled)"
       type="submit"
       disabled={pending}
-      style={{
-        paddingInline: "40px",
-        marginTop: "20px",
-      }}
+      mt="20"
     >
-      {pending ? "Processing..." : "Checkout"}
+      {pending ? "Processing..." : "CHECKOUT"}
     </Button>
   );
 }

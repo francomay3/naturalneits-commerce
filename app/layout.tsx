@@ -2,42 +2,25 @@ import AppShellWrapper from "@/components/AppShellWrapper";
 import { CartProvider } from "@/contexts/CartContext";
 import {
   ColorSchemeScript,
-  MantineProvider,
   mantineHtmlProps,
+  MantineProvider,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
-import { Gilda_Display, Karla } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
 
 // Import environment validation to ensure all required variables are set
 import "lib/env-validation";
+import theme from "./theme";
 
 // TODO: there is no 404 page. create one.
 // TODO: I think that when there is an API error and we get the "Oh no! There was an issue with our storefront..." message, the broken page still gets cached. I need to fix this.
 
 const { SITE_NAME } = process.env;
-
-// Initialize Google Fonts
-const karla = Karla({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-family-texts",
-  style: ["normal"],
-  weight: ["400"],
-  fallback: ["sans-serif"],
-});
-
-const gildaDisplay = Gilda_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-family-titles",
-  weight: "400",
-});
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
@@ -60,11 +43,7 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html
-      lang="en"
-      {...mantineHtmlProps}
-      className={`${karla.variable} ${gildaDisplay.variable}`}
-    >
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
         <meta
@@ -72,8 +51,8 @@ export default async function RootLayout({
           content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
         />
       </head>
-      <body className={`${karla.className} ${gildaDisplay.className}`}>
-        <MantineProvider>
+      <body>
+        <MantineProvider theme={theme}>
           <Notifications />
           <CartProvider cartPromise={cart}>
             <AppShellWrapper>{children}</AppShellWrapper>

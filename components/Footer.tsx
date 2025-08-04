@@ -1,21 +1,20 @@
 import { BORDER_COLOR } from "@/lib/constants";
-import { Box, Flex } from "@mantine/core";
+import { ActionIcon, Box, Flex } from "@mantine/core";
 import {
   IconBrandGithubFilled,
   IconBrandLinkedinFilled,
   IconExternalLink,
 } from "@tabler/icons-react";
-import Link from "next/link";
 import Logo from "./Logo";
 import Separator from "./Separator";
-import IconButton from "./ui/IconButton";
+import Link from "./ui/Link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   return (
     <Flex
       component="footer"
-      bg="var(--background-color)"
+      bg="var(--mantine-color-neutral-1)"
       direction="column"
       align="center"
       justify="center"
@@ -32,10 +31,14 @@ export default function Footer() {
       <Flex align="center">
         Web development by Franco May
         <Link href="https://www.linkedin.com/in/francomay/" target="_blank">
-          <IconButton Icon={IconBrandLinkedinFilled} size={32} />
+          <ActionIcon variant="subtle">
+            <IconBrandLinkedinFilled size={32} />
+          </ActionIcon>
         </Link>
         <Link href="https://github.com/francomay3/" target="_blank">
-          <IconButton Icon={IconBrandGithubFilled} size={32} />
+          <ActionIcon variant="subtle">
+            <IconBrandGithubFilled size={32} />
+          </ActionIcon>
         </Link>
       </Flex>
       <Box>

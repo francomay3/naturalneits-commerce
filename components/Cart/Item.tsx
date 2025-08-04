@@ -2,11 +2,10 @@ import { UpdateType } from "@/contexts/CartContext";
 import { DEFAULT_OPTION } from "@/lib/constants";
 import { CartItem } from "@/lib/shopify/types";
 import { createUrl, formatPrice } from "@/lib/utils";
-import { Box, Flex } from "@mantine/core";
+import { ActionIcon, Box, Flex } from "@mantine/core";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
-import Link from "next/link";
-import IconButton from "../ui/IconButton";
+import Link from "../ui/Link";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -51,7 +50,7 @@ const Item = ({
 
   return (
     <Flex gap="15px" pos="relative">
-      <Link {...linkProps} prefetch={true}>
+      <Link {...linkProps} prefetch>
         <Image
           src={item.merchandise.product.featuredImage.url}
           alt={
@@ -66,7 +65,7 @@ const Item = ({
       <Flex direction="column" flex="1" gap="10px">
         <Link
           {...linkProps}
-          prefetch={true}
+          prefetch
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <span style={{ fontWeight: "500" }}>
@@ -81,15 +80,19 @@ const Item = ({
           </span>
         )}
         <Flex gap="10px" align="center">
-          <IconButton
-            Icon={IconMinus}
+          <ActionIcon
+            variant="filled"
             onClick={() => handleQuantityUpdate("minus")}
-          />
+          >
+            <IconMinus size={20} />
+          </ActionIcon>
           <span>{item.quantity}</span>
-          <IconButton
-            Icon={IconPlus}
+          <ActionIcon
+            variant="filled"
             onClick={() => handleQuantityUpdate("plus")}
-          />
+          >
+            <IconPlus size={20} />
+          </ActionIcon>
         </Flex>
       </Flex>
       <Box mt="auto" ta="right">
@@ -98,11 +101,13 @@ const Item = ({
           item.cost.totalAmount.currencyCode
         )}
       </Box>
-      <IconButton
-        Icon={IconTrash}
+      <ActionIcon
+        variant="filled"
         onClick={handleRemove}
         style={{ position: "absolute", right: -14, top: -14 }}
-      />
+      >
+        <IconTrash size={20} />
+      </ActionIcon>
     </Flex>
   );
 };

@@ -1,7 +1,6 @@
-import { Flex } from "@mantine/core";
+import { ActionIcon, Flex } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { EmblaCarouselType } from "embla-carousel";
-import IconButton from "../ui/IconButton";
 
 const Arrows = ({ emblaMainApi }: { emblaMainApi: EmblaCarouselType }) => (
   <Flex
@@ -12,16 +11,12 @@ const Arrows = ({ emblaMainApi }: { emblaMainApi: EmblaCarouselType }) => (
     w="100%"
     px="8"
   >
-    <IconButton
-      Icon={IconChevronLeft}
-      variant="filled"
-      onClick={() => emblaMainApi.scrollPrev()}
-    />
-    <IconButton
-      Icon={IconChevronRight}
-      variant="filled"
-      onClick={() => emblaMainApi.scrollNext()}
-    />
+    <ActionIcon variant="filled" onClick={() => emblaMainApi.scrollPrev()}>
+      <IconChevronLeft size={20} />
+    </ActionIcon>
+    <ActionIcon variant="filled" onClick={() => emblaMainApi.scrollNext()}>
+      <IconChevronRight size={20} />
+    </ActionIcon>
   </Flex>
 );
 

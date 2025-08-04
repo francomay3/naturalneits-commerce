@@ -6,7 +6,7 @@ export const metadata = {
   description: "The page you're looking for doesn't exist.",
 };
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <Box ta="center" py="xl" component="section">
       <Title order={1} mb="20" ta="center">
@@ -38,4 +38,6 @@ export default function NotFound() {
       </Flex>
     </Box>
   );
-}
+};
+
+export default NotFound;

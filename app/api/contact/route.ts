@@ -83,9 +83,8 @@ export async function POST(request: NextRequest) {
       from: process.env.SMTP_USER,
       to: process.env.SMTP_USER,
       subject: `Contact from Naturalneits: ${subject}`,
-      // TODO: pass correct class name to p
       html: `
-        <h2 class="mantine-Title-root" data-order="2">New Contact Form Submission</h2>
+        <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Subject:</strong> ${subject}</p>

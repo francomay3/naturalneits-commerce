@@ -17,8 +17,6 @@ import "./globals.css";
 import "lib/env-validation";
 import theme from "./theme";
 
-// TODO: I think that when there is an API error and we get the "Oh no! There was an issue with our storefront..." message, the broken page still gets cached. I need to fix this.
-
 const { SITE_NAME } = process.env;
 
 export const metadata = {

@@ -17,7 +17,6 @@ import "./globals.css";
 import "lib/env-validation";
 import theme from "./theme";
 
-// TODO: there is no 404 page. create one.
 // TODO: I think that when there is an API error and we get the "Oh no! There was an issue with our storefront..." message, the broken page still gets cached. I need to fix this.
 
 const { SITE_NAME } = process.env;

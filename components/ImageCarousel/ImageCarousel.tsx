@@ -104,6 +104,8 @@ const ImageCarousel = ({
       <Carousel
         style={style}
         className={className}
+        withIndicators={srcs.length > 1}
+        withControls={srcs.length > 1}
         styles={{
           ...(theme.components?.Carousel?.defaultProps?.styles || {}),
           root: {

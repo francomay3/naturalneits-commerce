@@ -54,8 +54,6 @@ const ImageCarousel = ({
     open();
   };
 
-  console.log(theme);
-
   return (
     <>
       <Modal

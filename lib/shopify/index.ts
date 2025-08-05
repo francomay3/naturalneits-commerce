@@ -65,23 +65,6 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
-// Log environment variables during build for debugging
-if (
-  process.env.NODE_ENV === "production" ||
-  process.env.NEXT_PHASE === "phase-production-build"
-) {
-  console.log("=== Shopify Environment Variables Debug ===");
-  console.log("SHOPIFY_STORE_DOMAIN:", process.env.SHOPIFY_STORE_DOMAIN);
-  console.log(
-    "SHOPIFY_STOREFRONT_ACCESS_TOKEN:",
-    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN ? "SET" : "NOT SET"
-  );
-  console.log("SHOPIFY_GRAPHQL_API_ENDPOINT:", SHOPIFY_GRAPHQL_API_ENDPOINT);
-  console.log("Constructed domain:", domain);
-  console.log("Full endpoint:", endpoint);
-  console.log("==========================================");
-}
-
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
   : never;
@@ -97,18 +80,6 @@ export async function shopifyFetch<T>({
 }): Promise<{ status: number; body: T } | never> {
   const maxRetries = 3;
   const baseDelay = 1000; // 1 second
-
-  // Log API call details during build
-  if (
-    process.env.NODE_ENV === "production" ||
-    process.env.NEXT_PHASE === "phase-production-build"
-  ) {
-    console.log("=== Shopify API Call Debug ===");
-    console.log("Endpoint:", endpoint);
-    console.log("Query length:", query.length);
-    console.log("Variables:", variables);
-    console.log("=============================");
-  }
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     if (attempt > 1) {

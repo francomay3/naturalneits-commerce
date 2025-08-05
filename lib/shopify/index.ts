@@ -65,6 +65,23 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
+// Log environment variables during build for debugging
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NEXT_PHASE === "phase-production-build"
+) {
+  console.log("=== Shopify Environment Variables Debug ===");
+  console.log("SHOPIFY_STORE_DOMAIN:", process.env.SHOPIFY_STORE_DOMAIN);
+  console.log(
+    "SHOPIFY_STOREFRONT_ACCESS_TOKEN:",
+    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN ? "SET" : "NOT SET"
+  );
+  console.log("SHOPIFY_GRAPHQL_API_ENDPOINT:", SHOPIFY_GRAPHQL_API_ENDPOINT);
+  console.log("Constructed domain:", domain);
+  console.log("Full endpoint:", endpoint);
+  console.log("==========================================");
+}
+
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
   : never;
@@ -81,7 +98,23 @@ export async function shopifyFetch<T>({
   const maxRetries = 3;
   const baseDelay = 1000; // 1 second
 
+  // Log API call details during build
+  if (
+    process.env.NODE_ENV === "production" ||
+    process.env.NEXT_PHASE === "phase-production-build"
+  ) {
+    console.log("=== Shopify API Call Debug ===");
+    console.log("Endpoint:", endpoint);
+    console.log("Query length:", query.length);
+    console.log("Variables:", variables);
+    console.log("=============================");
+  }
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    if (attempt > 1) {
+      console.info(`Retrying request (attempt ${attempt})...`);
+    }
+
     try {
       const result = await fetch(endpoint, {
         method: "POST",
@@ -91,8 +124,8 @@ export async function shopifyFetch<T>({
           ...headers,
         },
         body: JSON.stringify({
-          ...(query && { query }),
-          ...(variables && { variables }),
+          query,
+          ...(variables && Object.keys(variables).length > 0 && { variables }),
         }),
         signal: AbortSignal.timeout(10000), // 10 second timeout
       });
@@ -109,6 +142,8 @@ export async function shopifyFetch<T>({
       };
     } catch (e) {
       if (attempt === maxRetries) {
+        console.error("Failed to fetch products:", e);
+
         if (isShopifyError(e)) {
           throw {
             cause: e.cause?.toString() || "unknown",
@@ -548,16 +583,38 @@ export async function getProducts({
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsSimpleQuery,
-    variables: {
-      query,
-      reverse,
-      sortKey,
-    },
-  });
+  try {
+    // Only include variables that are actually defined
+    const variables: any = {};
+    if (query !== undefined) variables.query = query;
+    if (reverse !== undefined) variables.reverse = reverse;
+    if (sortKey !== undefined) variables.sortKey = sortKey;
 
-  return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
+    const res = await shopifyFetch<ShopifyProductsOperation>({
+      query: getProductsSimpleQuery,
+      variables: Object.keys(variables).length > 0 ? variables : undefined,
+    });
+
+    return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
+  } catch (error) {
+    console.error("Failed to fetch products from Shopify:", error);
+
+    // During build time, return empty array to prevent build failures
+    // This allows the site to build even if Shopify is temporarily unavailable
+    if (
+      process.env.NODE_ENV === "production" ||
+      process.env.NEXT_PHASE === "phase-production-build"
+    ) {
+      console.warn(
+        "Returning empty products array due to Shopify API error during build"
+      );
+      return [];
+    }
+
+    // Invalidate cache on error to prevent caching failed responses
+    revalidateTag(TAGS.products);
+    throw error;
+  }
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

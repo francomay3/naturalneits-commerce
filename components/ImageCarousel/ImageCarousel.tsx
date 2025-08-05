@@ -1,10 +1,10 @@
 "use client";
 
+import { Carousel } from "@mantine/carousel";
 import { Box, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Carousel from "../Carousel/Carousel";
 import Zoom from "../Zoom";
 
 const ImageCarousel = ({
@@ -25,14 +25,15 @@ const ImageCarousel = ({
   }, [srcs]);
 
   const images = srcs.map((src, index) => (
-    <Box
-      key={index}
+    <Carousel.Slide
+      key={src}
       w="100%"
       h="100%"
       pos="relative"
       style={{
         aspectRatio: "1/1",
       }}
+      onClick={() => handleClick(index)}
     >
       <Image
         src={src}
@@ -44,7 +45,7 @@ const ImageCarousel = ({
         placeholder="blur"
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
       />
-    </Box>
+    </Carousel.Slide>
   ));
 
   const handleClick = (index: number) => {
@@ -85,14 +86,7 @@ const ImageCarousel = ({
         }}
       >
         <Zoom>
-          <Box
-            h="100%"
-            w="100%"
-            pos="relative"
-            style={{
-              aspectRatio: "1/1",
-            }}
-          >
+          <Box h="100%" w="100%" pos="relative">
             <Image
               src={srcs[selectedIndex]!}
               alt={`Product image ${selectedIndex + 1} - Full view`}
@@ -104,17 +98,7 @@ const ImageCarousel = ({
           </Box>
         </Zoom>
       </Modal>
-      <Carousel
-        key={srcs[0]} // Force complete re-render when product changes
-        className={className}
-        options={{ loop: true }}
-        slideWidth={100}
-        gap={0}
-        thumbnails
-        style={style}
-        onClick={handleClick}
-        arrows
-      >
+      <Carousel style={style} className={className}>
         {images}
       </Carousel>
     </>

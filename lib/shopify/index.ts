@@ -458,21 +458,14 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  try {
-    const res = await shopifyFetch<ShopifyProductOperation>({
-      query: getProductQuery,
-      variables: {
-        handle,
-      },
-    });
+  const res = await shopifyFetch<ShopifyProductOperation>({
+    query: getProductQuery,
+    variables: {
+      handle,
+    },
+  });
 
-    return reshapeProduct(res.body.data.product, false);
-  } catch (error) {
-    console.error("Failed to fetch product:", error);
-    // Invalidate cache on error to prevent caching failed responses
-    revalidateTag(TAGS.products);
-    throw error;
-  }
+  return reshapeProduct(res.body.data.product, false);
 }
 
 export async function getProductRecommendations(
@@ -483,21 +476,14 @@ export async function getProductRecommendations(
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  try {
-    const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
-      query: getProductRecommendationsQuery,
-      variables: {
-        productId,
-      },
-    });
+  const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
+    query: getProductRecommendationsQuery,
+    variables: {
+      productId,
+    },
+  });
 
-    return reshapeProducts(res.body.data.productRecommendations);
-  } catch (error) {
-    console.error("Failed to fetch product recommendations:", error);
-    // Invalidate cache on error to prevent caching failed responses
-    revalidateTag(TAGS.products);
-    throw error;
-  }
+  return reshapeProducts(res.body.data.productRecommendations);
 }
 
 /**
@@ -562,23 +548,16 @@ export async function getProducts({
   cacheTag(TAGS.products);
   cacheLife("days");
 
-  try {
-    const res = await shopifyFetch<ShopifyProductsOperation>({
-      query: getProductsSimpleQuery,
-      variables: {
-        query,
-        reverse,
-        sortKey,
-      },
-    });
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getProductsSimpleQuery,
+    variables: {
+      query,
+      reverse,
+      sortKey,
+    },
+  });
 
-    return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
-    // Invalidate cache on error to prevent caching failed responses
-    revalidateTag(TAGS.products);
-    throw error;
-  }
+  return reshapeProductsSimple(removeEdgesAndNodes(res.body.data.products));
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

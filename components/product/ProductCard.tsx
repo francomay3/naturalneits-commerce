@@ -38,6 +38,8 @@ const ProductCard = ({ product }: { product: Product }) => {
     (price) => price !== variantPrices[0]
   );
 
+  // TODO: use paper component from mantine
+
   return (
     <ProductProvider product={product}>
       <Flex direction="column" w="100%">
@@ -56,7 +58,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                 overflow: "hidden",
                 aspectRatio: "1/1",
               }}
-              bdrs="var(--border-radius)"
+              bdrs="var(--mantine-radius-default)"
             >
               {imageUrl && (
                 <Image

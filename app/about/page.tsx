@@ -20,7 +20,7 @@ const page = () => {
               width: "100%",
               height: "auto",
               objectFit: "cover",
-              borderRadius: "var(--border-radius)",
+              borderRadius: "var(--mantine-radius-default)",
             }}
           />
         </Box>

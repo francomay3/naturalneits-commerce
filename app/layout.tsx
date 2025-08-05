@@ -6,6 +6,8 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
+// prettier-ignore
+import "@mantine/carousel/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import { getCart } from "lib/shopify";

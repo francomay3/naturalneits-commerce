@@ -59,6 +59,32 @@ const themeOverride: MantineThemeOverride = {
     ],
   },
   components: {
+    Carousel: {
+      defaultProps: {
+        controlSize: 44,
+        emblaOptions: {
+          loop: true,
+          dragFree: false,
+          align: "center",
+        },
+        styles: {
+          root: {
+            borderRadius: "var(--mantine-radius-default)",
+            overflow: "hidden",
+            aspectRatio: "1",
+          },
+          indicator: {
+            border: "1px solid var(--mantine-color-brand-filled)",
+          },
+          control: {
+            border: "none",
+            backgroundColor: "var(--mantine-color-brand-filled)",
+            opacity: 1,
+            color: "var(--mantine-color-white)",
+          },
+        },
+      },
+    },
     Button: {
       defaultProps: {
         h: 44,

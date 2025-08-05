@@ -88,7 +88,7 @@ const ContactPage = () => {
           p="16px"
           bg="hsl(120, 50%, 95%)"
           bd="1px solid hsl(120, 50%, 80%)"
-          bdrs="var(--border-radius)"
+          bdrs="var(--mantine-radius-default)"
           c="hsl(120, 50%, 25%)"
         >
           Thank you for your message! I'll get back to you soon.
@@ -101,7 +101,7 @@ const ContactPage = () => {
           p="16px"
           bg="hsl(0, 50%, 95%)"
           bd="1px solid hsl(0, 50%, 80%)"
-          bdrs="var(--border-radius)"
+          bdrs="var(--mantine-radius-default)"
           c="hsl(0, 50%, 25%)"
         >
           Sorry, there was an error sending your message. Please try again.
@@ -120,7 +120,7 @@ const ContactPage = () => {
               width: "100%",
               height: "auto",
               objectFit: "cover",
-              borderRadius: "var(--border-radius)",
+              borderRadius: "var(--mantine-radius-default)",
             }}
           />
         </Box>
@@ -132,7 +132,7 @@ const ContactPage = () => {
             gap: "24px",
             padding: "12px",
             border: `1px solid ${errors.name ? "hsl(0, 50%, 70%)" : "var(--background-color-darker)"}`,
-            borderRadius: "var(--border-radius)",
+            borderRadius: "var(--mantine-radius-default)",
             backgroundColor: "var(--background-color)",
             flex: 3,
           }}

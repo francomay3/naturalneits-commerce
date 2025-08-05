@@ -1,7 +1,6 @@
 "use client";
 
 import PageHero from "@/components/PageHero";
-// TODO: a Hero image would be nice here too
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Flex, Text, TextInput, Textarea } from "@mantine/core";

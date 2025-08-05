@@ -7,6 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Zoom from "../Zoom";
+import styles from "./styles.module.css";
 
 const ImageCarousel = ({
   srcs,
@@ -62,6 +63,9 @@ const ImageCarousel = ({
         title="Image Preview"
         fullScreen
         radius={0}
+        classNames={{
+          close: styles.close,
+        }}
         styles={{
           body: {
             padding: 0,
@@ -72,10 +76,6 @@ const ImageCarousel = ({
           },
           header: {
             backgroundColor: "transparent",
-          },
-          close: {
-            // TODO: bugfix: close button color on hover is weird
-            color: "white",
           },
           title: {
             color: "white",

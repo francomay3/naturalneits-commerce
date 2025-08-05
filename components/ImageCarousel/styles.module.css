@@ -1,0 +1,12 @@
+.close {
+  color: var(--mantine-color-white);
+  background-color: var(--mantine-color-brand-filled);
+
+  &:hover {
+    background-color: var(--mantine-color-brand-5);
+  }
+
+  &:active {
+    background-color: var(--mantine-color-brand-7);
+  }
+}

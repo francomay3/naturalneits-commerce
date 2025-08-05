@@ -3,7 +3,6 @@ import { Box, Flex, Text } from "@mantine/core";
 import Image from "next/image";
 
 const page = () => {
-  // TODO: add a photo of natasha. maybe as a hero image.
   return (
     <>
       <PageHero

@@ -4,7 +4,7 @@ import { getProducts } from "@/lib/shopify";
 import { SimpleGrid } from "@mantine/core";
 import "lib/env-validation";
 
-// TODO: i lost the smtp password. without it, the contact form doesnt work. get a new one!
+// TODO: i lost the smtp password. then i created a new one. test if it works!!
 
 export const metadata = {
   description:

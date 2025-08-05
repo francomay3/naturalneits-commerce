@@ -71,7 +71,6 @@ const themeOverride: MantineThemeOverride = {
           root: {
             borderRadius: "var(--mantine-radius-default)",
             overflow: "hidden",
-            aspectRatio: "1",
           },
           indicator: {
             border: "1px solid var(--mantine-color-brand-filled)",

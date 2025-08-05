@@ -1,5 +1,6 @@
 "use client";
 
+import theme from "@/app/theme";
 import { Carousel } from "@mantine/carousel";
 import { Box, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -53,6 +54,8 @@ const ImageCarousel = ({
     open();
   };
 
+  console.log(theme);
+
   return (
     <>
       <Modal
@@ -98,7 +101,20 @@ const ImageCarousel = ({
           </Box>
         </Zoom>
       </Modal>
-      <Carousel style={style} className={className}>
+      <Carousel
+        style={style}
+        className={className}
+        styles={{
+          ...(theme.components?.Carousel?.defaultProps?.styles || {}),
+          root: {
+            ...(theme.components?.Carousel?.defaultProps?.styles?.root || {}),
+            maxWidth: "600px",
+            justifySelf: "center",
+            width: "100%",
+            aspectRatio: "1",
+          },
+        }}
+      >
         {images}
       </Carousel>
     </>

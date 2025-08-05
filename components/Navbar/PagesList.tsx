@@ -15,6 +15,14 @@ const PagesList = ({ closeSidebars }: { closeSidebars: () => void }) => {
           href={route.href}
           prefetch
           onClick={closeSidebars}
+          styles={{
+            root: {
+              color:
+                pathname === route.href
+                  ? "var(--mantine-color-secondary-filled)"
+                  : "var(--mantine-color-brand-filled)",
+            },
+          }}
         >
           <PageItem active={pathname === route.href}>{route.title}</PageItem>
         </Link>

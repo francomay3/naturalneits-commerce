@@ -48,8 +48,6 @@ export default function Header({
         <Logo size={HEADER_HEIGHT - 10} />
       </Link>
       <Flex>
-        {/* TODO: add search support */}
-        {/* <IconButton Icon={IconSearch} /> */}
         <CartButton onCartClick={onCartClick} />
       </Flex>
     </Flex>

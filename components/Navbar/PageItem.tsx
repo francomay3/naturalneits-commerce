@@ -20,10 +20,6 @@ const PageItem = ({
         textTransform: "uppercase",
         listStyle: "none",
         cursor: "pointer",
-        // TODO: add hover effect. these lines do not work.
-        // "&:hover": {
-        //   color: "var(--secondary-color)",
-        // },
       }}
     >
       {children}

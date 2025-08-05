@@ -6,7 +6,7 @@ const Navbar = ({ toggleNavbar }: { toggleNavbar: () => void }) => {
   return (
     <Box bg="var(--background-color)" w="100%" h="100%" pos="relative" p="35px">
       <Box pos="absolute" right={0} top={0}>
-        <ActionIcon variant="filled" onClick={toggleNavbar}>
+        <ActionIcon variant="subtle" onClick={toggleNavbar}>
           <IconX size={20} />
         </ActionIcon>
       </Box>

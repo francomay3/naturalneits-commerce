@@ -1,3 +1,4 @@
+import PageHero from "@/components/PageHero";
 import ProductCard from "@/components/product/ProductCard";
 import { getProducts } from "@/lib/shopify";
 import { SimpleGrid } from "@mantine/core";
@@ -25,16 +26,23 @@ export default async function HomePage() {
   // });
 
   return (
-    <section>
-      <SimpleGrid
-        cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }}
-        spacing={{ base: 35 }}
-        verticalSpacing={{ base: 65 }}
-      >
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </SimpleGrid>
-    </section>
+    <>
+      <PageHero
+        title="Shop"
+        subtitle="Handmade clothing, authentic design, and quality you can feel."
+        image="/about-image.webp"
+      />
+      <section>
+        <SimpleGrid
+          cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 5 }}
+          spacing={{ base: 35 }}
+          verticalSpacing={{ base: 65 }}
+        >
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </SimpleGrid>
+      </section>
+    </>
   );
 }

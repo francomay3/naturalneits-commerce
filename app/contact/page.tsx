@@ -1,17 +1,10 @@
 "use client";
 
+import PageHero from "@/components/PageHero";
 // TODO: a Hero image would be nice here too
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  TextInput,
-  Textarea,
-  Title,
-} from "@mantine/core";
+import { Box, Button, Flex, Text, TextInput, Textarea } from "@mantine/core";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -73,120 +66,124 @@ const ContactPage = () => {
   };
 
   return (
-    <section>
-      <Title order={1} mb="20" ta="center">
-        Contact Me
-      </Title>
-      <Text>
-        Whether you have a question, a special request, or just want to say
-        hello, I'd love to hear from you!
-      </Text>
+    <>
+      <PageHero
+        title="Let's talk"
+        subtitle="Reach out and let's create something unique together."
+        image="/contact-image.webp"
+      />
+      <section>
+        <Text>
+          Whether you have a question, a special request, or just want to say
+          hello, I'd love to hear from you!
+        </Text>
 
-      {submitStatus === "success" && (
-        <Box
-          mb="24px"
-          p="16px"
-          bg="hsl(120, 50%, 95%)"
-          bd="1px solid hsl(120, 50%, 80%)"
-          bdrs="var(--mantine-radius-default)"
-          c="hsl(120, 50%, 25%)"
-        >
-          Thank you for your message! I'll get back to you soon.
-        </Box>
-      )}
+        {submitStatus === "success" && (
+          <Box
+            mb="24px"
+            p="16px"
+            bg="hsl(120, 50%, 95%)"
+            bd="1px solid hsl(120, 50%, 80%)"
+            bdrs="var(--mantine-radius-default)"
+            c="hsl(120, 50%, 25%)"
+          >
+            Thank you for your message! I'll get back to you soon.
+          </Box>
+        )}
 
-      {submitStatus === "error" && (
-        <Box
-          mb="24px"
-          p="16px"
-          bg="hsl(0, 50%, 95%)"
-          bd="1px solid hsl(0, 50%, 80%)"
-          bdrs="var(--mantine-radius-default)"
-          c="hsl(0, 50%, 25%)"
-        >
-          Sorry, there was an error sending your message. Please try again.
-        </Box>
-      )}
+        {submitStatus === "error" && (
+          <Box
+            mb="24px"
+            p="16px"
+            bg="hsl(0, 50%, 95%)"
+            bd="1px solid hsl(0, 50%, 80%)"
+            bdrs="var(--mantine-radius-default)"
+            c="hsl(0, 50%, 25%)"
+          >
+            Sorry, there was an error sending your message. Please try again.
+          </Box>
+        )}
 
-      <Flex gap="24px" w="100%">
-        <Box visibleFrom="md" style={{ flex: 1 }}>
-          <Image
-            src="/contact-image.webp"
-            alt="Girl dress"
-            width={0}
-            height={0}
-            sizes="100vw"
+        <Flex gap="24px" w="100%">
+          <Box visibleFrom="md" style={{ flex: 1 }}>
+            <Image
+              src="/contact-image.webp"
+              alt="Girl dress"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+                borderRadius: "var(--mantine-radius-default)",
+              }}
+            />
+          </Box>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
             style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              padding: "12px",
+              border: `1px solid ${errors.name ? "hsl(0, 50%, 70%)" : "var(--background-color-darker)"}`,
               borderRadius: "var(--mantine-radius-default)",
+              backgroundColor: "var(--background-color)",
+              flex: 3,
             }}
-          />
-        </Box>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-            padding: "12px",
-            border: `1px solid ${errors.name ? "hsl(0, 50%, 70%)" : "var(--background-color-darker)"}`,
-            borderRadius: "var(--mantine-radius-default)",
-            backgroundColor: "var(--background-color)",
-            flex: 3,
-          }}
-        >
-          {/* Honeypot field - hidden from users */}
-          <TextInput
-            hiddenFrom="xs"
-            {...register("honeypot")}
-            tabIndex={-1}
-            autoComplete="off"
-          />
+          >
+            {/* Honeypot field - hidden from users */}
+            <TextInput
+              hiddenFrom="xs"
+              {...register("honeypot")}
+              tabIndex={-1}
+              autoComplete="off"
+            />
 
-          <TextInput
-            label="Name *"
-            id="name"
-            {...register("name")}
-            placeholder="Your name"
-            error={Boolean(errors.name?.message)}
-          />
+            <TextInput
+              label="Name *"
+              id="name"
+              {...register("name")}
+              placeholder="Your name"
+              error={Boolean(errors.name?.message)}
+            />
 
-          <TextInput
-            label="Email *"
-            type="email"
-            id="email"
-            {...register("email")}
-            placeholder="your.email@example.com"
-            error={Boolean(errors.email?.message)}
-          />
+            <TextInput
+              label="Email *"
+              type="email"
+              id="email"
+              {...register("email")}
+              placeholder="your.email@example.com"
+              error={Boolean(errors.email?.message)}
+            />
 
-          <TextInput
-            label="Subject *"
-            id="subject"
-            {...register("subject")}
-            placeholder="What is this about?"
-            error={Boolean(errors.subject?.message)}
-          />
+            <TextInput
+              label="Subject *"
+              id="subject"
+              {...register("subject")}
+              placeholder="What is this about?"
+              error={Boolean(errors.subject?.message)}
+            />
 
-          <Textarea
-            label="Message *"
-            id="message"
-            rows={6}
-            {...register("message")}
-            placeholder="Tell us more about your inquiry..."
-            error={Boolean(errors.message?.message)}
-          />
+            <Textarea
+              label="Message *"
+              id="message"
+              rows={6}
+              {...register("message")}
+              placeholder="Tell us more about your inquiry..."
+              error={Boolean(errors.message?.message)}
+            />
 
-          <Flex justify="flex-end">
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </Button>
-          </Flex>
-        </form>
-      </Flex>
-    </section>
+            <Flex justify="flex-end">
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </Flex>
+          </form>
+        </Flex>
+      </section>
+    </>
   );
 };
 

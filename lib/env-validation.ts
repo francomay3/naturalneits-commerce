@@ -17,7 +17,6 @@ function validateEnvVariables(): EnvValidationResult {
     "SITE_NAME",
     "TWITTER_CREATOR",
     "TWITTER_SITE",
-    "VERCEL_OIDC_TOKEN",
     "SMTP_HOST",
     "SMTP_PORT",
     "SMTP_USER",

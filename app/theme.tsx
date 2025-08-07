@@ -135,6 +135,9 @@ const themeOverride: MantineThemeOverride = {
   white: "#fbf6ef",
 };
 
+// TODO: Add bottom space before footer. this can me done by adding padding bottom to the Container component i guess
+// TODO: Titles size should be calculated with mantine scale
+
 const theme = createTheme(themeOverride);
 
 export default theme;

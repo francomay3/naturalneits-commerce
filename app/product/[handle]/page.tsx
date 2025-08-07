@@ -50,6 +50,8 @@ export async function generateMetadata(props: {
   };
 }
 
+// TODO: Add margin between checkout button and related products
+
 export default async function ProductPage(props: {
   params: Promise<{ handle: string }>;
 }) {

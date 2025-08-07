@@ -5,6 +5,8 @@ import { Box, BoxProps, Flex, Title } from "@mantine/core";
 import AddToCart from "./AddToCart";
 import Option from "./Option";
 
+// TODO: should update optimistically when the user changes the variant
+
 export function VariantSelector(props: BoxProps) {
   const { product } = useProduct();
   const { options } = product;

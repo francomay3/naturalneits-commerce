@@ -57,6 +57,8 @@ const ImageCarousel = ({
 
   return (
     <>
+      {/*TODO: hitting the back button should close the modal. Not navigate to another page.
+The close button should be sticky and always visible  */}
       <Modal
         opened={opened}
         onClose={close}

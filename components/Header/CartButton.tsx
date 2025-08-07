@@ -12,9 +12,8 @@ const CartButton = ({ onCartClick }: { onCartClick: () => void }) => {
 
   useEffect(() => {
     const prevLineCount = prevLineCountRef.current;
-
+    //TODO:  Item added to cart message should ve clickable and toggle the cart. add message "open the cart to see your items"
     if (lineCount > prevLineCount) {
-      // open the cart
       notifications.show({
         message: "Items added to cart",
         color: "#74b816",

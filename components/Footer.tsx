@@ -29,7 +29,7 @@ export default function Footer() {
       <Separator m="8" />
       <Box>© {currentYear}, Bruna A.B.</Box>
       <Flex align="center">
-        Web development by Franco May
+        Web development by Franco&nbsp;May
         <Link href="https://www.linkedin.com/in/francomay/" target="_blank">
           <ActionIcon variant="subtle">
             <IconBrandLinkedinFilled size={32} />

@@ -38,7 +38,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     (price) => price !== variantPrices[0]
   );
 
-  // TODO: use paper component from mantine
+  // TODO: use card component from mantine
 
   return (
     <ProductProvider product={product}>

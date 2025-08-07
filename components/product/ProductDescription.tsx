@@ -6,6 +6,8 @@ import { Box, BoxProps, Title } from "@mantine/core";
 const ProductDescription = (props: BoxProps) => {
   const { product } = useProduct();
 
+  // TODO: how does the description get the styles from? we can use mantine Typography component
+
   return (
     <Box {...props}>
       <Title order={1} mb="18">

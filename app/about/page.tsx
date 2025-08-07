@@ -1,6 +1,9 @@
 import PageHero from "@/components/PageHero";
 import { Box, Flex, Text } from "@mantine/core";
 import Image from "next/image";
+//TODO: replace all images with mantine image with component set to next image
+
+// TODO: Text in about page does not have correct styling
 
 const page = () => {
   return (

@@ -10,6 +10,8 @@ import { useFormStatus } from "react-dom";
 import ItemsList from "./ItemsList";
 import Subtotal from "./Subtotal";
 
+// TODO: Csrt buttons should be subtle or outlined
+
 const Cart = ({ toggleCart }: { toggleCart: () => void }) => {
   const { cart } = useCart();
 

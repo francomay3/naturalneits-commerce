@@ -2,6 +2,8 @@
 
 import PageHero from "@/components/PageHero";
 
+//TODO: the honeypot field is visible for some reason. fix
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Flex, Text, TextInput, Textarea } from "@mantine/core";
 import Image from "next/image";

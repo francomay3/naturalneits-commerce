@@ -79,6 +79,7 @@ const ContactPage = () => {
           hello, I'd love to hear from you!
         </Text>
 
+        {/* TODO: I think Mantine already has these info cards. use them. */}
         {submitStatus === "success" && (
           <Box
             mb="24px"
@@ -134,12 +135,19 @@ const ContactPage = () => {
               flex: 3,
             }}
           >
-            {/* Honeypot field - hidden from users */}
             <TextInput
-              hiddenFrom="xs"
               {...register("honeypot")}
               tabIndex={-1}
               autoComplete="off"
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                top: "-9999px",
+                width: "1px",
+                height: "1px",
+                overflow: "hidden",
+                opacity: 0,
+              }}
             />
 
             <TextInput

@@ -4,8 +4,6 @@ import { getProducts } from "@/lib/shopify";
 import { SimpleGrid } from "@mantine/core";
 import "lib/env-validation";
 
-// TODO: i lost the smtp password. then i created a new one. test if it works!!
-
 export const metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",

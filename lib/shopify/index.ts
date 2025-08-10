@@ -474,11 +474,18 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return reshapeProduct(res.body.data.product, false);
 }
 
+/**
+ * Fetches product recommendations from Shopify using their AI-powered recommendation engine.
+ *
+ * This function retrieves personalized product recommendations based on the specified product ID.
+ * Shopify's recommendation algorithm uses machine learning to analyze customer behavior patterns,
+ * purchase history, product attributes, and various other factors to suggest relevant products
+ * that customers are likely to be interested in.
+ */
 export async function getProductRecommendations(
   productId: string
 ): Promise<Product[]> {
   "use cache";
-  // TODO: investigate what the logic is behind the related products. how are they decided?
   cacheTag(TAGS.products);
   cacheLife("days");
 

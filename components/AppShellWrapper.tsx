@@ -98,7 +98,9 @@ export default function AppShellWrapper({ children }: AppShellWrapperProps) {
       </AppShellAside>
 
       <AppShellMain>
-        <Container>{children}</Container>
+        <Container pt="30px" pb="30px">
+          {children}
+        </Container>
         <Footer />
       </AppShellMain>
     </AppShell>

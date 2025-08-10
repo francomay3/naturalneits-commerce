@@ -1,7 +1,7 @@
 "use client";
 
 import { useProduct } from "@/contexts/ProductContext";
-import { Box, BoxProps, Title } from "@mantine/core";
+import { Box, BoxProps, Text, Title } from "@mantine/core";
 
 const ProductDescription = (props: BoxProps) => {
   const { product } = useProduct();
@@ -14,7 +14,7 @@ const ProductDescription = (props: BoxProps) => {
         {product.title}
       </Title>
       {product.descriptionHtml && (
-        <Box dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+        <Text dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
       )}
     </Box>
   );

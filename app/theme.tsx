@@ -91,9 +91,10 @@ const themeOverride: MantineThemeOverride = {
     },
     Text: {
       defaultProps: {
-        fz: 15,
+        fz: 16,
         fw: 400,
-        lh: 1,
+        lh: 1.5,
+        pb: 10,
       },
     },
     Title: {
@@ -134,9 +135,6 @@ const themeOverride: MantineThemeOverride = {
   black: "#55402b",
   white: "#fbf6ef",
 };
-
-// TODO: Add bottom space before footer. this can me done by adding padding bottom to the Container component i guess
-// TODO: Titles size should be calculated with mantine scale
 
 const theme = createTheme(themeOverride);
 

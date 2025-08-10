@@ -1,3 +1,5 @@
+<!-- TODO: re-make the Readme -->
+
 # Naturalneits Commerce
 
 A modern, high-performance ecommerce storefront built with Next.js 15, React 19, and Shopify. This project showcases cutting-edge web technologies with a focus on performance, user experience, and developer experience.

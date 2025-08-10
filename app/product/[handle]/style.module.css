@@ -24,14 +24,11 @@
 
 .description {
   grid-area: description;
-
-  padding-inline: var(--page-margin);
 }
 
 .variantSelector {
   grid-area: variant-selector;
 
-  padding-inline: var(--page-margin);
   @media (min-width: 992px) {
     padding-inline: 0;
     margin-top: 30px;
